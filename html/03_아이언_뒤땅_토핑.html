@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EP 03 아이언 뒤땅 & 토핑 완전 탈출</title>
+<style>
+/* =========================================================
+   골프 유튜브 레슨 대본 — 인쇄용 스타일
+   A4 세로 / 낭독용 큰 글씨 / 흑백 인쇄 대응
+   ========================================================= */
+
+@page {
+  size: A4 portrait;
+  margin: 15mm 14mm 15mm 14mm;
+}
+
+:root {
+  --ink:        #14181a;
+  --ink-soft:   #4a5257;
+  --green:      #1d5b3c;
+  --green-pale: #eef4f0;
+  --line:       #c9d1cd;
+  --line-soft:  #e3e8e5;
+  --gray-bg:    #f4f5f4;
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+body {
+  margin: 0;
+  color: var(--ink);
+  font-family: "Noto Sans CJK KR", "Noto Sans KR", "Malgun Gothic",
+               "Apple SD Gothic Neo", "맑은 고딕", sans-serif;
+  font-size: 15pt;
+  line-height: 1.9;
+  letter-spacing: -0.01em;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+/* ---------- 표지 ---------- */
+
+.cover {
+  page-break-after: always;
+  padding-top: 34mm;
+  text-align: center;
+}
+.cover .kicker {
+  font-size: 13pt;
+  letter-spacing: 0.32em;
+  color: var(--green);
+  font-weight: 700;
+  margin-bottom: 10mm;
+}
+.cover h1 {
+  font-size: 34pt;
+  line-height: 1.35;
+  font-weight: 800;
+  margin: 0 0 6mm;
+  letter-spacing: -0.03em;
+}
+.cover .sub {
+  font-size: 14pt;
+  color: var(--ink-soft);
+  line-height: 1.8;
+  margin-bottom: 16mm;
+}
+.cover .rule {
+  width: 46mm; height: 3px; background: var(--green);
+  margin: 0 auto 14mm;
+}
+.cover-list {
+  display: inline-block;
+  text-align: left;
+  border: 1.5px solid var(--line);
+  border-radius: 4mm;
+  padding: 8mm 10mm;
+  font-size: 13pt;
+  line-height: 2.15;
+}
+.cover-list b { color: var(--green); margin-right: 4mm; font-weight: 800; }
+
+/* ---------- 대본 1편 단위 ---------- */
+
+.script { page-break-before: always; }
+.script:first-of-type { page-break-before: auto; }
+
+.ep-head {
+  border-bottom: 3px solid var(--green);
+  padding-bottom: 5mm;
+  margin-bottom: 7mm;
+}
+.ep-no {
+  display: inline-block;
+  background: var(--green);
+  color: #fff;
+  font-size: 12pt;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  padding: 1.2mm 4mm;
+  border-radius: 2mm;
+  margin-bottom: 4mm;
+}
+.ep-title {
+  font-size: 25pt;
+  font-weight: 800;
+  line-height: 1.4;
+  margin: 0 0 3mm;
+  letter-spacing: -0.03em;
+}
+.ep-sub {
+  font-size: 13pt;
+  color: var(--ink-soft);
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* ---------- 촬영 정보 박스 ---------- */
+
+.spec {
+  background: var(--gray-bg);
+  border: 1px solid var(--line-soft);
+  border-radius: 3mm;
+  padding: 5mm 6mm;
+  margin-bottom: 6mm;
+  font-size: 11.5pt;
+  line-height: 1.85;
+  page-break-inside: avoid;
+}
+.spec dl { margin: 0; display: grid; grid-template-columns: 26mm 1fr; gap: 1mm 0; }
+.spec dt { font-weight: 800; color: var(--green); }
+.spec dd { margin: 0; color: var(--ink); }
+
+/* ---------- 러닝 타임 표 ---------- */
+
+.toc {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11.5pt;
+  margin-bottom: 8mm;
+  page-break-inside: avoid;
+}
+.toc th, .toc td {
+  border-bottom: 1px solid var(--line-soft);
+  padding: 2.2mm 2mm;
+  text-align: left;
+  line-height: 1.6;
+}
+.toc th {
+  background: var(--green-pale);
+  font-weight: 800;
+  font-size: 11pt;
+  border-bottom: 1.5px solid var(--line);
+}
+.toc td:first-child, .toc th:first-child { width: 24mm; white-space: nowrap; font-weight: 700; }
+.toc td:last-child,  .toc th:last-child  { width: 26mm; white-space: nowrap; color: var(--ink-soft); }
+
+/* ---------- 블록(장면) ---------- */
+
+.blk { margin-bottom: 8mm; }
+
+.blk-head {
+  display: flex;
+  align-items: baseline;
+  gap: 3mm;
+  border-left: 5px solid var(--green);
+  background: var(--green-pale);
+  padding: 2.5mm 4mm;
+  margin-bottom: 4mm;
+  page-break-after: avoid;
+  page-break-inside: avoid;
+}
+.blk-time {
+  font-size: 11.5pt;
+  font-weight: 800;
+  color: var(--green);
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+}
+.blk-name {
+  font-size: 15pt;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.5;
+}
+
+/* ---------- 지시문(큐) ---------- */
+
+.cue {
+  font-size: 11.5pt;
+  line-height: 1.7;
+  color: var(--ink-soft);
+  border-left: 3px solid var(--line);
+  padding: 1.5mm 0 1.5mm 4mm;
+  margin: 0 0 3.5mm;
+  page-break-inside: avoid;
+}
+.cue b {
+  display: inline-block;
+  min-width: 17mm;
+  color: var(--ink);
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+.cue.cam  { border-left-color: var(--green); }
+.cue.demo { border-left-color: #7a7f82; background: var(--gray-bg); }
+.cue.cg   { border-left-color: var(--line); font-style: normal; }
+
+/* ---------- 대사 ---------- */
+
+.say { margin: 0 0 4.5mm; orphans: 2; widows: 2; }
+.say p {
+  position: relative;
+  margin: 0 0 2mm;
+  padding-left: 7mm;
+  font-size: 15pt;
+  line-height: 1.95;
+  font-weight: 450;
+  page-break-inside: avoid;
+}
+.say p.b::before {
+  content: "●";
+  position: absolute;
+  left: 0.4mm;
+  top: 0;
+  line-height: 1.95;
+  color: var(--green);
+  font-size: 8pt;
+}
+.say em {
+  font-style: normal;
+  font-weight: 800;
+  border-bottom: 2.5px solid #b9d8c6;
+  padding-bottom: 0.3mm;
+}
+.say .pause { color: var(--green); font-weight: 800; }
+
+/* ---------- 팁/메모 ---------- */
+
+.tip {
+  border: 1.5px dashed var(--line);
+  border-radius: 2.5mm;
+  padding: 4mm 5mm;
+  margin: 0 0 6mm;
+  font-size: 12pt;
+  line-height: 1.8;
+  background: #fbfcfb;
+  page-break-inside: avoid;
+}
+.tip b { color: var(--green); font-weight: 800; }
+.tip ul { margin: 2mm 0 0; padding-left: 6mm; }
+.tip li { margin-bottom: 1.5mm; }
+
+/* ---------- 가이드 페이지 ---------- */
+
+.guide { page-break-before: always; }
+.guide h2 {
+  font-size: 21pt;
+  font-weight: 800;
+  border-bottom: 3px solid var(--green);
+  padding-bottom: 3mm;
+  margin: 0 0 6mm;
+  letter-spacing: -0.03em;
+}
+.guide h3 {
+  font-size: 15pt;
+  font-weight: 800;
+  color: var(--green);
+  margin: 7mm 0 3mm;
+  page-break-after: avoid;
+}
+.guide p, .guide li { font-size: 12.5pt; line-height: 1.9; }
+.guide ul, .guide ol { padding-left: 7mm; margin: 0 0 4mm; }
+.guide li { margin-bottom: 1.5mm; }
+.guide .box {
+  background: var(--gray-bg);
+  border-left: 5px solid var(--green);
+  padding: 4mm 5mm;
+  margin: 0 0 5mm;
+  page-break-inside: avoid;
+}
+.guide table {
+  width: 100%; border-collapse: collapse; font-size: 12pt; margin-bottom: 5mm;
+  page-break-inside: avoid;
+}
+.guide table th, .guide table td {
+  border: 1px solid var(--line); padding: 2.5mm 3mm; text-align: left; line-height: 1.65;
+}
+.guide table th { background: var(--green-pale); font-weight: 800; }
+
+/* ---------- 마무리 ---------- */
+
+.endmark {
+  text-align: center;
+  color: var(--ink-soft);
+  font-size: 11pt;
+  letter-spacing: 0.25em;
+  margin-top: 6mm;
+  padding-top: 4mm;
+  border-top: 1px solid var(--line-soft);
+}
+
+/* ---------- 화면(브라우저)에서 볼 때 ---------- */
+
+@media screen {
+  body { background: #e9ecea; }
+  .sheet {
+    background: #fff;
+    max-width: 210mm;
+    margin: 0 auto;
+    padding: 15mm 14mm;
+    box-shadow: 0 2px 18px rgba(0,0,0,.12);
+  }
+}
+@media print {
+  .sheet { max-width: none; margin: 0; padding: 0; box-shadow: none; }
+}
+
+</style>
+</head>
+<body>
+<div class="sheet">
+<style>.solo{page-break-before:auto !important;}</style>
+<!-- TITLE: EP 03 아이언 뒤땅 & 토핑 완전 탈출 -->
+
+<section class="script solo">
+  <div class="ep-head">
+    <div class="ep-no">EP 03</div>
+    <h1 class="ep-title">뒤땅과 토핑은<br>사실 같은 병입니다</h1>
+    <p class="ep-sub">아이언이 깨끗하게 맞지 않는 진짜 이유 — 최저점 이야기</p>
+  </div>
+
+  <div class="spec">
+    <dl>
+      <dt>촬영 시간</dt><dd>20~30분 (편집본 13분 목표)</dd>
+      <dt>준비물</dt><dd>7번 아이언 · 얼라인먼트 스틱 1개 · 티 2개 · 라인 그릴 스프레이(또는 분필/파우더)</dd>
+      <dt>장소</dt><dd>가능하면 잔디 타석 (디봇 보여줄 수 있는 곳). 매트면 파우더로 대체</dd>
+      <dt>핵심 한 줄</dt><dd>뒤땅과 토핑은 <b>최저점이 공 뒤에 있다</b>는 한 가지 문제의 두 얼굴</dd>
+    </dl>
+  </div>
+
+  <table class="toc">
+    <tr><th>타임</th><th>구성</th><th>분량</th></tr>
+    <tr><td>00:00</td><td>콜드 오픈 — 뒤땅 한 번, 토핑 한 번</td><td>50초</td></tr>
+    <tr><td>00:50</td><td>인트로 · 오늘 다룰 것</td><td>1분</td></tr>
+    <tr><td>01:50</td><td>STEP 1 — 최저점이라는 개념</td><td>3분</td></tr>
+    <tr><td>04:50</td><td>STEP 2 — 최저점이 뒤로 가는 원인 3가지</td><td>3분 30초</td></tr>
+    <tr><td>08:20</td><td>STEP 3 — 교정 드릴 3가지</td><td>3분 30초</td></tr>
+    <tr><td>11:50</td><td>실전 — 라이가 다를 때 어떻게 치나</td><td>1분 40초</td></tr>
+    <tr><td>13:30</td><td>흔한 실수 · 정리 · 마무리</td><td>1분 30초</td></tr>
+  </table>
+
+  <!-- ================= 콜드 오픈 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">00:00</span>
+      <span class="blk-name">콜드 오픈 — 두 가지 미스</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ② 정면 스윙캠. 일부러 뒤땅 한 번, 일부러 토핑 한 번. 말 없이.</p>
+
+    <div class="say">
+      <p class="b">(두 번 치고 카메라 쪽으로) 하나는 뒤땅이고요, 하나는 토핑이었습니다.</p>
+      <p class="b">완전히 반대로 보이죠. 하나는 땅을 먼저 팠고, 하나는 공 머리를 때렸으니까요.</p>
+      <p class="b">그래서 대부분 이렇게 생각하십니다. "아, 아까는 너무 찍었으니까 이번엔 좀 퍼올려야지." (한 박자 쉬고) 그러면 또 토핑 납니다.</p>
+      <p class="b"><em>뒤땅과 토핑은 반대가 아니라, 완전히 같은 원인에서 나옵니다.</em></p>
+      <p class="b">오늘 그 하나의 원인을 잡으러 갑니다. 이거 이해하시면 아이언이 진짜 달라져요.</p>
+    </div>
+
+    <p class="cue cg"><b>자막</b> 뒤땅 / 토핑 각각 슬로우 리플레이 + 타이틀</p>
+  </div>
+
+  <!-- ================= 인트로 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">00:50</span>
+      <span class="blk-name">인트로</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ① 토킹캠</p>
+
+    <div class="say">
+      <p class="b">안녕하세요. (채널 인사)</p>
+      <p class="b">아이언이 깨끗하게 안 맞는다. 어떤 날은 뒤땅, 어떤 날은 토핑. 잘 맞을 땐 잘 맞는데 <em>왜 잘 맞는지를 모르겠다.</em></p>
+      <p class="b">이게 제일 답답한 상태죠. 오늘 그 답답함을 풀어드리겠습니다.</p>
+      <p class="b">오늘 순서는요. 먼저 <em>최저점</em>이라는 개념 하나만 확실히 잡고요. 그다음 원인 세 가지, 마지막에 드릴 세 가지로 갑니다.</p>
+      <p class="b">개념 파트가 조금 길게 느껴지실 수 있는데, (강조) <em>거기가 오늘의 핵심</em>입니다. 넘기지 마세요.</p>
+    </div>
+  </div>
+
+  <!-- ================= STEP 1 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">01:50</span>
+      <span class="blk-name">STEP 1 — 최저점이라는 개념</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ① 토킹캠. 클럽으로 허공에 활 모양 그리면서 설명.</p>
+
+    <div class="say">
+      <p class="b">스윙할 때 클럽 헤드가 그리는 길은 <em>둥근 활 모양</em>입니다. 내려왔다가 제일 낮은 데를 지나서 다시 올라가죠.</p>
+      <p class="b">그 <em>제일 낮은 지점</em>. 이걸 최저점이라고 부르겠습니다.</p>
+      <p class="b">아이언에서 정답은 딱 하나예요. (한 박자 쉬고) <em>최저점이 공보다 앞에, 그러니까 타겟 쪽에 있어야 합니다.</em></p>
+      <p class="b">순서로 말하면 이래요. <em>공 먼저, 그다음 잔디.</em></p>
+      <p class="b">잘 치는 사람 디봇이 왜 공 있던 자리 <em>앞쪽</em>에 파이는지 아세요? 공을 먼저 맞히고, 그 뒤에 땅을 지나가기 때문입니다.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 잔디에서 좋은 샷 1구 → 디봇 위치 클로즈업 (공 있던 자리보다 앞에 파인 것). 매트라면 파우더 라인으로 대체.</p>
+
+    <div class="say">
+      <p class="b">자, 그럼 최저점이 <em>공 뒤에</em> 생기면 어떻게 될까요.</p>
+      <p class="b">클럽이 공에 닿기 전에 땅을 먼저 칩니다. 이게 <em>뒤땅</em>이에요.</p>
+      <p class="b">그런데 사람 몸은 똑똑해서, 땅 치는 걸 피하려고 <em>순간적으로 몸을 들어 올립니다.</em> 본능이에요.</p>
+      <p class="b">몸이 들리면 클럽도 같이 올라가죠. 그러면 공의 <em>윗부분</em>을 때립니다. 이게 <em>토핑</em>입니다.</p>
+      <p class="b">보이시죠. (강조하며) <em>최저점이 뒤에 있으면 → 뒤땅. 그걸 피하면 → 토핑.</em> 원인이 하나예요.</p>
+      <p class="b">그래서 "이번엔 퍼올려야지" 하는 순간, 최저점이 더 뒤로 갑니다. 병이 더 깊어지는 거죠.</p>
+      <p class="b">오늘 우리가 할 일은 딱 하나입니다. <em>최저점을 공 앞으로 옮기는 것.</em> 이거 하나만 생각하세요.</p>
+    </div>
+
+    <p class="cue cg"><b>자막</b> 큰 자막 — "최저점이 공 뒤 = 뒤땅 / 그걸 피하면 = 토핑"</p>
+    <p class="cue cg"><b>자막</b> 활 모양 궤도 그래픽에 공 위치 표시</p>
+  </div>
+
+  <!-- ================= STEP 2 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">04:50</span>
+      <span class="blk-name">STEP 2 — 최저점이 뒤로 가는 원인 3가지</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ② 정면 스윙캠</p>
+
+    <div class="say">
+      <p class="b">그럼 최저점은 왜 뒤로 갈까요. 세 가지입니다.</p>
+      <p class="b">첫 번째, <em>체중이 오른발에 남아 있는 것.</em> 압도적으로 이게 1등입니다.</p>
+      <p class="b">최저점은 <em>내 몸 중심이 있는 쪽</em>에 생깁니다. 체중이 오른쪽에 있으면 최저점도 오른쪽, 그러니까 공 뒤에 생겨요.</p>
+      <p class="b">왜 오른발에 남아 있을까요. <em>공을 띄우고 싶어서</em>입니다. 사람은 뭘 띄우려면 본능적으로 뒤로 기대면서 퍼올리거든요.</p>
+      <p class="b">그런데 골프 아이언은 반대예요. (강조) <em>내리쳐야 뜹니다.</em> 클럽 얼굴이 이미 누워 있어서, 눌러 치면 공이 알아서 뜹니다.</p>
+      <p class="b">임팩트 때 체중은 <em>왼발에 70에서 80퍼센트</em>. 이게 기준입니다.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 나쁜 예 — 임팩트에서 오른발에 체중 남기고 뒤로 기대며 치기. 좋은 예 — 왼발로 눌러 치기. 정면 캠 각각 1구.</p>
+
+    <p class="cue cam"><b>카메라</b> CAM ③ 후방 스윙캠 — 엉덩이 위치 변화가 보이게</p>
+
+    <div class="say">
+      <p class="b">두 번째, <em>몸이 일어나는 것.</em> 다운스윙 때 상체가 위로 펴지는 동작이에요.</p>
+      <p class="b">어드레스에서 우리는 앞으로 숙이고 있죠. 그런데 다운스윙 하면서 <em>엉덩이가 앞으로 나오고 상체가 서버리는</em> 분들이 정말 많습니다.</p>
+      <p class="b">상체가 서면 팔과 클럽이 위로 딸려 올라갑니다. 그러면 토핑이죠.</p>
+      <p class="b">이걸 억지로 참으면 이번엔 클럽이 땅에 박힙니다. 그래서 뒤땅과 토핑이 번갈아 나오는 겁니다.</p>
+      <p class="b">기준은 이거예요. <em>어드레스에서 만든 상체 숙임 각도를, 임팩트까지 유지한다.</em></p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 후방 캠 — 엉덩이가 앞으로 나오는 나쁜 예 1번, 유지하는 좋은 예 1번. 정지화면 비교 편집.</p>
+
+    <p class="cue cam"><b>카메라</b> CAM ② 정면 — 스틱으로 공 위치 표시</p>
+
+    <div class="say">
+      <p class="b">세 번째, <em>공 위치가 너무 앞에 있는 것.</em> 의외로 이거 하나로 해결되는 분들도 많아요.</p>
+      <p class="b">7번 아이언 기준으로 공은 <em>스탠스 한가운데, 혹은 반 발 정도만 왼쪽.</em> 그게 전부입니다.</p>
+      <p class="b">드라이버처럼 왼발 쪽에 놓으시면, 최저점이 이미 지나간 뒤에 공을 만나게 됩니다. 그럼 무조건 얇게 맞아요.</p>
+      <p class="b">(웃으며) 어드레스만 고쳐도 되는 걸, 스윙을 고치려고 몇 달을 쓰시는 분들 정말 많습니다.</p>
+    </div>
+
+    <p class="cue cg"><b>자막</b> "7번 아이언 = 스탠스 중앙 ~ 반 발 왼쪽"</p>
+  </div>
+
+  <!-- ================= STEP 3 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">08:20</span>
+      <span class="blk-name">STEP 3 — 교정 드릴 3가지</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ② 정면 스윙캠 위주</p>
+
+    <div class="say">
+      <p class="b">자, 최저점을 앞으로 옮기는 드릴 세 개입니다.</p>
+      <p class="b">드릴 하나. <em>왼발 체중 드릴.</em> 오늘 딱 하나만 가져가신다면 이겁니다.</p>
+      <p class="b">어드레스에서 <em>체중을 처음부터 왼발에 80퍼센트</em> 두세요. 오른발은 거의 거들기만 하는 겁니다.</p>
+      <p class="b">그 상태로 <em>체중을 옮기지 말고</em> 하프스윙으로 열 개 치세요.</p>
+      <p class="b">처음엔 되게 이상합니다. 힘도 안 들어가는 것 같고요. 그런데 (한 박자 쉬고) <em>소리가 달라집니다.</em></p>
+      <p class="b">퍽, 하고 눌리는 소리. 그게 공을 먼저 맞힌 소리예요. 그 소리를 몸에 기억시키는 게 이 드릴의 목적입니다.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 왼발 체중 하프스윙 3구. 임팩트 소리가 잘 들리게 오디오 살릴 것. 디봇/파우더 자국 클로즈업.</p>
+
+    <p class="cue cam"><b>카메라</b> CAM ③ 후방 — 그려놓은 라인이 잘 보이게</p>
+
+    <div class="say">
+      <p class="b">드릴 둘. <em>라인 드릴.</em> 최저점을 눈으로 확인하는 드릴이에요.</p>
+      <p class="b">잔디나 매트에 <em>공 위치에 선을 하나</em> 그으세요. 스프레이도 좋고, 분필이나 파우더도 됩니다.</p>
+      <p class="b">그리고 공 없이 스윙해서, <em>선의 왼쪽만 쓸어보세요.</em></p>
+      <p class="b">선의 오른쪽을 건드리면 실패입니다. 그게 뒤땅이에요.</p>
+      <p class="b">열 번 중에 여덟 번을 선 왼쪽에서 시작하게 되면, 그때 공을 놓고 치세요.</p>
+      <p class="b">이 드릴이 좋은 이유는 <em>즉시 피드백</em>이 오기 때문입니다. 잘했는지 못했는지 눈으로 바로 보여요.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 라인 긋기 → 빈 스윙 3번 (하나는 일부러 뒤 실수) → 공 놓고 2구. 자국 클로즈업.</p>
+
+    <div class="say">
+      <p class="b">드릴 셋. <em>스텝 드릴.</em> 체중이동을 몸으로 익히는 드릴입니다.</p>
+      <p class="b">공 앞에 서서, 백스윙을 올리는 동안 <em>왼발을 살짝 들었다가</em>, 다운스윙 시작할 때 <em>왼발을 앞으로 딛으면서</em> 칩니다.</p>
+      <p class="b">야구에서 타자가 스텝 밟는 거랑 똑같아요.</p>
+      <p class="b">이렇게 하면 체중이 <em>안 옮겨질 수가 없습니다.</em> 몸이 알아서 앞으로 갑니다.</p>
+      <p class="b">처음엔 공 안 맞아도 됩니다. 그냥 리듬만 익히세요. 다섯 번 정도 하고 나서 원래 자세로 치면, 그 느낌이 남아 있을 거예요.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 스텝 드릴 3번 (느리게 1번 + 실속 2번) → 바로 이어서 일반 스윙 1구</p>
+    <p class="cue cg"><b>자막</b> "① 왼발 체중 ② 라인 왼쪽 쓸기 ③ 스텝 드릴"</p>
+  </div>
+
+  <!-- ================= 실전 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">11:50</span>
+      <span class="blk-name">실전 — 라이가 다를 때</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ① 토킹캠 → 각 상황 시연은 CAM ②</p>
+
+    <div class="say">
+      <p class="b">지금까지는 평평한 데서 친 얘기였고요. 코스에 가면 <em>평평한 자리가 거의 없습니다.</em></p>
+      <p class="b">상황별로 짧게 정리해 드릴게요. 원리는 아까랑 똑같습니다. <em>최저점을 어디에 두느냐.</em></p>
+      <p class="b">첫째, <em>맨땅이나 잔디가 얇은 자리.</em> 제일 무서운 라이죠.</p>
+      <p class="b">여기서는 공을 <em>평소보다 반 개 정도 오른쪽</em>에 놓으세요. 그리고 그립을 조금 짧게 잡습니다.</p>
+      <p class="b">뒤땅이 나면 클럽이 땅에 튕겨서 완전히 망가지거든요. <em>공을 먼저 맞히는 것</em>에만 집중하세요.</p>
+      <p class="b">둘째, <em>러프.</em> 잔디가 긴 곳입니다.</p>
+      <p class="b">잔디가 클럽을 잡아채니까 <em>클럽을 한 개 길게</em> 드세요. 7번 자리면 6번요.</p>
+      <p class="b">그리고 평소보다 <em>조금 더 가파르게 내려찍는다</em>고 생각하세요. 잔디를 헤치고 들어가야 하니까요.</p>
+      <p class="b">셋째, <em>오르막 라이.</em> 공이 발보다 높은 데 있는 경사요.</p>
+      <p class="b">여기서는 공이 <em>왼쪽으로 갑니다.</em> 몸이 오른쪽으로 기울면서 클럽 페이스가 왼쪽을 보게 되거든요.</p>
+      <p class="b">그러니까 <em>목표보다 오른쪽을 겨냥</em>하시고, 클럽도 한 개 더 길게 드세요. 공이 더 높이 뜨면서 짧아집니다.</p>
+      <p class="b">넷째, <em>내리막 라이.</em> 이게 제일 어렵습니다.</p>
+      <p class="b">핵심은 하나예요. <em>어깨를 경사와 나란히</em> 맞추세요. 그리고 공은 <em>오른쪽</em>에 놓습니다.</p>
+      <p class="b">내리막에서는 최저점이 훨씬 앞에 생기니까, 공을 오른쪽에 놓지 않으면 무조건 뒤땅입니다.</p>
+      <p class="b">(강조) 그리고 내리막에서는 <em>절대 퍼올리지 마세요.</em> 경사를 따라 <em>낮게 끝까지 밀어낸다</em>는 느낌으로 치셔야 합니다.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 가능하면 경사 있는 곳으로 이동해서 오르막 / 내리막 각 1구. 어려우면 어드레스 자세만이라도 보여주기.</p>
+    <p class="cue cg"><b>자막</b> 라이별 요약 카드 4줄</p>
+  </div>
+
+  <!-- ================= 정리 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">13:30</span>
+      <span class="blk-name">흔한 실수 · 정리 · 마무리</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ① 토킹캠</p>
+
+    <div class="say">
+      <p class="b">마지막으로 많이 하시는 실수 세 가지 짚고 마무리할게요.</p>
+      <p class="b">첫째, <em>공을 띄우려고 하는 것.</em> 클럽이 알아서 띄웁니다. 여러분이 할 일은 <em>눌러서 앞으로 보내는 것</em>뿐이에요.</p>
+      <p class="b">둘째, <em>머리를 고정하려고 애쓰는 것.</em> 머리를 억지로 고정하면 체중이 못 넘어갑니다. 머리는 <em>임팩트 때까지 공 뒤에 있으면</em> 충분해요. 돌처럼 굳힐 필요 없습니다.</p>
+      <p class="b">셋째, <em>공만 뚫어지게 보는 것.</em> 공을 보는 게 아니라 <em>공 앞의 잔디</em>를 본다고 생각해 보세요. 그것만으로 최저점이 앞으로 갑니다.</p>
+      <p class="b">(한 박자 쉬고) 오늘 내용, 한 줄입니다.</p>
+      <p class="b"><em>공 먼저, 잔디 나중. 체중은 왼발에.</em></p>
+      <p class="b">뒤땅 나면 "아 최저점이 뒤에 있구나", 토핑 나도 "아 최저점이 뒤에 있구나". 이렇게만 생각하세요. 처방이 같습니다.</p>
+      <p class="b">다음 영상에서는 스윙의 8할을 결정하는 <em>어드레스와 그립</em>을 처음부터 다시 정리해 볼게요.</p>
+      <p class="b">오늘도 봐주셔서 감사합니다. 좋은 스윙 하세요.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 마지막 컷 — 깨끗한 아이언 샷 1구 + 디봇 클로즈업</p>
+    <p class="cue cg"><b>자막</b> 요약 카드 / 구독 · 좋아요 / 다음 영상 카드</p>
+  </div>
+
+  <div class="endmark">— EP 03 END —</div>
+</section>
+
+</div>
+</body>
+</html>

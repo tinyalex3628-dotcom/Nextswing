@@ -1,0 +1,313 @@
+/* =========================================================
+   골프 유튜브 레슨 대본 — 인쇄용 스타일
+   A4 세로 / 낭독용 큰 글씨 / 흑백 인쇄 대응
+   ========================================================= */
+
+@page {
+  size: A4 portrait;
+  margin: 15mm 14mm 15mm 14mm;
+}
+
+:root {
+  --ink:        #14181a;
+  --ink-soft:   #4a5257;
+  --green:      #1d5b3c;
+  --green-pale: #eef4f0;
+  --line:       #c9d1cd;
+  --line-soft:  #e3e8e5;
+  --gray-bg:    #f4f5f4;
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+body {
+  margin: 0;
+  color: var(--ink);
+  font-family: "Noto Sans CJK KR", "Noto Sans KR", "Malgun Gothic",
+               "Apple SD Gothic Neo", "맑은 고딕", sans-serif;
+  font-size: 15pt;
+  line-height: 1.9;
+  letter-spacing: -0.01em;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+/* ---------- 표지 ---------- */
+
+.cover {
+  page-break-after: always;
+  padding-top: 34mm;
+  text-align: center;
+}
+.cover .kicker {
+  font-size: 13pt;
+  letter-spacing: 0.32em;
+  color: var(--green);
+  font-weight: 700;
+  margin-bottom: 10mm;
+}
+.cover h1 {
+  font-size: 34pt;
+  line-height: 1.35;
+  font-weight: 800;
+  margin: 0 0 6mm;
+  letter-spacing: -0.03em;
+}
+.cover .sub {
+  font-size: 14pt;
+  color: var(--ink-soft);
+  line-height: 1.8;
+  margin-bottom: 16mm;
+}
+.cover .rule {
+  width: 46mm; height: 3px; background: var(--green);
+  margin: 0 auto 14mm;
+}
+.cover-list {
+  display: inline-block;
+  text-align: left;
+  border: 1.5px solid var(--line);
+  border-radius: 4mm;
+  padding: 8mm 10mm;
+  font-size: 13pt;
+  line-height: 2.15;
+}
+.cover-list b { color: var(--green); margin-right: 4mm; font-weight: 800; }
+
+/* ---------- 대본 1편 단위 ---------- */
+
+.script { page-break-before: always; }
+.script:first-of-type { page-break-before: auto; }
+
+.ep-head {
+  border-bottom: 3px solid var(--green);
+  padding-bottom: 5mm;
+  margin-bottom: 7mm;
+}
+.ep-no {
+  display: inline-block;
+  background: var(--green);
+  color: #fff;
+  font-size: 12pt;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  padding: 1.2mm 4mm;
+  border-radius: 2mm;
+  margin-bottom: 4mm;
+}
+.ep-title {
+  font-size: 25pt;
+  font-weight: 800;
+  line-height: 1.4;
+  margin: 0 0 3mm;
+  letter-spacing: -0.03em;
+}
+.ep-sub {
+  font-size: 13pt;
+  color: var(--ink-soft);
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* ---------- 촬영 정보 박스 ---------- */
+
+.spec {
+  background: var(--gray-bg);
+  border: 1px solid var(--line-soft);
+  border-radius: 3mm;
+  padding: 5mm 6mm;
+  margin-bottom: 6mm;
+  font-size: 11.5pt;
+  line-height: 1.85;
+  page-break-inside: avoid;
+}
+.spec dl { margin: 0; display: grid; grid-template-columns: 26mm 1fr; gap: 1mm 0; }
+.spec dt { font-weight: 800; color: var(--green); }
+.spec dd { margin: 0; color: var(--ink); }
+
+/* ---------- 러닝 타임 표 ---------- */
+
+.toc {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11.5pt;
+  margin-bottom: 8mm;
+  page-break-inside: avoid;
+}
+.toc th, .toc td {
+  border-bottom: 1px solid var(--line-soft);
+  padding: 2.2mm 2mm;
+  text-align: left;
+  line-height: 1.6;
+}
+.toc th {
+  background: var(--green-pale);
+  font-weight: 800;
+  font-size: 11pt;
+  border-bottom: 1.5px solid var(--line);
+}
+.toc td:first-child, .toc th:first-child { width: 24mm; white-space: nowrap; font-weight: 700; }
+.toc td:last-child,  .toc th:last-child  { width: 26mm; white-space: nowrap; color: var(--ink-soft); }
+
+/* ---------- 블록(장면) ---------- */
+
+.blk { margin-bottom: 8mm; }
+
+.blk-head {
+  display: flex;
+  align-items: baseline;
+  gap: 3mm;
+  border-left: 5px solid var(--green);
+  background: var(--green-pale);
+  padding: 2.5mm 4mm;
+  margin-bottom: 4mm;
+  page-break-after: avoid;
+  page-break-inside: avoid;
+}
+.blk-time {
+  font-size: 11.5pt;
+  font-weight: 800;
+  color: var(--green);
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+}
+.blk-name {
+  font-size: 15pt;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.5;
+}
+
+/* ---------- 지시문(큐) ---------- */
+
+.cue {
+  font-size: 11.5pt;
+  line-height: 1.7;
+  color: var(--ink-soft);
+  border-left: 3px solid var(--line);
+  padding: 1.5mm 0 1.5mm 4mm;
+  margin: 0 0 3.5mm;
+  page-break-inside: avoid;
+}
+.cue b {
+  display: inline-block;
+  min-width: 17mm;
+  color: var(--ink);
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+.cue.cam  { border-left-color: var(--green); }
+.cue.demo { border-left-color: #7a7f82; background: var(--gray-bg); }
+.cue.cg   { border-left-color: var(--line); font-style: normal; }
+
+/* ---------- 대사 ---------- */
+
+.say { margin: 0 0 4.5mm; orphans: 2; widows: 2; }
+.say p {
+  position: relative;
+  margin: 0 0 2mm;
+  padding-left: 7mm;
+  font-size: 15pt;
+  line-height: 1.95;
+  font-weight: 450;
+  page-break-inside: avoid;
+}
+.say p.b::before {
+  content: "●";
+  position: absolute;
+  left: 0.4mm;
+  top: 0;
+  line-height: 1.95;
+  color: var(--green);
+  font-size: 8pt;
+}
+.say em {
+  font-style: normal;
+  font-weight: 800;
+  border-bottom: 2.5px solid #b9d8c6;
+  padding-bottom: 0.3mm;
+}
+.say .pause { color: var(--green); font-weight: 800; }
+
+/* ---------- 팁/메모 ---------- */
+
+.tip {
+  border: 1.5px dashed var(--line);
+  border-radius: 2.5mm;
+  padding: 4mm 5mm;
+  margin: 0 0 6mm;
+  font-size: 12pt;
+  line-height: 1.8;
+  background: #fbfcfb;
+  page-break-inside: avoid;
+}
+.tip b { color: var(--green); font-weight: 800; }
+.tip ul { margin: 2mm 0 0; padding-left: 6mm; }
+.tip li { margin-bottom: 1.5mm; }
+
+/* ---------- 가이드 페이지 ---------- */
+
+.guide { page-break-before: always; }
+.guide h2 {
+  font-size: 21pt;
+  font-weight: 800;
+  border-bottom: 3px solid var(--green);
+  padding-bottom: 3mm;
+  margin: 0 0 6mm;
+  letter-spacing: -0.03em;
+}
+.guide h3 {
+  font-size: 15pt;
+  font-weight: 800;
+  color: var(--green);
+  margin: 7mm 0 3mm;
+  page-break-after: avoid;
+}
+.guide p, .guide li { font-size: 12.5pt; line-height: 1.9; }
+.guide ul, .guide ol { padding-left: 7mm; margin: 0 0 4mm; }
+.guide li { margin-bottom: 1.5mm; }
+.guide .box {
+  background: var(--gray-bg);
+  border-left: 5px solid var(--green);
+  padding: 4mm 5mm;
+  margin: 0 0 5mm;
+  page-break-inside: avoid;
+}
+.guide table {
+  width: 100%; border-collapse: collapse; font-size: 12pt; margin-bottom: 5mm;
+  page-break-inside: avoid;
+}
+.guide table th, .guide table td {
+  border: 1px solid var(--line); padding: 2.5mm 3mm; text-align: left; line-height: 1.65;
+}
+.guide table th { background: var(--green-pale); font-weight: 800; }
+
+/* ---------- 마무리 ---------- */
+
+.endmark {
+  text-align: center;
+  color: var(--ink-soft);
+  font-size: 11pt;
+  letter-spacing: 0.25em;
+  margin-top: 6mm;
+  padding-top: 4mm;
+  border-top: 1px solid var(--line-soft);
+}
+
+/* ---------- 화면(브라우저)에서 볼 때 ---------- */
+
+@media screen {
+  body { background: #e9ecea; }
+  .sheet {
+    background: #fff;
+    max-width: 210mm;
+    margin: 0 auto;
+    padding: 15mm 14mm;
+    box-shadow: 0 2px 18px rgba(0,0,0,.12);
+  }
+}
+@media print {
+  .sheet { max-width: none; margin: 0; padding: 0; box-shadow: none; }
+}

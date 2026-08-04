@@ -1,0 +1,2348 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>골프 레슨 유튜브 대본 모음</title>
+<style>
+/* =========================================================
+   골프 유튜브 레슨 대본 — 인쇄용 스타일
+   A4 세로 / 낭독용 큰 글씨 / 흑백 인쇄 대응
+   ========================================================= */
+
+@page {
+  size: A4 portrait;
+  margin: 15mm 14mm 15mm 14mm;
+}
+
+:root {
+  --ink:        #14181a;
+  --ink-soft:   #4a5257;
+  --green:      #1d5b3c;
+  --green-pale: #eef4f0;
+  --line:       #c9d1cd;
+  --line-soft:  #e3e8e5;
+  --gray-bg:    #f4f5f4;
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+body {
+  margin: 0;
+  color: var(--ink);
+  font-family: "Noto Sans CJK KR", "Noto Sans KR", "Malgun Gothic",
+               "Apple SD Gothic Neo", "맑은 고딕", sans-serif;
+  font-size: 15pt;
+  line-height: 1.9;
+  letter-spacing: -0.01em;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+/* ---------- 표지 ---------- */
+
+.cover {
+  page-break-after: always;
+  padding-top: 34mm;
+  text-align: center;
+}
+.cover .kicker {
+  font-size: 13pt;
+  letter-spacing: 0.32em;
+  color: var(--green);
+  font-weight: 700;
+  margin-bottom: 10mm;
+}
+.cover h1 {
+  font-size: 34pt;
+  line-height: 1.35;
+  font-weight: 800;
+  margin: 0 0 6mm;
+  letter-spacing: -0.03em;
+}
+.cover .sub {
+  font-size: 14pt;
+  color: var(--ink-soft);
+  line-height: 1.8;
+  margin-bottom: 16mm;
+}
+.cover .rule {
+  width: 46mm; height: 3px; background: var(--green);
+  margin: 0 auto 14mm;
+}
+.cover-list {
+  display: inline-block;
+  text-align: left;
+  border: 1.5px solid var(--line);
+  border-radius: 4mm;
+  padding: 8mm 10mm;
+  font-size: 13pt;
+  line-height: 2.15;
+}
+.cover-list b { color: var(--green); margin-right: 4mm; font-weight: 800; }
+
+/* ---------- 대본 1편 단위 ---------- */
+
+.script { page-break-before: always; }
+.script:first-of-type { page-break-before: auto; }
+
+.ep-head {
+  border-bottom: 3px solid var(--green);
+  padding-bottom: 5mm;
+  margin-bottom: 7mm;
+}
+.ep-no {
+  display: inline-block;
+  background: var(--green);
+  color: #fff;
+  font-size: 12pt;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  padding: 1.2mm 4mm;
+  border-radius: 2mm;
+  margin-bottom: 4mm;
+}
+.ep-title {
+  font-size: 25pt;
+  font-weight: 800;
+  line-height: 1.4;
+  margin: 0 0 3mm;
+  letter-spacing: -0.03em;
+}
+.ep-sub {
+  font-size: 13pt;
+  color: var(--ink-soft);
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* ---------- 촬영 정보 박스 ---------- */
+
+.spec {
+  background: var(--gray-bg);
+  border: 1px solid var(--line-soft);
+  border-radius: 3mm;
+  padding: 5mm 6mm;
+  margin-bottom: 6mm;
+  font-size: 11.5pt;
+  line-height: 1.85;
+  page-break-inside: avoid;
+}
+.spec dl { margin: 0; display: grid; grid-template-columns: 26mm 1fr; gap: 1mm 0; }
+.spec dt { font-weight: 800; color: var(--green); }
+.spec dd { margin: 0; color: var(--ink); }
+
+/* ---------- 러닝 타임 표 ---------- */
+
+.toc {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11.5pt;
+  margin-bottom: 8mm;
+  page-break-inside: avoid;
+}
+.toc th, .toc td {
+  border-bottom: 1px solid var(--line-soft);
+  padding: 2.2mm 2mm;
+  text-align: left;
+  line-height: 1.6;
+}
+.toc th {
+  background: var(--green-pale);
+  font-weight: 800;
+  font-size: 11pt;
+  border-bottom: 1.5px solid var(--line);
+}
+.toc td:first-child, .toc th:first-child { width: 24mm; white-space: nowrap; font-weight: 700; }
+.toc td:last-child,  .toc th:last-child  { width: 26mm; white-space: nowrap; color: var(--ink-soft); }
+
+/* ---------- 블록(장면) ---------- */
+
+.blk { margin-bottom: 8mm; }
+
+.blk-head {
+  display: flex;
+  align-items: baseline;
+  gap: 3mm;
+  border-left: 5px solid var(--green);
+  background: var(--green-pale);
+  padding: 2.5mm 4mm;
+  margin-bottom: 4mm;
+  page-break-after: avoid;
+  page-break-inside: avoid;
+}
+.blk-time {
+  font-size: 11.5pt;
+  font-weight: 800;
+  color: var(--green);
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+}
+.blk-name {
+  font-size: 15pt;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.5;
+}
+
+/* ---------- 지시문(큐) ---------- */
+
+.cue {
+  font-size: 11.5pt;
+  line-height: 1.7;
+  color: var(--ink-soft);
+  border-left: 3px solid var(--line);
+  padding: 1.5mm 0 1.5mm 4mm;
+  margin: 0 0 3.5mm;
+  page-break-inside: avoid;
+}
+.cue b {
+  display: inline-block;
+  min-width: 17mm;
+  color: var(--ink);
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+.cue.cam  { border-left-color: var(--green); }
+.cue.demo { border-left-color: #7a7f82; background: var(--gray-bg); }
+.cue.cg   { border-left-color: var(--line); font-style: normal; }
+
+/* ---------- 대사 ---------- */
+
+.say { margin: 0 0 4.5mm; orphans: 2; widows: 2; }
+.say p {
+  position: relative;
+  margin: 0 0 2mm;
+  padding-left: 7mm;
+  font-size: 15pt;
+  line-height: 1.95;
+  font-weight: 450;
+  page-break-inside: avoid;
+}
+.say p.b::before {
+  content: "●";
+  position: absolute;
+  left: 0.4mm;
+  top: 0;
+  line-height: 1.95;
+  color: var(--green);
+  font-size: 8pt;
+}
+.say em {
+  font-style: normal;
+  font-weight: 800;
+  border-bottom: 2.5px solid #b9d8c6;
+  padding-bottom: 0.3mm;
+}
+.say .pause { color: var(--green); font-weight: 800; }
+
+/* ---------- 팁/메모 ---------- */
+
+.tip {
+  border: 1.5px dashed var(--line);
+  border-radius: 2.5mm;
+  padding: 4mm 5mm;
+  margin: 0 0 6mm;
+  font-size: 12pt;
+  line-height: 1.8;
+  background: #fbfcfb;
+  page-break-inside: avoid;
+}
+.tip b { color: var(--green); font-weight: 800; }
+.tip ul { margin: 2mm 0 0; padding-left: 6mm; }
+.tip li { margin-bottom: 1.5mm; }
+
+/* ---------- 가이드 페이지 ---------- */
+
+.guide { page-break-before: always; }
+.guide h2 {
+  font-size: 21pt;
+  font-weight: 800;
+  border-bottom: 3px solid var(--green);
+  padding-bottom: 3mm;
+  margin: 0 0 6mm;
+  letter-spacing: -0.03em;
+}
+.guide h3 {
+  font-size: 15pt;
+  font-weight: 800;
+  color: var(--green);
+  margin: 7mm 0 3mm;
+  page-break-after: avoid;
+}
+.guide p, .guide li { font-size: 12.5pt; line-height: 1.9; }
+.guide ul, .guide ol { padding-left: 7mm; margin: 0 0 4mm; }
+.guide li { margin-bottom: 1.5mm; }
+.guide .box {
+  background: var(--gray-bg);
+  border-left: 5px solid var(--green);
+  padding: 4mm 5mm;
+  margin: 0 0 5mm;
+  page-break-inside: avoid;
+}
+.guide table {
+  width: 100%; border-collapse: collapse; font-size: 12pt; margin-bottom: 5mm;
+  page-break-inside: avoid;
+}
+.guide table th, .guide table td {
+  border: 1px solid var(--line); padding: 2.5mm 3mm; text-align: left; line-height: 1.65;
+}
+.guide table th { background: var(--green-pale); font-weight: 800; }
+
+/* ---------- 마무리 ---------- */
+
+.endmark {
+  text-align: center;
+  color: var(--ink-soft);
+  font-size: 11pt;
+  letter-spacing: 0.25em;
+  margin-top: 6mm;
+  padding-top: 4mm;
+  border-top: 1px solid var(--line-soft);
+}
+
+/* ---------- 화면(브라우저)에서 볼 때 ---------- */
+
+@media screen {
+  body { background: #e9ecea; }
+  .sheet {
+    background: #fff;
+    max-width: 210mm;
+    margin: 0 auto;
+    padding: 15mm 14mm;
+    box-shadow: 0 2px 18px rgba(0,0,0,.12);
+  }
+}
+@media print {
+  .sheet { max-width: none; margin: 0; padding: 0; box-shadow: none; }
+}
+
+</style>
+</head>
+<body>
+<div class="sheet">
+<!-- TITLE: 골프 레슨 유튜브 대본 — 표지 & 사용법 -->
+
+<section class="cover">
+  <div class="kicker">GOLF LESSON SCRIPT</div>
+  <h1>골프 레슨 유튜브<br>촬영 대본집</h1>
+  <div class="rule"></div>
+  <p class="sub">
+    카메라 3대 · 1인 촬영 기준<br>
+    편당 촬영 20~30분 → 편집본 12~14분<br>
+    낭독 · 시선 연습용 큰 글씨 편집본
+  </p>
+
+  <div class="cover-list">
+    <div><b>00</b> 대본 사용법 &amp; 말하기 연습 가이드</div>
+    <div><b>01</b> 슬라이스, 이제 진짜로 끝냅시다</div>
+    <div><b>02</b> 드라이버 비거리 20m 늘리는 법</div>
+    <div><b>03</b> 아이언 뒤땅 &amp; 토핑 완전 탈출</div>
+    <div><b>04</b> 스윙의 8할은 치기 전에 결정된다</div>
+    <div><b>05</b> 백스윙, 팔로 들지 말고 몸으로 감으세요</div>
+    <div><b>06</b> 30m 어프로치, 거리감의 정체</div>
+    <div><b>07</b> 3퍼트가 사라지는 퍼팅 루틴</div>
+  </div>
+</section>
+
+
+<section class="guide">
+  <h2>이 대본을 어떻게 쓰면 되나</h2>
+
+  <div class="box">
+    <p style="margin:0">
+      대본은 <b>외우는 글</b>이 아니라 <b>말하는 순서를 잡아주는 지도</b>입니다.
+      토씨 하나까지 똑같이 읽으면 오히려 어색해집니다.
+      <b>덩어리 단위로 뜻만 기억하고, 자기 말로 바꿔서</b> 말하는 걸 목표로 하세요.
+    </p>
+  </div>
+
+  <h3>대본에 쓰인 기호</h3>
+
+  <table>
+    <tr>
+      <th style="width:32mm">●</th>
+      <td>말의 한 덩어리(한 호흡). <b>여기서 한 번 끊고 카메라를 봅니다.</b></td>
+    </tr>
+    <tr>
+      <th>카메라</th>
+      <td>어떤 카메라를 보고 말할지, 어떤 그림을 잡을지</td>
+    </tr>
+    <tr>
+      <th>시연</th>
+      <td>말을 멈추고 몸으로 보여주는 구간 (스윙 · 동작 · 클럽)</td>
+    </tr>
+    <tr>
+      <th>자막</th>
+      <td>편집할 때 넣을 자막 / 그래픽 메모</td>
+    </tr>
+    <tr>
+      <th>(괄호)</th>
+      <td>말투 지시 — 천천히, 웃으며, 한 박자 쉬고 등</td>
+    </tr>
+    <tr>
+      <th>밑줄</th>
+      <td>이 문장은 힘줘서. 자막으로 뽑을 핵심 문장</td>
+    </tr>
+  </table>
+
+  <h3>카메라 3대 세팅</h3>
+
+  <table>
+    <tr>
+      <th style="width:30mm">CAM ①<br>토킹캠</th>
+      <td>
+        <b>정면 바스트샷.</b> 렌즈를 <b>내 눈높이</b>에 맞추세요.
+        말하는 장면은 전부 이 카메라를 보고 합니다.
+        대본은 이 카메라 <b>바로 옆·바로 아래</b>에 세워두세요.
+      </td>
+    </tr>
+    <tr>
+      <th>CAM ②<br>정면 스윙캠</th>
+      <td>
+        <b>가슴 높이, 몸의 정면(페이스온).</b> 발끝부터 클럽 끝까지 다 들어오게.
+        체중이동 · 상체 각도 · 손 위치를 보여줄 때 씁니다.
+      </td>
+    </tr>
+    <tr>
+      <th>CAM ③<br>후방 스윙캠</th>
+      <td>
+        <b>공 뒤, 타겟 라인 연장선.</b> 손 높이 정도.
+        궤도(인·아웃) · 클럽 페이스 · 정렬을 보여줄 때 씁니다.
+      </td>
+    </tr>
+  </table>
+
+  <div class="box">
+    <p style="margin:0">
+      <b>3대 다 돌려놓고 시작하세요.</b> 편집은 나중에 골라 쓰면 됩니다.
+      촬영 시작할 때 손뼉 한 번 크게 치면 소리 파형으로 세 영상 싱크를 맞추기 쉽습니다.
+    </p>
+  </div>
+
+  <h3>촬영 순서 (권장)</h3>
+
+  <ol>
+    <li>세 카메라 녹화 시작 → 손뼉 한 번</li>
+    <li><b>인트로 먼저</b> 찍지 마세요. 몸이 안 풀립니다. 본론 → 드릴 → 마무리 → <b>인트로는 맨 마지막에</b>.</li>
+    <li>한 블록(●표시 3~5개) 끝날 때마다 멈추고 숨 고르기</li>
+    <li>말이 꼬이면 <b>처음부터 다시 하지 말고</b>, 3초 쉬었다가 <b>그 문장만</b> 다시</li>
+    <li>시연은 같은 동작을 <b>느리게 1번 + 실제 속도 2번</b></li>
+  </ol>
+
+  <h3>카메라 앞에서 말하기 — 실전 요령 8가지</h3>
+
+  <ol>
+    <li><b>첫 문장 하나만 외우세요.</b> 첫 문장이 나오면 나머지는 따라옵니다.</li>
+    <li><b>읽고 → 들고 → 말하기.</b> 대본을 눈으로 한 덩어리 읽고, 고개를 들어 렌즈를 보고, 그다음에 입을 엽니다. 읽으면서 동시에 말하려 하면 100% 시선이 흔들립니다.</li>
+    <li><b>렌즈를 사람 눈이라고 생각하세요.</b> 친구 한 명에게 설명한다고 생각하고 말하면 톤이 자연스러워집니다.</li>
+    <li><b>"어…", "음…" 대신 침묵.</b> 말이 막히면 그냥 1초 조용히 있으세요. 편집으로 지울 수 있지만 "어"는 못 지웁니다.</li>
+    <li><b>문장 끝은 톤을 내리세요.</b> 끝을 올리면 자신 없어 보입니다. 짧게 끊고 딱 내려주세요.</li>
+    <li><b>손을 쓰세요.</b> 손이 움직이면 말이 부드러워집니다. 클럽을 들고 말하면 훨씬 편합니다.</li>
+    <li><b>생각보다 1.3배 천천히.</b> 긴장하면 무조건 빨라집니다. 느리다고 느낄 때가 딱 좋습니다.</li>
+    <li><b>녹화 전 워밍업 30초.</b> 오늘 날씨나 아침 먹은 얘기를 카메라 보고 아무 말이나 하세요. 그 뒤에 본 촬영을 시작하면 첫 컷부터 표정이 삽니다.</li>
+  </ol>
+
+  <div class="box">
+    <p style="margin:0">
+      <b>연습 방법.</b> 대본 한 편을 3번 반복하세요.<br>
+      <b>1회차</b> — 그냥 소리 내서 읽기. 발음 꼬이는 단어 체크.<br>
+      <b>2회차</b> — 대본 보면서 읽되, ● 하나 끝날 때마다 고개 들고 렌즈 보기.<br>
+      <b>3회차</b> — 대본은 옆에 두고 <b>흘끗만</b> 보면서 내 말로 하기. 이게 실제 촬영본입니다.
+    </p>
+  </div>
+
+  <h3>편집 분량 감 잡기</h3>
+
+  <ul>
+    <li>대본의 <b>대사만</b> 또박또박 읽으면 편당 <b>약 9~10분</b>입니다. (대사 분량 약 3,000자)</li>
+    <li>여기에 스윙 시연 8~9개, 리액션, 호흡 여백이 붙어 <b>편집본 12~14분</b>이 나옵니다.</li>
+    <li>말이 빨라지는 편이면 대사를 조금 늘려서, 느린 편이면 드릴 하나를 빼서 맞추세요.</li>
+    <li>실제 촬영에는 재촬영 포함 <b>20~30분</b> 정도 잡으세요.</li>
+    <li>말이 길어지는 게 정상입니다. <b>줄이는 편집</b>이 늘리는 편집보다 100배 쉽습니다.</li>
+  </ul>
+
+  <div class="endmark">— 00 END —</div>
+</section>
+
+
+<!-- TITLE: EP 01 슬라이스, 이제 진짜로 끝냅시다 -->
+
+<section class="script">
+  <div class="ep-head">
+    <div class="ep-no">EP 01</div>
+    <h1 class="ep-title">슬라이스, 이제 진짜로 끝냅시다</h1>
+    <p class="ep-sub">공이 오른쪽으로 휘는 진짜 원인과, 오늘 당장 되는 교정 드릴 3가지</p>
+  </div>
+
+  <div class="spec">
+    <dl>
+      <dt>촬영 시간</dt><dd>20~30분 (편집본 13분 목표)</dd>
+      <dt>준비물</dt><dd>7번 아이언 · 드라이버 · 얼라인먼트 스틱 2개 · 헤드커버 1개</dd>
+      <dt>장소</dt><dd>연습장 타석 (후방 카메라 자리 확보 가능한 곳)</dd>
+      <dt>핵심 한 줄</dt><dd>슬라이스는 궤도가 아니라 <b>페이스</b>가 만든다</dd>
+    </dl>
+  </div>
+
+  <table class="toc">
+    <tr><th>타임</th><th>구성</th><th>분량</th></tr>
+    <tr><td>00:00</td><td>콜드 오픈 — 슬라이스 한 방 보여주고 시작</td><td>40초</td></tr>
+    <tr><td>00:40</td><td>인트로 · 오늘 다룰 것</td><td>1분 10초</td></tr>
+    <tr><td>01:50</td><td>STEP 1 — 공이 휘는 원리 (페이스 vs 궤도)</td><td>3분</td></tr>
+    <tr><td>04:50</td><td>STEP 2 — 내 슬라이스 원인 진단 3가지</td><td>3분 30초</td></tr>
+    <tr><td>08:20</td><td>STEP 3 — 교정 드릴 3가지</td><td>3분 30초</td></tr>
+    <tr><td>11:50</td><td>실전 — 코스에서는 왜 더 심해질까</td><td>1분 30초</td></tr>
+    <tr><td>13:20</td><td>흔한 실수 · 정리</td><td>1분</td></tr>
+    <tr><td>14:20</td><td>마무리 · 다음 영상 예고</td><td>40초</td></tr>
+  </table>
+
+  <!-- ================= 콜드 오픈 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">00:00</span>
+      <span class="blk-name">콜드 오픈 — 일부러 슬라이스 한 방</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ② 정면 스윙캠으로 시작. 말없이 드라이버 한 방 치고, 공 날아가는 거 손으로 가리키기.</p>
+
+    <div class="say">
+      <p class="b">(공이 오른쪽으로 휘어 나간 뒤, 카메라 쪽으로 몸을 돌리며) 이거요.</p>
+      <p class="b">이 오른쪽으로 휘어 나가는 공. / 이거 하나 때문에 골프 그만두고 싶다는 분들, 진짜 많습니다.</p>
+      <p class="b">근데 제가 오늘 좀 이상한 얘기를 하나 하려고 해요.</p>
+      <p class="b"><em>여러분이 슬라이스를 못 고치는 이유는, 슬라이스의 원인을 잘못 알고 있어서입니다.</em></p>
+      <p class="b">"아웃 인으로 깎여 맞아서 그렇다" — 이거 아마 백 번은 들으셨을 거예요. (한 박자 쉬고) 그거, 반만 맞는 얘기예요.</p>
+      <p class="b">오늘 영상 끝까지 보시면, 왜 반만 맞는 말인지 그리고 진짜로 뭘 고쳐야 하는지 확실하게 아시게 될 겁니다.</p>
+    </div>
+
+    <p class="cue cg"><b>자막</b> 인트로 타이틀 / "슬라이스, 이제 진짜로 끝냅시다"</p>
+  </div>
+
+  <!-- ================= 인트로 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">00:40</span>
+      <span class="blk-name">인트로 · 오늘 다룰 것</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ① 토킹캠. 클럽을 어깨에 걸치거나 앞에 짚고, 렌즈 정면.</p>
+
+    <div class="say">
+      <p class="b">안녕하세요. (본인 채널 인사말)</p>
+      <p class="b">오늘 주제는 슬라이스입니다. 골프 레슨 영상에서 제일 많이 다뤄지는 주제죠. 그만큼 안 고쳐진다는 뜻이기도 하고요.</p>
+      <p class="b">오늘 영상은 세 단계로 갑니다.</p>
+      <p class="b">첫째, 공이 왜 휘는지 <em>원리</em>부터 정리할게요. 이거 이해 못 하면 드릴 백 개 해도 안 됩니다.</p>
+      <p class="b">둘째, 여러분 슬라이스가 셋 중 어느 타입인지 <em>진단</em>해 드릴게요.</p>
+      <p class="b">셋째, 타입별로 오늘 연습장에서 바로 해볼 수 있는 <em>드릴</em>을 드릴 겁니다.</p>
+      <p class="b">(살짝 웃으며) 순서대로 보셔야 효과 있어요. 드릴만 보러 가시면… 또 원점입니다.</p>
+    </div>
+
+    <p class="cue cg"><b>자막</b> 챕터 목차 3줄 그래픽 (원리 / 진단 / 드릴)</p>
+  </div>
+
+  <!-- ================= STEP 1 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">01:50</span>
+      <span class="blk-name">STEP 1 — 공은 왜 휘는가</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ① 토킹캠. 클럽 헤드를 손에 들고 페이스를 카메라에 보여주면서 설명.</p>
+
+    <div class="say">
+      <p class="b">자, 공이 휘는 건 딱 두 가지가 결정합니다. 두 개예요.</p>
+      <p class="b">하나는 <em>클럽 페이스가 어디를 보고 있느냐</em>. 또 하나는 <em>클럽이 어느 방향으로 지나갔느냐</em>. 이걸 궤도라고 하죠.</p>
+      <p class="b">여기서 제일 중요한 게 나옵니다. (한 박자 쉬고)</p>
+      <p class="b"><em>공이 처음 출발하는 방향은, 거의 다 페이스가 결정합니다.</em> 궤도가 아니라요.</p>
+      <p class="b">그리고 공이 휘는 건, 페이스랑 궤도의 <em>차이</em>가 만듭니다.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 클럽 헤드를 정면 카메라 앞에 대고 — ① 페이스 정면 ② 페이스 열림 ③ 페이스 닫힘. 각각 3초씩 천천히.</p>
+
+    <div class="say">
+      <p class="b">쉽게 갈게요. 페이스가 궤도보다 <em>오른쪽</em>을 보고 있으면 오른쪽으로 휩니다. 슬라이스죠.</p>
+      <p class="b">페이스가 궤도보다 <em>왼쪽</em>을 보고 있으면 왼쪽으로 휩니다. 훅이고요.</p>
+      <p class="b">이게 전부입니다. 진짜로 이게 전부예요.</p>
+      <p class="b">그럼 아까 그 얘기. "아웃 인이라서 슬라이스다" — 왜 반만 맞느냐.</p>
+      <p class="b">아웃 인으로 깎아 쳐도, 페이스가 그 궤도보다 닫혀 있으면 공은 왼쪽으로 감겨요. 슬라이스가 아니라 <em>당겨진 훅</em>이 납니다.</p>
+      <p class="b">즉, 아웃 인 궤도는 슬라이스를 <em>거들어주는</em> 요인이지, 슬라이스를 <em>만드는</em> 범인이 아니에요.</p>
+      <p class="b">진짜 범인은 하나입니다. <em>임팩트 순간에 페이스가 열려 있는 것.</em></p>
+      <p class="b">그래서 궤도만 죽어라 고치는 분들이 안 고쳐지는 겁니다. 범인을 안 잡고 공범만 잡고 있는 거죠.</p>
+    </div>
+
+    <p class="cue cg"><b>자막</b> 큰 자막 — "출발 방향 = 페이스 / 휘는 정도 = 페이스와 궤도의 차이"</p>
+    <p class="cue cg"><b>자막</b> 화면 위에 간단한 화살표 그래픽 (궤도 선 + 페이스 방향 선)</p>
+  </div>
+
+  <!-- ================= STEP 2 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">04:50</span>
+      <span class="blk-name">STEP 2 — 내 슬라이스는 어느 타입인가</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ① 토킹캠으로 도입 → 각 원인 설명할 때 CAM ② / CAM ③ 로 전환</p>
+
+    <div class="say">
+      <p class="b">그럼 페이스는 왜 열려서 들어오느냐. 원인은 크게 세 가지입니다. 하나씩 볼게요.</p>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ① 클로즈업 — 그립 잡은 손이 화면에 크게 들어오게</p>
+
+    <div class="say">
+      <p class="b">첫 번째, <em>그립</em>입니다. 제일 흔하고, 제일 빨리 고쳐지는 원인이에요.</p>
+      <p class="b">어드레스 하고 고개 숙여서 왼손 등을 한번 보세요. 손등에 있는 <em>너클, 그러니까 주먹 마디가 몇 개 보이시나요.</em></p>
+      <p class="b">하나도 안 보이거나 딱 하나만 보인다. 그러면 그립이 약한 겁니다. 이러면 임팩트 때 페이스가 절대 안 닫혀요.</p>
+      <p class="b"><em>두 개에서 두 개 반</em>. 이게 기준입니다.</p>
+      <p class="b">그리고 두 손을 다 잡았을 때, 엄지랑 검지가 만드는 V자. 이게 <em>오른쪽 어깨를 향하게</em> 하세요. 턱이 아니라 어깨요.</p>
+      <p class="b">(웃으며) 이것만 고쳐도 오늘 슬라이스 절반 줄어드는 분 분명히 계실 겁니다.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 약한 그립 → 중립 그립 비교. 그 상태로 각각 하프스윙 한 번씩 쳐서 결과 보여주기.</p>
+
+    <p class="cue cam"><b>카메라</b> CAM ③ 후방 스윙캠 — 발과 어깨 라인이 보이게</p>
+
+    <div class="say">
+      <p class="b">두 번째, <em>정렬</em>입니다. 이건 좀 억울한 원인이에요.</p>
+      <p class="b">공이 자꾸 오른쪽으로 가니까, 사람이 무의식적으로 뭘 하냐면 — <em>몸을 왼쪽으로 돌려서 조준</em>합니다. 살려고 그러는 거예요.</p>
+      <p class="b">그런데 몸이 왼쪽을 보고 있으면 클럽은 자연스럽게 밖에서 안으로 지나갑니다. 아웃 인이 더 심해지는 거죠.</p>
+      <p class="b">그러면 슬라이스가 더 납니다. 그럼 더 왼쪽을 봅니다. 그럼 더 휩니다.</p>
+      <p class="b"><em>이게 슬라이스 지옥의 무한 루프입니다.</em> 대부분 여기 갇혀 계세요.</p>
+      <p class="b">끊는 방법은 하나뿐이에요. 무섭더라도 <em>정렬을 원위치</em>시키는 겁니다. 그 얘기는 조금 뒤 드릴에서 할게요.</p>
+    </div>
+
+    <p class="cue cg"><b>자막</b> "왼쪽 조준 → 아웃인 심화 → 더 큰 슬라이스" 순환 화살표 그래픽</p>
+
+    <p class="cue cam"><b>카메라</b> CAM ② 정면 스윙캠 — 다운스윙 상체 열림이 보이게</p>
+
+    <div class="say">
+      <p class="b">세 번째, <em>상체가 먼저 열리는 것</em>입니다. 이게 제일 뿌리 깊은 원인이에요.</p>
+      <p class="b">다운스윙 시작할 때, 제일 먼저 움직여야 하는 건 <em>하체</em>입니다. 왼발로 땅을 밟으면서 골반이 먼저 돌아야 해요.</p>
+      <p class="b">그런데 대부분 어떻게 하시냐면, <em>어깨가 먼저 풀립니다.</em> 공 빨리 치고 싶으니까요.</p>
+      <p class="b">어깨가 먼저 열리면 클럽은 몸 바깥으로 던져집니다. 그리고 팔은 몸에서 멀어지죠.</p>
+      <p class="b">팔이 몸에서 멀어지면, 손목이 회전할 시간이 없어요. 그러니까 <em>페이스가 열린 채로 그대로 임팩트</em>가 됩니다.</p>
+      <p class="b">아웃 인 궤도랑 열린 페이스가 <em>동시에</em> 만들어지는 겁니다. 슬라이스 완성이죠.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 나쁜 예 — 어깨 먼저 열면서 스윙 (느리게 1번). 좋은 예 — 왼발 밟고 골반 먼저 (느리게 1번 + 실속 1번).</p>
+  </div>
+
+  <!-- ================= STEP 3 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">08:20</span>
+      <span class="blk-name">STEP 3 — 교정 드릴 3가지</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ① 토킹캠에서 드릴 소개 → 실행은 CAM ② / CAM ③</p>
+
+    <div class="say">
+      <p class="b">자, 이제 고치러 갑니다. 세 가지 드릴 드릴게요. 순서대로 하세요.</p>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ③ 후방 — 얼라인먼트 스틱 두 개 놓는 장면부터</p>
+
+    <div class="say">
+      <p class="b">드릴 하나. <em>스틱 두 개로 정렬 리셋.</em></p>
+      <p class="b">스틱 하나는 공과 타겟을 잇는 선에 놓고요. 다른 하나는 그거랑 <em>평행</em>하게, 내 발 앞에 놓습니다.</p>
+      <p class="b">이렇게 놓고 서면 처음엔 무조건 <em>오른쪽을 보고 있는 것 같은</em> 느낌이 듭니다.</p>
+      <p class="b">그 느낌이 정상입니다. 그동안 왼쪽을 보고 계셨던 거예요.</p>
+      <p class="b">이 상태로 열 개만 쳐보세요. 처음 몇 개는 더 오른쪽으로 갈 수도 있어요. 괜찮습니다. <em>기준점을 다시 만드는 과정</em>이에요.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 스틱 세팅 → 어드레스 → 3구 연속 타격. 후방 캠으로 발라인과 타겟라인 평행 확인.</p>
+
+    <p class="cue cam"><b>카메라</b> CAM ③ 후방 — 헤드커버 위치가 잘 보이게</p>
+
+    <div class="say">
+      <p class="b">드릴 둘. <em>헤드커버 드릴.</em> 궤도를 몸으로 이해시키는 드릴이에요.</p>
+      <p class="b">공 앞쪽 45도 방향, 그러니까 <em>내 몸에서 먼 쪽 앞</em>에 헤드커버를 하나 놓습니다. 공에서 한 뼘 반 정도 떨어뜨려서요.</p>
+      <p class="b">규칙은 하나. <em>헤드커버는 절대 안 건드리고 공만 친다.</em></p>
+      <p class="b">밖에서 안으로 깎아 치면 무조건 커버를 칩니다. 안 치려면 클럽이 <em>안쪽에서</em> 나올 수밖에 없어요.</p>
+      <p class="b">머리로 이해하는 것보다 이렇게 <em>몸이 알아서 피하게</em> 만드는 게 훨씬 빠릅니다.</p>
+      <p class="b">(주의 주듯) 처음엔 하프스윙으로 하세요. 풀스윙으로 하다가 커버 날리면… 뒷사람이 놀랍니다.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 헤드커버 세팅 → 하프스윙 2구 → 풀스윙 1구. 후방 캠 슬로우 모션 편집 예정.</p>
+
+    <p class="cue cam"><b>카메라</b> CAM ② 정면 — 손목·팔뚝 회전이 보이게 클로즈업</p>
+
+    <div class="say">
+      <p class="b">드릴 셋. 제일 중요한 겁니다. <em>페이스를 닫는 감각 만들기.</em></p>
+      <p class="b">7번 아이언 들고, 허리 높이에서 허리 높이까지만 스윙합니다. 딱 반만요.</p>
+      <p class="b">그리고 목표는 하나예요. <em>공을 일부러 왼쪽으로 감아 보내는 것.</em></p>
+      <p class="b">(강조하며) 훅을 쳐보라는 겁니다. 일부러요.</p>
+      <p class="b">팔로스루로 넘어갈 때 <em>오른 팔뚝이 왼 팔뚝 위로 넘어간다</em>는 느낌으로 돌려주세요. 손목을 꺾는 게 아니라 <em>팔뚝이 도는</em> 겁니다.</p>
+      <p class="b">평생 슬라이스만 치신 분은 이거 처음에 잘 안 됩니다. 열 개 쳐서 하나 감기면 성공이에요.</p>
+      <p class="b"><em>훅을 칠 줄 알아야 슬라이스를 조절할 수 있습니다.</em> 반대편 끝을 경험해야 가운데를 찾아요.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 하프스윙 드로우 3구. 팔뚝 회전 부분만 클로즈업 + 슬로우.</p>
+    <p class="cue cg"><b>자막</b> "손목을 꺾는 게 아니라 팔뚝이 돈다"</p>
+  </div>
+
+  <!-- ================= 실전 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">11:50</span>
+      <span class="blk-name">실전 — 코스에서는 왜 더 심해질까</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ① 토킹캠. 드라이버 들고, 티박스에 선 것처럼 자세 잡으며.</p>
+
+    <div class="say">
+      <p class="b">여기까지 하고 나면 연습장에서는 좀 잡히실 거예요. 그런데 (한 박자 쉬고) <em>코스만 가면 다시 휩니다.</em></p>
+      <p class="b">이유가 세 가지 있어요. 알고 가시면 훨씬 덜 당황하십니다.</p>
+      <p class="b">첫째, <em>티박스 착시</em>입니다.</p>
+      <p class="b">티박스가 항상 페어웨이를 똑바로 보게 만들어져 있지 않아요. 살짝 오른쪽이나 왼쪽을 보고 있는 경우가 많습니다.</p>
+      <p class="b">그런데 우리는 무의식적으로 <em>티박스 모양에 맞춰서</em> 섭니다. 정렬이 처음부터 틀어지는 거죠.</p>
+      <p class="b">그래서 티박스에 올라가면 <em>반드시 공 뒤에서 타겟을 다시 보세요.</em> 티마커 방향을 믿으면 안 됩니다.</p>
+      <p class="b">둘째, <em>오른쪽 OB가 눈에 보이는 것.</em></p>
+      <p class="b">오른쪽에 위험이 보이면 사람은 몸이 굳습니다. 굳으면 회전이 안 되고, 회전이 안 되면 팔로 치게 돼요.</p>
+      <p class="b">그럼 결과가 뭐죠. (강조) <em>정확히 그 오른쪽으로 갑니다.</em> 피하려던 데로 가는 거예요.</p>
+      <p class="b">이럴 땐 오른쪽을 보지 마시고, <em>왼쪽 페어웨이의 한 지점만</em> 정해서 거기만 보세요.</p>
+      <p class="b">셋째, 이게 제일 중요합니다. <em>코스에서는 스윙을 고치지 마세요.</em></p>
+      <p class="b">라운드 중에 그립 바꾸고 궤도 바꾸면 그날 하루가 통째로 망가집니다.</p>
+      <p class="b">오늘 슬라이스가 난다? 그러면 <em>인정하고 왼쪽으로 조준</em>하세요. 휘는 만큼 왼쪽을 겨냥하고 그냥 치는 겁니다.</p>
+      <p class="b">교정은 연습장에서, 코스에서는 <em>있는 그대로 쓰는 것.</em> 이게 스코어를 지키는 방법입니다.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 티박스에 서서 정렬 확인하는 루틴 1회 → 왼쪽 겨냥하고 페이드로 보내는 샷 1구</p>
+    <p class="cue cg"><b>자막</b> "코스에서는 고치지 말고, 인정하고 조준하세요"</p>
+  </div>
+
+  <!-- ================= 흔한 실수 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">13:20</span>
+      <span class="blk-name">흔한 실수 · 정리</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ① 토킹캠. 손가락으로 하나 둘 셋 세면서.</p>
+
+    <div class="say">
+      <p class="b">마지막으로, 슬라이스 고치다가 많이들 하는 실수 세 가지만 짚고 갈게요.</p>
+      <p class="b">첫째, <em>더 세게 치기.</em> 슬라이스는 힘이 부족해서 나는 게 아닙니다. 세게 치면 상체가 더 빨리 열려서 더 휩니다.</p>
+      <p class="b">둘째, <em>손목만 억지로 돌리기.</em> 몸은 그대로 두고 손목만 돌리면 이번엔 왼쪽으로 확 감기는 공이 나옵니다. 몸이 도는 순서를 고쳐야 해요.</p>
+      <p class="b">셋째, <em>하루 만에 고치려고 하기.</em> 정렬을 바꾸면 눈이 적응하는 데 최소 일주일은 걸립니다. 그 사이에 다시 원래대로 돌아가시면… 원점이에요.</p>
+      <p class="b">오늘 내용 한 줄로 정리할게요. (한 박자 쉬고)</p>
+      <p class="b"><em>슬라이스는 궤도가 아니라 페이스가 만든다. 그래서 페이스를 닫는 감각부터 만들어야 한다.</em></p>
+      <p class="b">그립 확인하고, 정렬 리셋하고, 일부러 훅 쳐보기. 이 순서로 딱 일주일만 해보세요.</p>
+    </div>
+
+    <p class="cue cg"><b>자막</b> 요약 3줄 카드 — ① 그립 너클 2개 ② 스틱 평행 정렬 ③ 하프스윙 드로우</p>
+  </div>
+
+  <!-- ================= 마무리 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">14:20</span>
+      <span class="blk-name">마무리 · CTA</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ① 토킹캠. 클럽 내려놓고 편하게. 미소.</p>
+
+    <div class="say">
+      <p class="b">오늘 영상 도움 되셨으면 좋겠습니다.</p>
+      <p class="b">혹시 해보시고 <em>이번엔 왼쪽으로 너무 감긴다</em> 하시는 분, 댓글로 남겨주세요. 그건 좋은 신호예요. 조절만 하면 되는 단계까지 오신 거니까요.</p>
+      <p class="b">다음 영상에서는 <em>드라이버 비거리</em>를 다뤄볼게요. 힘 안 들이고 20미터 더 보내는 방법입니다.</p>
+      <p class="b">구독이랑 좋아요 눌러주시면 다음 영상 만드는 데 큰 힘이 됩니다.</p>
+      <p class="b">그럼 오늘도 좋은 스윙 하세요. 감사합니다.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 마지막 컷 — 드로우 한 방 시원하게 치고 페이드아웃</p>
+    <p class="cue cg"><b>자막</b> 구독 · 좋아요 애니메이션 / 다음 영상 카드</p>
+  </div>
+
+  <div class="endmark">— EP 01 END —</div>
+</section>
+
+
+<!-- TITLE: EP 02 드라이버 비거리 20m 늘리는 법 -->
+
+<section class="script">
+  <div class="ep-head">
+    <div class="ep-no">EP 02</div>
+    <h1 class="ep-title">드라이버 비거리,<br>힘 빼고 20m 늘립니다</h1>
+    <p class="ep-sub">더 세게 치는 게 답이 아닙니다. 비거리를 만드는 세 가지 요소와 순서</p>
+  </div>
+
+  <div class="spec">
+    <dl>
+      <dt>촬영 시간</dt><dd>20~30분 (편집본 14분 목표)</dd>
+      <dt>준비물</dt><dd>드라이버 · 티 여러 개 · 얼라인먼트 스틱 1개 · 임팩트 테이프(또는 파우더 스프레이)</dd>
+      <dt>장소</dt><dd>드라이버 칠 수 있는 타석 (가능하면 탄도 보이는 곳)</dd>
+      <dt>핵심 한 줄</dt><dd>비거리는 <b>힘</b>이 아니라 <b>정타 · 발사각 · 순서</b>가 만든다</dd>
+    </dl>
+  </div>
+
+  <table class="toc">
+    <tr><th>타임</th><th>구성</th><th>분량</th></tr>
+    <tr><td>00:00</td><td>콜드 오픈 — 힘 빼고 친 게 더 멀리 갔다</td><td>50초</td></tr>
+    <tr><td>00:50</td><td>인트로 · 오늘 다룰 것</td><td>1분</td></tr>
+    <tr><td>01:50</td><td>STEP 1 — 비거리를 만드는 세 가지</td><td>2분 30초</td></tr>
+    <tr><td>04:20</td><td>STEP 2 — 셋업만 바꿔도 늘어나는 거리</td><td>3분 30초</td></tr>
+    <tr><td>07:50</td><td>STEP 3 — 스피드를 만드는 순서</td><td>3분</td></tr>
+    <tr><td>10:50</td><td>STEP 4 — 연습 드릴 3가지</td><td>2분 30초</td></tr>
+    <tr><td>13:20</td><td>실전 — 코스에서 드라이버 쓰는 법</td><td>1분 30초</td></tr>
+    <tr><td>14:50</td><td>흔한 실수 · 정리 · 마무리</td><td>1분 20초</td></tr>
+  </table>
+
+  <!-- ================= 콜드 오픈 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">00:00</span>
+      <span class="blk-name">콜드 오픈 — 두 번의 스윙</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ② 정면 스윙캠. 말 없이 두 방 친다. ① 온 힘 다해 세게 ② 70% 힘으로 부드럽게</p>
+
+    <div class="say">
+      <p class="b">(두 번째 공이 더 멀리 간 걸 확인하고, 카메라 쪽으로 돌아서며) 보셨나요.</p>
+      <p class="b">첫 번째는 제가 진짜 온 힘 다해서 쳤고요. 두 번째는 힘을 좀 뺐어요. (한 박자 쉬고) 근데 두 번째가 더 멀리 갔습니다.</p>
+      <p class="b">골프 시작하고 제일 이해 안 되는 게 이거죠. <em>세게 치면 더 안 나가는 거.</em></p>
+      <p class="b">이거, 재능이나 힘의 문제가 아니에요. 그냥 <em>비거리가 만들어지는 원리</em>를 모르면 누구나 겪는 일입니다.</p>
+      <p class="b">오늘 그 원리를 정리해 드리고, 셋업 두 가지랑 드릴 세 가지 드릴게요. 이거만 해도 확실히 달라지실 겁니다.</p>
+    </div>
+
+    <p class="cue cg"><b>자막</b> 두 스윙 비거리 비교 숫자 / 타이틀 "힘 빼고 20m"</p>
+  </div>
+
+  <!-- ================= 인트로 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">00:50</span>
+      <span class="blk-name">인트로</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ① 토킹캠. 드라이버 세워 짚고.</p>
+
+    <div class="say">
+      <p class="b">안녕하세요. (채널 인사)</p>
+      <p class="b">비거리 영상은 제목이 자극적일수록 내용이 부실한 경우가 많아요. (웃으며) 저도 압니다.</p>
+      <p class="b">그래서 오늘은 좀 다르게 갈게요. <em>왜 안 나가는지부터</em> 정확하게 짚고, 그다음에 하나씩 채워 넣겠습니다.</p>
+      <p class="b">순서는 이렇습니다. 비거리의 세 가지 요소, 셋업, 스윙 순서, 그리고 드릴.</p>
+      <p class="b">특히 <em>두 번째 셋업 파트</em>는 오늘 연습장 가시면 바로 적용되는 부분이니까 꼭 보세요.</p>
+    </div>
+  </div>
+
+  <!-- ================= STEP 1 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">01:50</span>
+      <span class="blk-name">STEP 1 — 비거리를 만드는 세 가지</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ① 토킹캠. 손가락으로 하나 둘 셋.</p>
+
+    <div class="say">
+      <p class="b">드라이버 비거리는 딱 세 가지가 결정합니다.</p>
+      <p class="b">첫째, <em>클럽 스피드.</em> 얼마나 빠르게 휘두르느냐. 이건 다들 아시죠.</p>
+      <p class="b">둘째, <em>정타.</em> 페이스 한가운데로 맞았느냐. 이게 훨씬 중요한데 다들 무시하십니다.</p>
+      <p class="b">셋째, <em>발사 조건.</em> 공이 몇 도로 떠서, 얼마나 회전하면서 날아가느냐.</p>
+      <p class="b">아마추어분들 대부분은 어디서 손해를 볼까요. (한 박자 쉬고) <em>스피드가 아니라 둘째, 셋째에서 손해 봅니다.</em></p>
+      <p class="b">스피드는 그대로인데, 빗맞고, 너무 낮게 뜨고, 스핀이 너무 많이 걸립니다. 그래서 안 나가요.</p>
+      <p class="b">쉽게 비유하면요. 같은 힘으로 던져도 <em>공을 어떻게 잡고 어느 각도로 던지느냐</em>에 따라 거리가 완전히 달라지는 거랑 같아요.</p>
+      <p class="b">그러니까 순서가 이렇게 되는 겁니다. <em>정타 먼저, 발사각 그다음, 스피드는 마지막.</em></p>
+      <p class="b">(강조) 스피드부터 올리려고 하면 정타가 무너져서 오히려 줄어듭니다. 대부분 여기서 실패해요.</p>
+    </div>
+
+    <p class="cue cg"><b>자막</b> "① 정타 → ② 발사각 → ③ 스피드" 순서 그래픽</p>
+  </div>
+
+  <!-- ================= STEP 2 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">04:20</span>
+      <span class="blk-name">STEP 2 — 셋업만 바꿔도 늘어나는 거리</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ② 정면 스윙캠. 어드레스 전신이 다 보이게.</p>
+
+    <div class="say">
+      <p class="b">자, 이제 실전입니다. 드라이버는 <em>치기 전에 이미 반은 결정</em>됩니다. 세 가지만 보세요.</p>
+      <p class="b">첫 번째, <em>공 위치.</em></p>
+      <p class="b">드라이버는 <em>왼발 뒤꿈치 선</em>에 놓으세요. 아이언처럼 가운데 놓으시면 절대 안 뜹니다.</p>
+      <p class="b">왜냐면 드라이버는 유일하게 <em>클럽이 올라가면서 맞아야 하는</em> 클럽이거든요. 내려찍으면 안 돼요.</p>
+      <p class="b">스윙 궤도는 활 모양입니다. 제일 낮은 지점을 지나서 다시 올라가죠. 그 <em>올라가는 구간</em>에 공을 놓는 겁니다.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 스틱을 스탠스에 놓고 공 위치 비교 — 가운데 vs 왼발 뒤꿈치. 정면 캠으로 확실히 보이게.</p>
+
+    <div class="say">
+      <p class="b">두 번째, <em>티 높이.</em></p>
+      <p class="b">기준은 간단합니다. 드라이버 헤드를 공 옆에 대봤을 때, <em>공의 절반이 헤드 윗선 위로 올라오게.</em></p>
+      <p class="b">낮게 꽂으시는 분들 많은데, 낮으면 페이스 아래쪽에 맞습니다. 아래쪽에 맞으면 스핀이 확 늘어나면서 공이 <em>뜨다가 주저앉아요.</em></p>
+      <p class="b">반대로 페이스 <em>윗부분</em>에 맞으면 스핀이 줄면서 더 멀리 갑니다. 요즘 클럽은 그렇게 설계돼 있어요.</p>
+      <p class="b">티 한 칸만 높여도 거리 나오는 분들, 진짜 많습니다.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 낮은 티 / 적정 티 각각 2구씩. 임팩트 테이프로 맞은 자국 클로즈업 비교.</p>
+    <p class="cue cg"><b>자막</b> "공 절반이 헤드 위로"</p>
+
+    <div class="say">
+      <p class="b">세 번째, <em>척추 기울기.</em> 이게 오늘의 핵심입니다.</p>
+      <p class="b">어드레스에서 <em>오른쪽 어깨를 왼쪽 어깨보다 살짝 낮게</em> 두세요. 그러면 머리가 공 뒤쪽에 자연스럽게 놓입니다.</p>
+      <p class="b">방법은 쉬워요. 그냥 <em>오른손이 왼손보다 아래에 잡혀 있으니까</em>, 그 상태 그대로 어깨를 편하게 떨어뜨리시면 됩니다. 억지로 기울이지 마세요.</p>
+      <p class="b">이 자세가 왜 중요하냐면, <em>이 각도가 그대로 발사각이 되기 때문</em>입니다.</p>
+      <p class="b">몸이 공 뒤에 남아 있어야 클럽이 올라가면서 맞아요. 몸이 앞으로 나가면 아무리 세게 쳐도 찍혀 맞습니다.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 나쁜 예 — 상체 수직/왼쪽 기울어짐. 좋은 예 — 오른 어깨 낮게. 정면 캠 정지화면 비교용으로 각각 5초 유지.</p>
+  </div>
+
+  <!-- ================= STEP 3 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">07:50</span>
+      <span class="blk-name">STEP 3 — 스피드가 만들어지는 순서</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ② 정면 스윙캠 → 설명은 CAM ① 토킹캠</p>
+
+    <div class="say">
+      <p class="b">이제 스피드입니다. 근데 스피드는 <em>근육으로 만드는 게 아니라 순서로 만듭니다.</em></p>
+      <p class="b">채찍 아시죠. 채찍 끝이 왜 빠를까요. 손잡이를 세게 흔들어서가 아니에요. <em>손잡이가 먼저 멈추기 때문에</em> 끝이 튀어 나가는 겁니다.</p>
+      <p class="b">골프 스윙도 똑같습니다. 순서가 이래요.</p>
+      <p class="b"><em>발 → 골반 → 상체 → 팔 → 클럽.</em> 아래에서 위로 올라갑니다.</p>
+      <p class="b">그런데 대부분 어떻게 하시냐면 (한 박자 쉬고) <em>팔부터 갑니다.</em> 손으로 공을 때리려고 하니까요.</p>
+      <p class="b">팔부터 가면 채찍의 순서가 깨집니다. 아무리 힘을 써도 클럽 헤드는 안 빨라져요.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 백스윙 톱에서 정지 → 왼발로 지면 밟기 → 골반 회전 → 팔 따라오기. 아주 느리게 3번 반복.</p>
+
+    <div class="say">
+      <p class="b">그래서 딱 하나만 기억하세요. <em>다운스윙의 첫 동작은 손이 아니라 왼발입니다.</em></p>
+      <p class="b">백스윙 끝났을 때, 손이 내려오기 <em>전에</em> 왼발로 땅을 꾹 밟으세요. 밟으면 골반이 자동으로 돌아갑니다.</p>
+      <p class="b">그리고 이때 상체는 <em>참으셔야</em> 해요. 골반은 도는데 어깨는 아직 안 돈 상태. 이 <em>비틀림</em>이 힘의 정체입니다.</p>
+      <p class="b">고무줄을 팽팽하게 당겼다 놓는 거랑 같아요. 당기지 않고 던지면 안 나가죠.</p>
+      <p class="b">(강조하며) 팔은 그냥 <em>따라오게 두세요.</em> 팔은 힘을 만드는 게 아니라 전달하는 통로입니다.</p>
+    </div>
+
+    <p class="cue cg"><b>자막</b> "다운스윙 첫 동작 = 왼발" / 순서 그래픽 (발→골반→상체→팔)</p>
+  </div>
+
+  <!-- ================= STEP 4 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">10:50</span>
+      <span class="blk-name">STEP 4 — 연습 드릴 3가지</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ② 정면 스윙캠 위주. 드릴 소개 멘트만 CAM ①</p>
+
+    <div class="say">
+      <p class="b">드릴 세 개 드릴게요. 순서대로 하시면 됩니다.</p>
+      <p class="b">드릴 하나. <em>발 모으고 치기.</em></p>
+      <p class="b">양발을 거의 붙이고, 7번 아이언으로 하프스윙 열 개 치세요.</p>
+      <p class="b">발이 좁으면 힘으로 못 칩니다. 힘으로 치는 순간 <em>넘어져요.</em> 그래서 몸이 알아서 균형과 순서를 찾습니다.</p>
+      <p class="b">이 드릴 하고 나서 원래 스탠스로 돌아가면, 갑자기 편해지는 느낌이 드실 거예요.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 발 모으고 하프스윙 3구 (정면 캠). 비틀거리는 나쁜 예도 일부러 1번.</p>
+
+    <div class="say">
+      <p class="b">드릴 둘. <em>클럽 거꾸로 잡고 휘두르기.</em> 스피드 훈련입니다.</p>
+      <p class="b">드라이버를 헤드 쪽으로 잡고, 그립 쪽이 아래로 오게 해서 힘껏 휘두르세요. 열 번.</p>
+      <p class="b">이때 <em>"휙" 소리가 어디서 나는지</em> 들어보세요.</p>
+      <p class="b">소리가 <em>공 지나기 전에</em> 나면, 힘을 너무 일찍 쓰고 있는 겁니다. 그건 헛심이에요.</p>
+      <p class="b">소리가 <em>공 지나고 나서</em>, 그러니까 왼쪽에서 나야 제대로 가속하고 있는 겁니다.</p>
+      <p class="b">이거 하나로 스피드 감각이 확 잡힙니다. 집에서도 되니까 꼭 해보세요.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 거꾸로 잡고 스윙 3번. 오디오로 휙 소리 들리게 — 편집 때 소리 강조.</p>
+
+    <div class="say">
+      <p class="b">드릴 셋. <em>정타 확인.</em></p>
+      <p class="b">임팩트 테이프 붙이거나, 없으면 페이스에 파우더 스프레이 살짝 뿌리세요. 발 파우더도 됩니다.</p>
+      <p class="b">그리고 다섯 개 치고 자국을 보세요.</p>
+      <p class="b">자국이 <em>아래쪽</em>에 몰려 있으면 티를 높이세요. <em>안쪽 힐</em>에 몰려 있으면 공에서 살짝 떨어져 서시고요.</p>
+      <p class="b">(강조) 이거 한 번만 해보시면 충격받으실 겁니다. 생각보다 훨씬 안 맞고 계세요.</p>
+      <p class="b">근데 반대로 말하면, <em>여기 고치는 게 제일 빠른 비거리 증가</em>입니다. 스윙 안 바꾸고 늘어나요.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 임팩트 자국 클로즈업 (CAM ① 접사). 잘 맞은 것 / 힐 쪽 / 아래쪽 세 가지 비교.</p>
+  </div>
+
+  <!-- ================= 실전 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">13:20</span>
+      <span class="blk-name">실전 — 코스에서 드라이버 쓰는 법</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ① 토킹캠. 드라이버 들고 편하게.</p>
+
+    <div class="say">
+      <p class="b">마지막으로 코스 얘기를 좀 할게요. 연습장이랑 코스는 완전히 다릅니다.</p>
+      <p class="b">첫째, <em>코스에서는 80퍼센트만 치세요.</em></p>
+      <p class="b">연습장에서 100퍼센트로 친 공이랑, 코스에서 80퍼센트로 친 공. 실제 거리 차이는 <em>10미터 안쪽</em>입니다.</p>
+      <p class="b">그런데 페어웨이에 남을 확률은 (강조) <em>두 배 이상</em> 차이 납니다. 어느 쪽이 이득일까요.</p>
+      <p class="b">둘째, <em>티박스에서 자리를 고르세요.</em></p>
+      <p class="b">티박스는 생각보다 넓습니다. 두 티마커 사이 어디든 설 수 있고, 뒤로 두 클럽 길이까지 갈 수 있어요.</p>
+      <p class="b">오른쪽이 위험하면 <em>티박스 오른쪽 끝에</em> 서세요. 그러면 자연스럽게 왼쪽을 보고 서게 됩니다.</p>
+      <p class="b">그리고 티박스 안에서도 <em>평평한 곳</em>을 찾으세요. 발이 경사에 있으면 아무리 좋은 스윙도 안 됩니다.</p>
+      <p class="b">셋째, <em>첫 홀 티샷.</em> 제일 긴장되는 그 한 방이요.</p>
+      <p class="b">비법은 하나입니다. <em>몸을 데워놓고 올라가는 것.</em> 스트레칭이 아니라 <em>스윙</em>을 미리 해두셔야 해요.</p>
+      <p class="b">시간 없으면 클럽 두 개 겹쳐 들고 열 번만 천천히 휘두르세요. 그거랑 안 하고 올라가는 거랑은 완전히 다릅니다.</p>
+      <p class="b">그리고 첫 홀은 <em>드라이버를 꼭 잡을 필요도 없습니다.</em> 우드나 아이언으로 시작해서 몸을 푸는 것도 좋은 전략이에요.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 100% 스윙 1구 / 80% 스윙 1구 비교. 클럽 두 개 겹쳐 들고 워밍업 스윙 3회.</p>
+    <p class="cue cg"><b>자막</b> "코스에서는 80% — 거리는 10m, 페어웨이 확률은 2배"</p>
+  </div>
+
+  <!-- ================= 정리 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">14:50</span>
+      <span class="blk-name">흔한 실수 · 정리 · 마무리</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ① 토킹캠</p>
+
+    <div class="say">
+      <p class="b">마지막으로 비거리 늘리려다 오히려 줄어드는 실수 세 가지.</p>
+      <p class="b">첫째, <em>그립을 꽉 쥐기.</em> 손에 힘이 들어가면 팔이 굳고, 팔이 굳으면 클럽이 안 돕니다. 그립은 <em>새 잡듯이</em>, 놓치지 않을 정도만.</p>
+      <p class="b">둘째, <em>스탠스를 과하게 넓히기.</em> 넓으면 안정감은 있는데 <em>골반이 안 돕니다.</em> 어깨너비보다 살짝 넓은 정도면 충분해요.</p>
+      <p class="b">셋째, <em>백스윙을 크게 만들려고 팔을 들기.</em> 백스윙 크기는 팔이 아니라 <em>몸통 회전</em>이 만듭니다. 팔로 들면 톱에서 힘이 다 빠져요.</p>
+      <p class="b">오늘 내용 정리합니다.</p>
+      <p class="b">공은 왼발 뒤꿈치, 티는 반 개 위로, 오른 어깨 낮게. 그리고 다운스윙은 왼발부터.</p>
+      <p class="b"><em>비거리는 세게 쳐서 나오는 게 아니라, 순서가 맞을 때 저절로 나옵니다.</em></p>
+      <p class="b">다음 영상에서는 아이언 뒤땅이랑 토핑을 다뤄볼게요. 이것도 원리는 딱 하나입니다.</p>
+      <p class="b">오늘도 봐주셔서 감사합니다. 좋은 스윙 하세요.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 마지막 드라이버 한 방 시원하게 → 공 날아가는 컷으로 마무리</p>
+    <p class="cue cg"><b>자막</b> 요약 카드 4줄 / 구독 · 좋아요 / 다음 영상 카드</p>
+  </div>
+
+  <div class="endmark">— EP 02 END —</div>
+</section>
+
+
+<!-- TITLE: EP 03 아이언 뒤땅 & 토핑 완전 탈출 -->
+
+<section class="script">
+  <div class="ep-head">
+    <div class="ep-no">EP 03</div>
+    <h1 class="ep-title">뒤땅과 토핑은<br>사실 같은 병입니다</h1>
+    <p class="ep-sub">아이언이 깨끗하게 맞지 않는 진짜 이유 — 최저점 이야기</p>
+  </div>
+
+  <div class="spec">
+    <dl>
+      <dt>촬영 시간</dt><dd>20~30분 (편집본 13분 목표)</dd>
+      <dt>준비물</dt><dd>7번 아이언 · 얼라인먼트 스틱 1개 · 티 2개 · 라인 그릴 스프레이(또는 분필/파우더)</dd>
+      <dt>장소</dt><dd>가능하면 잔디 타석 (디봇 보여줄 수 있는 곳). 매트면 파우더로 대체</dd>
+      <dt>핵심 한 줄</dt><dd>뒤땅과 토핑은 <b>최저점이 공 뒤에 있다</b>는 한 가지 문제의 두 얼굴</dd>
+    </dl>
+  </div>
+
+  <table class="toc">
+    <tr><th>타임</th><th>구성</th><th>분량</th></tr>
+    <tr><td>00:00</td><td>콜드 오픈 — 뒤땅 한 번, 토핑 한 번</td><td>50초</td></tr>
+    <tr><td>00:50</td><td>인트로 · 오늘 다룰 것</td><td>1분</td></tr>
+    <tr><td>01:50</td><td>STEP 1 — 최저점이라는 개념</td><td>3분</td></tr>
+    <tr><td>04:50</td><td>STEP 2 — 최저점이 뒤로 가는 원인 3가지</td><td>3분 30초</td></tr>
+    <tr><td>08:20</td><td>STEP 3 — 교정 드릴 3가지</td><td>3분 30초</td></tr>
+    <tr><td>11:50</td><td>실전 — 라이가 다를 때 어떻게 치나</td><td>1분 40초</td></tr>
+    <tr><td>13:30</td><td>흔한 실수 · 정리 · 마무리</td><td>1분 30초</td></tr>
+  </table>
+
+  <!-- ================= 콜드 오픈 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">00:00</span>
+      <span class="blk-name">콜드 오픈 — 두 가지 미스</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ② 정면 스윙캠. 일부러 뒤땅 한 번, 일부러 토핑 한 번. 말 없이.</p>
+
+    <div class="say">
+      <p class="b">(두 번 치고 카메라 쪽으로) 하나는 뒤땅이고요, 하나는 토핑이었습니다.</p>
+      <p class="b">완전히 반대로 보이죠. 하나는 땅을 먼저 팠고, 하나는 공 머리를 때렸으니까요.</p>
+      <p class="b">그래서 대부분 이렇게 생각하십니다. "아, 아까는 너무 찍었으니까 이번엔 좀 퍼올려야지." (한 박자 쉬고) 그러면 또 토핑 납니다.</p>
+      <p class="b"><em>뒤땅과 토핑은 반대가 아니라, 완전히 같은 원인에서 나옵니다.</em></p>
+      <p class="b">오늘 그 하나의 원인을 잡으러 갑니다. 이거 이해하시면 아이언이 진짜 달라져요.</p>
+    </div>
+
+    <p class="cue cg"><b>자막</b> 뒤땅 / 토핑 각각 슬로우 리플레이 + 타이틀</p>
+  </div>
+
+  <!-- ================= 인트로 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">00:50</span>
+      <span class="blk-name">인트로</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ① 토킹캠</p>
+
+    <div class="say">
+      <p class="b">안녕하세요. (채널 인사)</p>
+      <p class="b">아이언이 깨끗하게 안 맞는다. 어떤 날은 뒤땅, 어떤 날은 토핑. 잘 맞을 땐 잘 맞는데 <em>왜 잘 맞는지를 모르겠다.</em></p>
+      <p class="b">이게 제일 답답한 상태죠. 오늘 그 답답함을 풀어드리겠습니다.</p>
+      <p class="b">오늘 순서는요. 먼저 <em>최저점</em>이라는 개념 하나만 확실히 잡고요. 그다음 원인 세 가지, 마지막에 드릴 세 가지로 갑니다.</p>
+      <p class="b">개념 파트가 조금 길게 느껴지실 수 있는데, (강조) <em>거기가 오늘의 핵심</em>입니다. 넘기지 마세요.</p>
+    </div>
+  </div>
+
+  <!-- ================= STEP 1 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">01:50</span>
+      <span class="blk-name">STEP 1 — 최저점이라는 개념</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ① 토킹캠. 클럽으로 허공에 활 모양 그리면서 설명.</p>
+
+    <div class="say">
+      <p class="b">스윙할 때 클럽 헤드가 그리는 길은 <em>둥근 활 모양</em>입니다. 내려왔다가 제일 낮은 데를 지나서 다시 올라가죠.</p>
+      <p class="b">그 <em>제일 낮은 지점</em>. 이걸 최저점이라고 부르겠습니다.</p>
+      <p class="b">아이언에서 정답은 딱 하나예요. (한 박자 쉬고) <em>최저점이 공보다 앞에, 그러니까 타겟 쪽에 있어야 합니다.</em></p>
+      <p class="b">순서로 말하면 이래요. <em>공 먼저, 그다음 잔디.</em></p>
+      <p class="b">잘 치는 사람 디봇이 왜 공 있던 자리 <em>앞쪽</em>에 파이는지 아세요? 공을 먼저 맞히고, 그 뒤에 땅을 지나가기 때문입니다.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 잔디에서 좋은 샷 1구 → 디봇 위치 클로즈업 (공 있던 자리보다 앞에 파인 것). 매트라면 파우더 라인으로 대체.</p>
+
+    <div class="say">
+      <p class="b">자, 그럼 최저점이 <em>공 뒤에</em> 생기면 어떻게 될까요.</p>
+      <p class="b">클럽이 공에 닿기 전에 땅을 먼저 칩니다. 이게 <em>뒤땅</em>이에요.</p>
+      <p class="b">그런데 사람 몸은 똑똑해서, 땅 치는 걸 피하려고 <em>순간적으로 몸을 들어 올립니다.</em> 본능이에요.</p>
+      <p class="b">몸이 들리면 클럽도 같이 올라가죠. 그러면 공의 <em>윗부분</em>을 때립니다. 이게 <em>토핑</em>입니다.</p>
+      <p class="b">보이시죠. (강조하며) <em>최저점이 뒤에 있으면 → 뒤땅. 그걸 피하면 → 토핑.</em> 원인이 하나예요.</p>
+      <p class="b">그래서 "이번엔 퍼올려야지" 하는 순간, 최저점이 더 뒤로 갑니다. 병이 더 깊어지는 거죠.</p>
+      <p class="b">오늘 우리가 할 일은 딱 하나입니다. <em>최저점을 공 앞으로 옮기는 것.</em> 이거 하나만 생각하세요.</p>
+    </div>
+
+    <p class="cue cg"><b>자막</b> 큰 자막 — "최저점이 공 뒤 = 뒤땅 / 그걸 피하면 = 토핑"</p>
+    <p class="cue cg"><b>자막</b> 활 모양 궤도 그래픽에 공 위치 표시</p>
+  </div>
+
+  <!-- ================= STEP 2 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">04:50</span>
+      <span class="blk-name">STEP 2 — 최저점이 뒤로 가는 원인 3가지</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ② 정면 스윙캠</p>
+
+    <div class="say">
+      <p class="b">그럼 최저점은 왜 뒤로 갈까요. 세 가지입니다.</p>
+      <p class="b">첫 번째, <em>체중이 오른발에 남아 있는 것.</em> 압도적으로 이게 1등입니다.</p>
+      <p class="b">최저점은 <em>내 몸 중심이 있는 쪽</em>에 생깁니다. 체중이 오른쪽에 있으면 최저점도 오른쪽, 그러니까 공 뒤에 생겨요.</p>
+      <p class="b">왜 오른발에 남아 있을까요. <em>공을 띄우고 싶어서</em>입니다. 사람은 뭘 띄우려면 본능적으로 뒤로 기대면서 퍼올리거든요.</p>
+      <p class="b">그런데 골프 아이언은 반대예요. (강조) <em>내리쳐야 뜹니다.</em> 클럽 얼굴이 이미 누워 있어서, 눌러 치면 공이 알아서 뜹니다.</p>
+      <p class="b">임팩트 때 체중은 <em>왼발에 70에서 80퍼센트</em>. 이게 기준입니다.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 나쁜 예 — 임팩트에서 오른발에 체중 남기고 뒤로 기대며 치기. 좋은 예 — 왼발로 눌러 치기. 정면 캠 각각 1구.</p>
+
+    <p class="cue cam"><b>카메라</b> CAM ③ 후방 스윙캠 — 엉덩이 위치 변화가 보이게</p>
+
+    <div class="say">
+      <p class="b">두 번째, <em>몸이 일어나는 것.</em> 다운스윙 때 상체가 위로 펴지는 동작이에요.</p>
+      <p class="b">어드레스에서 우리는 앞으로 숙이고 있죠. 그런데 다운스윙 하면서 <em>엉덩이가 앞으로 나오고 상체가 서버리는</em> 분들이 정말 많습니다.</p>
+      <p class="b">상체가 서면 팔과 클럽이 위로 딸려 올라갑니다. 그러면 토핑이죠.</p>
+      <p class="b">이걸 억지로 참으면 이번엔 클럽이 땅에 박힙니다. 그래서 뒤땅과 토핑이 번갈아 나오는 겁니다.</p>
+      <p class="b">기준은 이거예요. <em>어드레스에서 만든 상체 숙임 각도를, 임팩트까지 유지한다.</em></p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 후방 캠 — 엉덩이가 앞으로 나오는 나쁜 예 1번, 유지하는 좋은 예 1번. 정지화면 비교 편집.</p>
+
+    <p class="cue cam"><b>카메라</b> CAM ② 정면 — 스틱으로 공 위치 표시</p>
+
+    <div class="say">
+      <p class="b">세 번째, <em>공 위치가 너무 앞에 있는 것.</em> 의외로 이거 하나로 해결되는 분들도 많아요.</p>
+      <p class="b">7번 아이언 기준으로 공은 <em>스탠스 한가운데, 혹은 반 발 정도만 왼쪽.</em> 그게 전부입니다.</p>
+      <p class="b">드라이버처럼 왼발 쪽에 놓으시면, 최저점이 이미 지나간 뒤에 공을 만나게 됩니다. 그럼 무조건 얇게 맞아요.</p>
+      <p class="b">(웃으며) 어드레스만 고쳐도 되는 걸, 스윙을 고치려고 몇 달을 쓰시는 분들 정말 많습니다.</p>
+    </div>
+
+    <p class="cue cg"><b>자막</b> "7번 아이언 = 스탠스 중앙 ~ 반 발 왼쪽"</p>
+  </div>
+
+  <!-- ================= STEP 3 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">08:20</span>
+      <span class="blk-name">STEP 3 — 교정 드릴 3가지</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ② 정면 스윙캠 위주</p>
+
+    <div class="say">
+      <p class="b">자, 최저점을 앞으로 옮기는 드릴 세 개입니다.</p>
+      <p class="b">드릴 하나. <em>왼발 체중 드릴.</em> 오늘 딱 하나만 가져가신다면 이겁니다.</p>
+      <p class="b">어드레스에서 <em>체중을 처음부터 왼발에 80퍼센트</em> 두세요. 오른발은 거의 거들기만 하는 겁니다.</p>
+      <p class="b">그 상태로 <em>체중을 옮기지 말고</em> 하프스윙으로 열 개 치세요.</p>
+      <p class="b">처음엔 되게 이상합니다. 힘도 안 들어가는 것 같고요. 그런데 (한 박자 쉬고) <em>소리가 달라집니다.</em></p>
+      <p class="b">퍽, 하고 눌리는 소리. 그게 공을 먼저 맞힌 소리예요. 그 소리를 몸에 기억시키는 게 이 드릴의 목적입니다.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 왼발 체중 하프스윙 3구. 임팩트 소리가 잘 들리게 오디오 살릴 것. 디봇/파우더 자국 클로즈업.</p>
+
+    <p class="cue cam"><b>카메라</b> CAM ③ 후방 — 그려놓은 라인이 잘 보이게</p>
+
+    <div class="say">
+      <p class="b">드릴 둘. <em>라인 드릴.</em> 최저점을 눈으로 확인하는 드릴이에요.</p>
+      <p class="b">잔디나 매트에 <em>공 위치에 선을 하나</em> 그으세요. 스프레이도 좋고, 분필이나 파우더도 됩니다.</p>
+      <p class="b">그리고 공 없이 스윙해서, <em>선의 왼쪽만 쓸어보세요.</em></p>
+      <p class="b">선의 오른쪽을 건드리면 실패입니다. 그게 뒤땅이에요.</p>
+      <p class="b">열 번 중에 여덟 번을 선 왼쪽에서 시작하게 되면, 그때 공을 놓고 치세요.</p>
+      <p class="b">이 드릴이 좋은 이유는 <em>즉시 피드백</em>이 오기 때문입니다. 잘했는지 못했는지 눈으로 바로 보여요.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 라인 긋기 → 빈 스윙 3번 (하나는 일부러 뒤 실수) → 공 놓고 2구. 자국 클로즈업.</p>
+
+    <div class="say">
+      <p class="b">드릴 셋. <em>스텝 드릴.</em> 체중이동을 몸으로 익히는 드릴입니다.</p>
+      <p class="b">공 앞에 서서, 백스윙을 올리는 동안 <em>왼발을 살짝 들었다가</em>, 다운스윙 시작할 때 <em>왼발을 앞으로 딛으면서</em> 칩니다.</p>
+      <p class="b">야구에서 타자가 스텝 밟는 거랑 똑같아요.</p>
+      <p class="b">이렇게 하면 체중이 <em>안 옮겨질 수가 없습니다.</em> 몸이 알아서 앞으로 갑니다.</p>
+      <p class="b">처음엔 공 안 맞아도 됩니다. 그냥 리듬만 익히세요. 다섯 번 정도 하고 나서 원래 자세로 치면, 그 느낌이 남아 있을 거예요.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 스텝 드릴 3번 (느리게 1번 + 실속 2번) → 바로 이어서 일반 스윙 1구</p>
+    <p class="cue cg"><b>자막</b> "① 왼발 체중 ② 라인 왼쪽 쓸기 ③ 스텝 드릴"</p>
+  </div>
+
+  <!-- ================= 실전 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">11:50</span>
+      <span class="blk-name">실전 — 라이가 다를 때</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ① 토킹캠 → 각 상황 시연은 CAM ②</p>
+
+    <div class="say">
+      <p class="b">지금까지는 평평한 데서 친 얘기였고요. 코스에 가면 <em>평평한 자리가 거의 없습니다.</em></p>
+      <p class="b">상황별로 짧게 정리해 드릴게요. 원리는 아까랑 똑같습니다. <em>최저점을 어디에 두느냐.</em></p>
+      <p class="b">첫째, <em>맨땅이나 잔디가 얇은 자리.</em> 제일 무서운 라이죠.</p>
+      <p class="b">여기서는 공을 <em>평소보다 반 개 정도 오른쪽</em>에 놓으세요. 그리고 그립을 조금 짧게 잡습니다.</p>
+      <p class="b">뒤땅이 나면 클럽이 땅에 튕겨서 완전히 망가지거든요. <em>공을 먼저 맞히는 것</em>에만 집중하세요.</p>
+      <p class="b">둘째, <em>러프.</em> 잔디가 긴 곳입니다.</p>
+      <p class="b">잔디가 클럽을 잡아채니까 <em>클럽을 한 개 길게</em> 드세요. 7번 자리면 6번요.</p>
+      <p class="b">그리고 평소보다 <em>조금 더 가파르게 내려찍는다</em>고 생각하세요. 잔디를 헤치고 들어가야 하니까요.</p>
+      <p class="b">셋째, <em>오르막 라이.</em> 공이 발보다 높은 데 있는 경사요.</p>
+      <p class="b">여기서는 공이 <em>왼쪽으로 갑니다.</em> 몸이 오른쪽으로 기울면서 클럽 페이스가 왼쪽을 보게 되거든요.</p>
+      <p class="b">그러니까 <em>목표보다 오른쪽을 겨냥</em>하시고, 클럽도 한 개 더 길게 드세요. 공이 더 높이 뜨면서 짧아집니다.</p>
+      <p class="b">넷째, <em>내리막 라이.</em> 이게 제일 어렵습니다.</p>
+      <p class="b">핵심은 하나예요. <em>어깨를 경사와 나란히</em> 맞추세요. 그리고 공은 <em>오른쪽</em>에 놓습니다.</p>
+      <p class="b">내리막에서는 최저점이 훨씬 앞에 생기니까, 공을 오른쪽에 놓지 않으면 무조건 뒤땅입니다.</p>
+      <p class="b">(강조) 그리고 내리막에서는 <em>절대 퍼올리지 마세요.</em> 경사를 따라 <em>낮게 끝까지 밀어낸다</em>는 느낌으로 치셔야 합니다.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 가능하면 경사 있는 곳으로 이동해서 오르막 / 내리막 각 1구. 어려우면 어드레스 자세만이라도 보여주기.</p>
+    <p class="cue cg"><b>자막</b> 라이별 요약 카드 4줄</p>
+  </div>
+
+  <!-- ================= 정리 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">13:30</span>
+      <span class="blk-name">흔한 실수 · 정리 · 마무리</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ① 토킹캠</p>
+
+    <div class="say">
+      <p class="b">마지막으로 많이 하시는 실수 세 가지 짚고 마무리할게요.</p>
+      <p class="b">첫째, <em>공을 띄우려고 하는 것.</em> 클럽이 알아서 띄웁니다. 여러분이 할 일은 <em>눌러서 앞으로 보내는 것</em>뿐이에요.</p>
+      <p class="b">둘째, <em>머리를 고정하려고 애쓰는 것.</em> 머리를 억지로 고정하면 체중이 못 넘어갑니다. 머리는 <em>임팩트 때까지 공 뒤에 있으면</em> 충분해요. 돌처럼 굳힐 필요 없습니다.</p>
+      <p class="b">셋째, <em>공만 뚫어지게 보는 것.</em> 공을 보는 게 아니라 <em>공 앞의 잔디</em>를 본다고 생각해 보세요. 그것만으로 최저점이 앞으로 갑니다.</p>
+      <p class="b">(한 박자 쉬고) 오늘 내용, 한 줄입니다.</p>
+      <p class="b"><em>공 먼저, 잔디 나중. 체중은 왼발에.</em></p>
+      <p class="b">뒤땅 나면 "아 최저점이 뒤에 있구나", 토핑 나도 "아 최저점이 뒤에 있구나". 이렇게만 생각하세요. 처방이 같습니다.</p>
+      <p class="b">다음 영상에서는 스윙의 8할을 결정하는 <em>어드레스와 그립</em>을 처음부터 다시 정리해 볼게요.</p>
+      <p class="b">오늘도 봐주셔서 감사합니다. 좋은 스윙 하세요.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 마지막 컷 — 깨끗한 아이언 샷 1구 + 디봇 클로즈업</p>
+    <p class="cue cg"><b>자막</b> 요약 카드 / 구독 · 좋아요 / 다음 영상 카드</p>
+  </div>
+
+  <div class="endmark">— EP 03 END —</div>
+</section>
+
+
+<!-- TITLE: EP 04 스윙의 8할은 치기 전에 결정된다 -->
+
+<section class="script">
+  <div class="ep-head">
+    <div class="ep-no">EP 04</div>
+    <h1 class="ep-title">스윙의 8할은<br>치기 전에 결정됩니다</h1>
+    <p class="ep-sub">그립 · 자세 · 정렬 — 아무도 제대로 안 알려주는 셋업의 전부</p>
+  </div>
+
+  <div class="spec">
+    <dl>
+      <dt>촬영 시간</dt><dd>25~30분 (편집본 14분 목표)</dd>
+      <dt>준비물</dt><dd>7번 아이언 · 드라이버 · 얼라인먼트 스틱 2개 · 거울(있으면)</dd>
+      <dt>장소</dt><dd>실내 연습장 또는 타석. 클로즈업 많으니 조명 확인</dd>
+      <dt>핵심 한 줄</dt><dd>셋업은 스윙에서 <b>유일하게 100% 내 마음대로 되는</b> 부분이다</dd>
+    </dl>
+  </div>
+
+  <table class="toc">
+    <tr><th>타임</th><th>구성</th><th>분량</th></tr>
+    <tr><td>00:00</td><td>콜드 오픈 — 셋업만 바꾼 전후 비교</td><td>50초</td></tr>
+    <tr><td>00:50</td><td>인트로 · 오늘 다룰 것</td><td>1분</td></tr>
+    <tr><td>01:50</td><td>STEP 1 — 그립, 손가락으로 잡는다</td><td>3분 30초</td></tr>
+    <tr><td>05:20</td><td>STEP 2 — 자세, 허리가 아니라 골반에서 숙인다</td><td>3분</td></tr>
+    <tr><td>08:20</td><td>STEP 3 — 정렬, 철길처럼</td><td>2분 30초</td></tr>
+    <tr><td>10:50</td><td>STEP 4 — 공 위치와 거리</td><td>2분</td></tr>
+    <tr><td>12:50</td><td>실전 — 체형과 유연성에 맞게 조정하기</td><td>1분 30초</td></tr>
+    <tr><td>14:20</td><td>프리샷 루틴 만들기 · 마무리</td><td>1분 30초</td></tr>
+  </table>
+
+  <!-- ================= 콜드 오픈 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">00:00</span>
+      <span class="blk-name">콜드 오픈</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ① 토킹캠. 클럽 들고, 어드레스 자세를 잡았다 풀었다 하면서.</p>
+
+    <div class="say">
+      <p class="b">골프에서 제일 억울한 게 뭔지 아세요.</p>
+      <p class="b"><em>스윙은 잘했는데 공이 안 맞는 것.</em></p>
+      <p class="b">근데 이런 경우는요, 거의 대부분 스윙 문제가 아니에요. <em>치기 전에 이미 틀어져 있던 겁니다.</em></p>
+      <p class="b">생각해 보세요. 스윙은 1초 만에 끝납니다. 그 1초 동안 우리가 통제할 수 있는 건 거의 없어요.</p>
+      <p class="b">그런데 <em>어드레스는 몇 초든 쓸 수 있습니다.</em> 유일하게 100퍼센트 내 마음대로 되는 구간이에요.</p>
+      <p class="b">여기를 안 잡고 스윙을 고치려는 건, 신발끈 안 묶고 달리기 연습하는 거랑 같습니다.</p>
+      <p class="b">오늘은 그 셋업을 처음부터 끝까지 정리하겠습니다.</p>
+    </div>
+
+    <p class="cue cg"><b>자막</b> 타이틀 / "셋업 = 유일하게 100% 통제 가능한 구간"</p>
+  </div>
+
+  <!-- ================= 인트로 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">00:50</span>
+      <span class="blk-name">인트로</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ① 토킹캠</p>
+
+    <div class="say">
+      <p class="b">안녕하세요. (채널 인사)</p>
+      <p class="b">오늘 영상은 <em>구력 상관없이</em> 다 보셔야 하는 내용입니다.</p>
+      <p class="b">구력 10년 되신 분들도 그립 다시 잡아보라고 하면 열에 일곱은 틀리게 잡고 계세요. (웃으며) 저도 예전에 그랬고요.</p>
+      <p class="b">순서는 네 단계입니다. <em>그립, 자세, 정렬, 공 위치.</em> 그리고 마지막에 이걸 하나로 묶는 <em>프리샷 루틴</em>까지 만들어 드릴게요.</p>
+      <p class="b">클럽 하나 들고 같이 따라 해보시면 훨씬 좋습니다. 지금 손에 뭐 하나 잡고 보세요.</p>
+    </div>
+  </div>
+
+  <!-- ================= STEP 1 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">01:50</span>
+      <span class="blk-name">STEP 1 — 그립</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ① 클로즈업. 손이 화면 가득 차게. 삼각대 살짝 앞으로 당길 것.</p>
+
+    <div class="say">
+      <p class="b">그립부터 갑니다. 그립은 <em>몸이 클럽에 닿는 유일한 지점</em>이에요. 여기가 틀리면 뒤에 뭘 해도 안 됩니다.</p>
+      <p class="b">왼손부터요. 제일 중요한 원칙 하나. <em>손바닥이 아니라 손가락으로 잡습니다.</em></p>
+      <p class="b">클럽을 손바닥 한가운데에 놓고 쥐시는 분들 많은데, 그러면 손목이 안 꺾입니다. 손목이 안 꺾이면 힘이 안 실려요.</p>
+      <p class="b">방법은 이렇습니다. 왼손을 펴고, 클럽을 <em>검지 둘째 마디부터 새끼손가락 밑동까지</em> 대각선으로 얹으세요. 그리고 손가락을 감습니다.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 손바닥 그립(나쁜 예) → 손가락 그립(좋은 예). 각각 클로즈업 5초 유지.</p>
+
+    <div class="say">
+      <p class="b">다 잡으셨으면 <em>고개를 숙여서 왼손 등을 보세요.</em></p>
+      <p class="b">주먹 마디, 그러니까 너클이 몇 개 보이나요. <em>두 개에서 두 개 반.</em> 이게 기준입니다.</p>
+      <p class="b">하나도 안 보이면 너무 약한 그립이고요. 세 개 넘게 보이면 너무 강한 그립입니다.</p>
+      <p class="b">그리고 엄지와 검지가 만드는 V자. 이게 <em>오른쪽 어깨</em>를 향하면 됩니다.</p>
+    </div>
+
+    <p class="cue cg"><b>자막</b> "왼손 너클 2~2.5개 / V자는 오른 어깨로"</p>
+
+    <div class="say">
+      <p class="b">이제 오른손입니다. 오른손은 <em>왼손을 덮어주는 역할</em>이에요. 힘을 주는 손이 아닙니다.</p>
+      <p class="b">오른손 손바닥의 <em>생명선</em>, 엄지 아래 두툼한 부분이요. 그게 <em>왼손 엄지를 덮게</em> 얹으세요.</p>
+      <p class="b">그러면 두 손이 <em>한 덩어리</em>처럼 붙습니다. 손이 따로 놀면 임팩트에서 클럽이 흔들려요.</p>
+      <p class="b">새끼손가락은 취향입니다. 왼손 검지 위에 얹어도 되고(오버래핑), 깍지를 껴도 되고(인터로킹), 그냥 열 손가락 다 잡아도 됩니다.</p>
+      <p class="b">손이 작거나 악력이 약하시면 <em>깍지</em>를, 손이 크시면 <em>얹는 방식</em>을 추천드려요.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 오버래핑 / 인터로킹 / 베이스볼 세 가지 클로즈업으로 각각 보여주기</p>
+
+    <div class="say">
+      <p class="b">마지막으로 <em>그립 압력.</em> 이게 진짜 중요한데 아무도 안 알려주십니다.</p>
+      <p class="b">1부터 10까지 있다고 하면, <em>4에서 5</em>. 딱 중간보다 살짝 약하게요.</p>
+      <p class="b">치약 튜브를 들고 있는데 <em>안 짜질 정도.</em> 그 정도 힘입니다.</p>
+      <p class="b">꽉 쥐면 팔뚝이 굳고, 팔뚝이 굳으면 클럽이 안 돌아갑니다. 슬라이스 나는 분들 상당수가 여기서 나와요.</p>
+    </div>
+
+    <p class="cue cg"><b>자막</b> "그립 압력 = 10점 만점에 4~5점"</p>
+  </div>
+
+  <!-- ================= STEP 2 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">05:20</span>
+      <span class="blk-name">STEP 2 — 자세</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ③ 후방 스윙캠 — 옆에서 본 상체 각도가 보이게</p>
+
+    <div class="say">
+      <p class="b">이제 자세입니다. 순서대로 따라오세요.</p>
+      <p class="b">하나. <em>똑바로 섭니다.</em> 발은 어깨너비. 7번 아이언 기준이에요. 드라이버는 여기서 한 뼘 더 넓히시면 됩니다.</p>
+      <p class="b">둘. <em>클럽을 앞으로 들고 팔을 폅니다.</em> 가슴 높이로요.</p>
+      <p class="b">셋. 여기가 핵심입니다. <em>허리를 굽히지 말고, 골반에서 숙이세요.</em></p>
+      <p class="b">등은 곧게 편 채로, <em>엉덩이를 뒤로 빼면서</em> 상체를 앞으로 숙이는 겁니다. 의자에 앉기 직전 동작이랑 비슷해요.</p>
+      <p class="b">등이 새우처럼 둥글게 말리면 절대 안 됩니다. 그러면 회전이 안 돼요.</p>
+      <p class="b">넷. <em>무릎을 살짝만 굽힙니다.</em> 살짝이요. 앉는 게 아닙니다. 무릎이 발끝보다 앞으로 나가면 너무 굽힌 거예요.</p>
+      <p class="b">다섯. <em>팔에 힘을 빼고 그냥 떨어뜨립니다.</em> 그러면 클럽이 자연스럽게 땅에 닿습니다.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 다섯 단계를 순서대로 천천히 1회 (후방 캠). 그다음 실제 속도로 1회.</p>
+
+    <div class="say">
+      <p class="b">체중은 어디에 둬야 할까요. <em>발바닥 한가운데.</em> 장심이라고 하죠.</p>
+      <p class="b">발가락 쪽에 실리면 스윙할 때 앞으로 쏠리고요. 뒤꿈치에 실리면 몸이 뒤로 넘어갑니다.</p>
+      <p class="b">확인법 알려드릴게요. 어드레스 하고 <em>발가락을 살짝 들어보세요.</em> 안 넘어지고 버틸 수 있으면 잘 서 계신 겁니다.</p>
+      <p class="b">그리고 하나만 더요. 어드레스 하고 나서 <em>몸을 한 번 흔들어보세요.</em> 워글이라고 하는데요.</p>
+      <p class="b">굳어 있으면 스윙이 안 나옵니다. 어드레스는 <em>조각상이 아니라 출발선</em>이에요. 살아 있어야 합니다.</p>
+    </div>
+
+    <p class="cue cg"><b>자막</b> "허리 굽히기 X / 골반에서 숙이기 O"</p>
+  </div>
+
+  <!-- ================= STEP 3 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">08:20</span>
+      <span class="blk-name">STEP 3 — 정렬</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ③ 후방 — 스틱 두 개 놓고 정렬 보여주기</p>
+
+    <div class="say">
+      <p class="b">정렬입니다. 이거 틀린 채로 연습하시면 <em>스윙을 망가뜨리는 연습</em>을 하는 겁니다.</p>
+      <p class="b">개념은 <em>철길</em>이에요. 레일 두 개가 나란히 가죠.</p>
+      <p class="b">바깥쪽 레일에는 <em>공과 타겟</em>이 있고요. 안쪽 레일에는 <em>내 발</em>이 있습니다.</p>
+      <p class="b">여기서 제일 많이 하는 착각이 하나 있어요. (한 박자 쉬고) <em>발이 타겟을 직접 향하면 안 됩니다.</em></p>
+      <p class="b">내 몸은 공보다 왼쪽에 서 있잖아요. 그러니까 발이 타겟을 향하면 이미 <em>오른쪽으로 조준</em>한 게 됩니다.</p>
+      <p class="b">발, 무릎, 골반, 어깨. 이 네 개가 전부 타겟 라인과 <em>평행</em>이면 됩니다.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 스틱 두 개로 철길 만들기 → 그 안에 들어가서 어드레스. 후방 캠으로 평행 확인.</p>
+
+    <div class="say">
+      <p class="b">그리고 순서가 있습니다. 이거 꼭 지키세요.</p>
+      <p class="b"><em>클럽 페이스를 먼저 타겟에 맞추고, 그다음에 몸을 세팅합니다.</em></p>
+      <p class="b">몸부터 서고 나서 클럽을 갖다 대면, 클럽이 몸을 따라가 버려요. 순서가 반대입니다.</p>
+      <p class="b">방법은요. 공 뒤에서 타겟을 보고, <em>공에서 한두 걸음 앞에 있는 작은 목표물</em>을 하나 찾으세요. 잔디 자국이든 낙엽이든요.</p>
+      <p class="b">멀리 있는 깃발보다 <em>가까운 점에 맞추는 게 훨씬 정확합니다.</em> 그 점에 페이스를 맞추고, 그다음에 발을 놓는 거예요.</p>
+      <p class="b">어깨 정렬은 혼자 확인하기 어려운데요, 어드레스 하고 <em>클럽을 가슴에 대보면</em> 어디를 향하는지 바로 보입니다.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 클럽을 가슴 앞에 대고 어깨 방향 확인. 후방 캠으로 왼쪽 조준된 나쁜 예도 1회.</p>
+    <p class="cue cg"><b>자막</b> "① 페이스 먼저 → ② 몸 나중"</p>
+  </div>
+
+  <!-- ================= STEP 4 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">10:50</span>
+      <span class="blk-name">STEP 4 — 공 위치와 거리</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ② 정면 스윙캠 — 스탠스와 공 위치가 잘 보이게</p>
+
+    <div class="say">
+      <p class="b">공 위치는 클럽마다 다릅니다. 외우기 쉽게 정리해 드릴게요.</p>
+      <p class="b"><em>웨지랑 숏아이언은 스탠스 한가운데.</em></p>
+      <p class="b"><em>미들 아이언은 중앙에서 공 하나 정도 왼쪽.</em></p>
+      <p class="b"><em>롱아이언이랑 우드는 거기서 또 하나 왼쪽.</em></p>
+      <p class="b"><em>드라이버만 특별합니다. 왼발 뒤꿈치 선.</em></p>
+      <p class="b">규칙은 간단해요. <em>클럽이 길어질수록 공이 왼쪽으로 갑니다.</em> 그것만 기억하세요.</p>
+      <p class="b">이유도 간단합니다. 클럽이 길수록 스윙 아크가 커지고, 최저점이 왼쪽으로 가니까요.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 스틱을 발 앞에 놓고 웨지 / 7번 / 드라이버 공 위치를 순서대로 표시</p>
+
+    <div class="say">
+      <p class="b">그다음은 <em>공과 몸의 거리.</em> 이거 은근히 많이 틀리십니다.</p>
+      <p class="b">기준은요. 어드레스 했을 때 <em>손과 허벅지 사이에 주먹 하나</em>가 들어가면 됩니다.</p>
+      <p class="b">너무 가까우면 팔이 낄 데가 없어서 스윙이 급해지고요. 너무 멀면 임팩트 때 몸이 앞으로 끌려갑니다.</p>
+      <p class="b">그리고 <em>클럽 끝은 배꼽에서 살짝 왼쪽, 그러니까 왼쪽 허벅지 안쪽</em>을 향하게 두세요. 손이 공보다 살짝 앞에 있는 상태입니다.</p>
+      <p class="b">(웃으며) 여기까지 하면 셋업 끝입니다. 생각보다 많죠. 근데 한 번 몸에 익으면 3초면 됩니다.</p>
+    </div>
+
+    <p class="cue cg"><b>자막</b> "손과 허벅지 사이 주먹 하나"</p>
+  </div>
+
+  <!-- ================= 실전 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">12:50</span>
+      <span class="blk-name">실전 — 내 몸에 맞게 조정하기</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ① 토킹캠 → 조정 예시는 CAM ③ 후방</p>
+
+    <div class="say">
+      <p class="b">여기까지가 <em>기준</em>입니다. 그런데 사람 몸이 다 다르잖아요.</p>
+      <p class="b">그래서 <em>내 몸에 맞게 조정하는 법</em>도 알려드릴게요. 이거 아는 분이 별로 없습니다.</p>
+      <p class="b">첫째, <em>키가 크신 분.</em></p>
+      <p class="b">키가 크면 상체를 더 숙이게 되는데, 그러다 허리가 말립니다. 그럴 땐 <em>공에서 조금 더 떨어져 서세요.</em></p>
+      <p class="b">숙이는 각도로 해결하는 게 아니라 <em>거리로</em> 해결하는 겁니다.</p>
+      <p class="b">둘째, <em>배가 좀 나오신 분.</em> (웃으며) 저를 포함해서요.</p>
+      <p class="b">배가 나오면 팔이 지나갈 공간이 부족합니다. 그럼 백스윙이 몸에 걸려요.</p>
+      <p class="b">해결책은 <em>스탠스를 살짝 넓히고, 오른발을 5도에서 10도 정도 바깥으로 여는 것</em>입니다. 그러면 회전 공간이 생깁니다.</p>
+      <p class="b">셋째, <em>몸이 뻣뻣하신 분.</em> 이게 가장 많으실 거예요.</p>
+      <p class="b">뻣뻣하면 어깨가 안 돌아갑니다. 그럴 땐 <em>양발을 모두 살짝 바깥으로 여세요.</em></p>
+      <p class="b">오른발을 열면 백스윙 회전이 편해지고, 왼발을 열면 폴로스루가 편해집니다.</p>
+      <p class="b">(강조) 발을 나란히 두는 게 <em>정답이 아닙니다.</em> 프로들도 다 조금씩 열어 놓습니다.</p>
+      <p class="b">넷째, <em>손목이나 팔꿈치가 아프신 분.</em></p>
+      <p class="b">그립을 너무 꽉 쥐고 계실 확률이 높습니다. 아까 말씀드린 <em>4에서 5</em>, 그 압력을 꼭 확인해 보세요.</p>
+      <p class="b">셋업의 목적은 <em>남들과 똑같이 서는 게 아닙니다.</em> <em>내 몸이 제일 편하게 회전할 수 있는 자리를 찾는 것</em>이에요.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 발을 나란히 둔 어드레스 / 양발 살짝 연 어드레스에서 각각 백스윙 → 회전량 차이 비교 (후방 캠)</p>
+    <p class="cue cg"><b>자막</b> "발은 나란히가 정답이 아닙니다"</p>
+  </div>
+
+  <!-- ================= 루틴 & 마무리 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">14:20</span>
+      <span class="blk-name">프리샷 루틴 · 마무리</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ① 토킹캠 → 루틴 시연은 CAM ③ 후방</p>
+
+    <div class="say">
+      <p class="b">마지막입니다. 지금까지 배운 걸 <em>하나의 루틴</em>으로 묶어 드릴게요.</p>
+      <p class="b">루틴이 중요한 이유는요. 긴장하면 사람은 순서를 잊어버립니다. 그런데 <em>몸에 밴 순서</em>가 있으면 긴장해도 그대로 나와요.</p>
+      <p class="b">순서는 다섯 단계, 시간은 <em>10초 안쪽</em>으로 잡으세요.</p>
+      <p class="b">하나, <em>공 뒤에 서서</em> 타겟과 공을 잇는 선을 봅니다.</p>
+      <p class="b">둘, 그 선 위에서 <em>공 앞 한 걸음 정도의 작은 목표점</em>을 찾습니다.</p>
+      <p class="b">셋, 옆으로 걸어 들어가서 <em>클럽 페이스를 그 점에 맞춥니다.</em></p>
+      <p class="b">넷, <em>발을 세팅하고</em> 그립을 확인합니다.</p>
+      <p class="b">다섯, <em>타겟을 한 번 보고, 워글 한 번, 그리고 바로 칩니다.</em></p>
+      <p class="b">(강조하며) 여기서 제일 중요한 건 <em>매번 똑같이 하는 것</em>입니다. 순서가 뭐든, 항상 같아야 해요.</p>
+      <p class="b">오늘 내용 한 줄로 정리합니다.</p>
+      <p class="b"><em>스윙은 통제할 수 없지만, 셋업은 통제할 수 있다.</em></p>
+      <p class="b">연습장 가시면 공 치기 전에 <em>10분만</em> 셋업 점검에 쓰세요. 그게 제일 빠른 길입니다.</p>
+      <p class="b">다음 영상은 백스윙입니다. 팔로 들지 않고 몸으로 감는 방법, 다뤄볼게요.</p>
+      <p class="b">오늘도 감사합니다. 좋은 스윙 하세요.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 프리샷 루틴 전체를 끊지 말고 한 번에 시연 → 그대로 1구 타격</p>
+    <p class="cue cg"><b>자막</b> 루틴 5단계 번호 자막 / 구독 · 좋아요 / 다음 영상 카드</p>
+  </div>
+
+  <div class="endmark">— EP 04 END —</div>
+</section>
+
+
+<!-- TITLE: EP 05 백스윙, 팔로 들지 말고 몸으로 감으세요 -->
+
+<section class="script">
+  <div class="ep-head">
+    <div class="ep-no">EP 05</div>
+    <h1 class="ep-title">백스윙, 팔로 들지 말고<br>몸으로 감으세요</h1>
+    <p class="ep-sub">오버스윙 · 스웨이 · 힘 빠지는 톱 — 원인은 하나입니다</p>
+  </div>
+
+  <div class="spec">
+    <dl>
+      <dt>촬영 시간</dt><dd>25~30분 (편집본 14분 목표)</dd>
+      <dt>준비물</dt><dd>7번 아이언 · 얼라인먼트 스틱 2개 · 의자 또는 박스 1개</dd>
+      <dt>장소</dt><dd>후방(다운 더 라인) 카메라 자리 확보 필수</dd>
+      <dt>핵심 한 줄</dt><dd>백스윙의 목적은 <b>크기</b>가 아니라 <b>비틀림</b>이다</dd>
+    </dl>
+  </div>
+
+  <table class="toc">
+    <tr><th>타임</th><th>구성</th><th>분량</th></tr>
+    <tr><td>00:00</td><td>콜드 오픈 — 큰 백스윙 vs 작은 백스윙</td><td>50초</td></tr>
+    <tr><td>00:50</td><td>인트로 · 오늘 다룰 것</td><td>1분</td></tr>
+    <tr><td>01:50</td><td>STEP 1 — 백스윙은 왜 하는가</td><td>2분 30초</td></tr>
+    <tr><td>04:20</td><td>STEP 2 — 처음 30센티가 전부다</td><td>3분</td></tr>
+    <tr><td>07:20</td><td>STEP 3 — 몸통 회전과 오른쪽 다리</td><td>3분 30초</td></tr>
+    <tr><td>10:50</td><td>STEP 4 — 드릴 3가지</td><td>3분</td></tr>
+    <tr><td>13:50</td><td>실전 — 몸이 뻣뻣한 분들을 위한 백스윙</td><td>1분 30초</td></tr>
+    <tr><td>15:20</td><td>흔한 실수 · 정리 · 마무리</td><td>1분</td></tr>
+  </table>
+
+  <!-- ================= 콜드 오픈 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">00:00</span>
+      <span class="blk-name">콜드 오픈 — 두 개의 백스윙</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ③ 후방 스윙캠. 말 없이 두 방. ① 오버스윙으로 크게 ② 톱을 짧게 끊고</p>
+
+    <div class="say">
+      <p class="b">(두 번째 공 결과 확인하고 카메라로) 방금 첫 번째가 백스윙이 훨씬 컸어요. 근데 (한 박자 쉬고) 두 번째가 더 잘 맞고 더 나갔습니다.</p>
+      <p class="b">골프에서 제일 흔한 오해가 이겁니다. <em>백스윙이 크면 멀리 간다.</em></p>
+      <p class="b">아닙니다. 정확히 말하면 <em>몸통이 크게 감기면</em> 멀리 갑니다. <em>팔이 크게 올라가는 건</em> 아무 상관이 없어요.</p>
+      <p class="b">오히려 팔로 들어 올린 백스윙은 <em>힘을 저장하는 게 아니라 흘려버립니다.</em></p>
+      <p class="b">오늘은 그 차이를 확실하게 잡아드릴게요.</p>
+    </div>
+
+    <p class="cue cg"><b>자막</b> 두 스윙 톱 자세 나란히 비교 / 타이틀</p>
+  </div>
+
+  <!-- ================= 인트로 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">00:50</span>
+      <span class="blk-name">인트로</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ① 토킹캠</p>
+
+    <div class="say">
+      <p class="b">안녕하세요. (채널 인사)</p>
+      <p class="b">백스윙 고민, 크게 세 가지죠. <em>오버스윙, 스웨이, 그리고 톱에서 힘이 빠지는 느낌.</em></p>
+      <p class="b">그런데 이 세 개가 전부 <em>같은 뿌리</em>에서 나옵니다. <em>몸통 대신 팔로 백스윙을 만들고 있는 것.</em></p>
+      <p class="b">그래서 오늘은 팔을 어떻게 드는지 말고, <em>몸을 어떻게 감는지</em>를 다루겠습니다.</p>
+      <p class="b">백스윙의 목적, 처음 30센티, 몸통 회전, 그리고 드릴. 이 순서로 갈게요.</p>
+    </div>
+  </div>
+
+  <!-- ================= STEP 1 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">01:50</span>
+      <span class="blk-name">STEP 1 — 백스윙은 왜 하는가</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ① 토킹캠. 손으로 고무줄 당기는 시늉하며 설명.</p>
+
+    <div class="say">
+      <p class="b">질문 하나 드릴게요. 백스윙은 왜 할까요.</p>
+      <p class="b">답은 하나입니다. <em>힘을 저장하려고요.</em> 그게 전부예요.</p>
+      <p class="b">고무줄 새총 아시죠. 고무줄을 뒤로 당겨야 앞으로 날아갑니다. 당기는 동작이 백스윙이에요.</p>
+      <p class="b">그럼 여기서 중요한 질문. <em>고무줄은 어디가 늘어나야 할까요.</em></p>
+      <p class="b">우리 몸에서 고무줄 역할을 하는 건 <em>몸통</em>입니다. 정확히는 <em>어깨는 많이 돌고, 골반은 덜 도는 그 차이</em>예요.</p>
+      <p class="b">이걸 <em>상하체 분리</em>라고 부릅니다. 오늘의 핵심 단어예요.</p>
+      <p class="b">기준을 드릴게요. <em>어깨는 90도, 골반은 45도.</em> 이 차이 45도가 저장된 힘입니다.</p>
+      <p class="b">그런데 팔로 백스윙을 만들면 어떻게 될까요. <em>몸통은 안 감기고 팔만 올라갑니다.</em></p>
+      <p class="b">고무줄은 그대로인데 새총만 높이 든 거예요. (한 박자 쉬고) 아무 일도 안 일어납니다.</p>
+      <p class="b">그래서 오버스윙 하시는 분들이 오히려 비거리가 안 나오는 겁니다. 크게 들었지만 <em>당겨진 건 없어서</em>요.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 팔만 든 백스윙 / 몸통 감은 백스윙 — 톱에서 각각 5초 정지. 후방 캠으로 어깨·골반 각도 비교.</p>
+    <p class="cue cg"><b>자막</b> "어깨 90도 · 골반 45도 = 저장된 힘"</p>
+  </div>
+
+  <!-- ================= STEP 2 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">04:20</span>
+      <span class="blk-name">STEP 2 — 처음 30센티가 전부다</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ③ 후방 — 테이크어웨이 구간 클로즈업</p>
+
+    <div class="say">
+      <p class="b">백스윙에서 제일 중요한 구간이 어딜까요. 톱? 아닙니다.</p>
+      <p class="b"><em>처음 30센티입니다.</em> 여기서 방향이 정해지면 나머지는 그냥 따라와요.</p>
+      <p class="b">규칙은 딱 하나입니다. <em>처음 30센티는 손으로 움직이지 않습니다.</em></p>
+      <p class="b">그럼 뭘로 움직이냐. <em>가슴으로요.</em></p>
+      <p class="b">어드레스 하면 양팔과 어깨가 <em>삼각형</em>을 만들죠. 그 삼각형을 그대로 유지한 채로, <em>가슴이 오른쪽으로 돌면</em> 클럽이 따라 나갑니다.</p>
+      <p class="b">이때 손목은 <em>아직 아무것도 안 합니다.</em> 그냥 따라만 가요.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 어드레스 → 30cm 테이크어웨이에서 정지 (후방 캠). 삼각형 유지되는 것 보여주고 5초 유지.</p>
+
+    <div class="say">
+      <p class="b">여기서 두 가지 실수가 나옵니다.</p>
+      <p class="b">첫째, <em>손으로 클럽을 안쪽으로 당기는 것.</em> 클럽 헤드가 손보다 먼저 몸 안쪽으로 들어가는 경우예요.</p>
+      <p class="b">이렇게 되면 백스윙이 몸 뒤로 감기면서, 다운스윙에서 다시 밖으로 나오게 됩니다. 결과는 아웃 인, 슬라이스죠.</p>
+      <p class="b">둘째, <em>클럽을 밖으로 밀어내는 것.</em> 이건 반대인데, 팔이 몸에서 멀어지면서 스윙이 커집니다. 톱에서 클럽이 흔들려요.</p>
+      <p class="b">확인법 알려드릴게요. 클럽이 <em>허리 높이</em>에 왔을 때 멈춰 보세요.</p>
+      <p class="b">그때 <em>클럽 샤프트가 발끝 라인과 평행</em>이면 됩니다. 그리고 클럽 헤드가 <em>손보다 살짝 뒤에</em> 있으면 정상이에요.</p>
+      <p class="b">손목은 <em>허리 높이를 지나면서 자연스럽게 꺾입니다.</em> 일부러 꺾지 마세요. 클럽 무게가 알아서 해줍니다.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 허리 높이 체크포인트 — 좋은 예 1회 + 안쪽으로 당긴 나쁜 예 1회 (후방 캠 정지화면용)</p>
+    <p class="cue cg"><b>자막</b> "허리 높이 = 샤프트가 발끝 라인과 평행"</p>
+  </div>
+
+  <!-- ================= STEP 3 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">07:20</span>
+      <span class="blk-name">STEP 3 — 몸통 회전과 오른쪽 다리</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ② 정면 스윙캠 — 하체 움직임이 보이게</p>
+
+    <div class="say">
+      <p class="b">이제 몸통을 감습니다. 그런데 감기려면 <em>버텨주는 게</em> 있어야 해요.</p>
+      <p class="b">그 역할을 하는 게 <em>오른쪽 다리</em>입니다. 오늘 이 얘기 꼭 기억하세요.</p>
+      <p class="b">백스윙 하면서 어깨가 돌 때, <em>오른 무릎은 어드레스 때 각도를 그대로 유지</em>해야 합니다.</p>
+      <p class="b">오른 무릎이 펴지거나 오른쪽으로 밀리면요. 감기는 게 아니라 <em>그냥 옆으로 이동</em>한 게 됩니다. 이걸 스웨이라고 하죠.</p>
+      <p class="b">스웨이가 나면 (한 박자 쉬고) 저장되는 힘이 없습니다. 그리고 다운스윙에서 다시 돌아와야 하니까 타이밍도 어려워져요.</p>
+      <p class="b">느낌으로 말씀드리면요. <em>오른쪽 엉덩이가 뒤로 돌아간다</em>는 느낌이지, <em>오른쪽으로 밀린다</em>는 느낌이 아닙니다.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 스웨이 나쁜 예 / 회전 좋은 예. 오른발 바깥에 스틱 세워두고 닿는지 안 닿는지로 보여주기.</p>
+
+    <div class="say">
+      <p class="b">체중은요. <em>오른발 안쪽</em>으로 실립니다. 발 바깥쪽이 아니라 <em>안쪽</em>이에요.</p>
+      <p class="b">오른발 바깥으로 체중이 넘어가면 몸이 오른쪽으로 넘어간 겁니다. 스웨이예요.</p>
+      <p class="b">그리고 왼쪽 어깨. <em>왼쪽 어깨가 턱 밑으로 들어오면</em> 제대로 감긴 겁니다. 이게 제일 쉬운 확인법이에요.</p>
+      <p class="b">머리에 대해서도 하나 짚을게요. <em>머리를 고정하려고 애쓰지 마세요.</em></p>
+      <p class="b">몸통이 감기면 머리는 <em>아주 조금 오른쪽으로 움직입니다.</em> 그게 정상이에요. 억지로 붙잡으면 회전이 막힙니다.</p>
+      <p class="b">마지막으로 <em>톱의 크기.</em></p>
+      <p class="b">기준은 이겁니다. <em>왼팔이 펴져 있는 데까지가 내 백스윙입니다.</em></p>
+      <p class="b">왼팔이 접히기 시작하는 순간부터는 팔로 더 든 거예요. 그건 백스윙이 아니라 그냥 <em>낭비</em>입니다.</p>
+      <p class="b">몸이 뻣뻣하신 분은 톱이 작아도 됩니다. 작은 톱이 <em>흔들리는 큰 톱보다</em> 백배 낫습니다.</p>
+    </div>
+
+    <p class="cue cg"><b>자막</b> "왼팔이 펴진 데까지 = 내 백스윙"</p>
+  </div>
+
+  <!-- ================= STEP 4 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">10:50</span>
+      <span class="blk-name">STEP 4 — 드릴 3가지</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ② / CAM ③ 번갈아. 드릴 소개는 CAM ①</p>
+
+    <div class="say">
+      <p class="b">드릴 세 개 드릴게요. 전부 공 없이 할 수 있습니다. 집에서도 되고요.</p>
+      <p class="b">드릴 하나. <em>클럽 가슴 드릴.</em></p>
+      <p class="b">클럽을 <em>가슴 앞에 가로로 대고</em>, 양팔로 안으세요. 그 상태로 어드레스 자세를 잡습니다.</p>
+      <p class="b">그리고 팔은 쓰지 말고 <em>몸통만 오른쪽으로 돌리세요.</em> 클럽이 몸을 따라 돌겠죠.</p>
+      <p class="b">이게 <em>진짜 백스윙 회전</em>입니다. 팔이 하나도 관여하지 않은 순수한 몸통 회전이에요.</p>
+      <p class="b">이때 <em>오른 무릎이 버티고 있는지</em> 느껴보세요. 그리고 <em>왼쪽 옆구리가 당기는지</em>도요. 그 당기는 느낌이 저장된 힘입니다.</p>
+      <p class="b">열 번 하고 나서 바로 클럽 잡고 백스윙하면, 느낌이 확 다릅니다.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 클럽 가슴 드릴 3회 (정면 + 후방). 옆구리 당기는 지점 손으로 짚어주기.</p>
+
+    <div class="say">
+      <p class="b">드릴 둘. <em>의자 드릴.</em> 스웨이 잡는 데는 이게 최고입니다.</p>
+      <p class="b">오른쪽 엉덩이 바깥에 <em>의자나 박스</em>를 하나 붙여 놓으세요.</p>
+      <p class="b">그리고 백스윙을 하는데, <em>의자에 엉덩이가 닿으면 실패</em>입니다.</p>
+      <p class="b">몸이 오른쪽으로 밀리면 무조건 닿아요. 안 닿으려면 <em>회전할 수밖에 없습니다.</em></p>
+      <p class="b">(웃으며) 처음엔 계속 닿으실 거예요. 그만큼 밀고 계셨던 겁니다.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 의자 드릴 — 닿는 나쁜 예 1회, 안 닿는 좋은 예 2회 (정면 캠)</p>
+
+    <div class="say">
+      <p class="b">드릴 셋. <em>톱에서 3초 멈추기.</em></p>
+      <p class="b">백스윙 톱까지 올리고, <em>거기서 셋을 세고</em> 다운스윙 하세요.</p>
+      <p class="b">이거 해보시면 바로 아십니다. 톱이 너무 크거나 균형이 안 맞으면 <em>3초를 못 버팁니다.</em> 흔들려요.</p>
+      <p class="b">3초를 편하게 버틸 수 있는 위치. 그게 <em>내 몸에 맞는 톱</em>입니다.</p>
+      <p class="b">그리고 이 드릴에는 보너스가 있어요. 톱에서 멈췄다가 치면 <em>반동을 못 쓰니까</em>, 하체부터 시작하는 법을 저절로 배우게 됩니다.</p>
+      <p class="b">공 놓고 열 개만 해보세요. 처음엔 이상한데 다섯 개쯤부터 감이 옵니다.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 톱 3초 정지 후 타격 2구. 흔들리는 나쁜 예도 1회.</p>
+    <p class="cue cg"><b>자막</b> "① 클럽 가슴 드릴 ② 의자 드릴 ③ 톱 3초"</p>
+  </div>
+
+  <!-- ================= 실전 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">13:50</span>
+      <span class="blk-name">실전 — 몸이 뻣뻣하다면</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ③ 후방 — 회전량 차이가 보이게</p>
+
+    <div class="say">
+      <p class="b">여기까지 보시고 이런 생각 드신 분 계실 거예요. "말은 알겠는데 <em>몸이 안 돌아간다.</em>"</p>
+      <p class="b">맞습니다. 나이가 있으시거나 앉아서 일하시는 분들은 <em>흉추</em>, 그러니까 등뼈가 잘 안 돌아갑니다.</p>
+      <p class="b">그럴 때 억지로 돌리면 <em>허리로 돌리게 되고</em>, 그러면 다칩니다. 그래서 방법을 바꿔야 해요.</p>
+      <p class="b">첫째, <em>오른발을 15도 정도 바깥으로 여세요.</em></p>
+      <p class="b">이거 하나로 골반 회전이 훨씬 편해집니다. 골반이 돌면 어깨도 따라 돌아요.</p>
+      <p class="b">둘째, <em>왼쪽 뒤꿈치를 살짝 들어도 됩니다.</em></p>
+      <p class="b">옛날 프로들 스윙 보시면 다 그렇게 쳤어요. 몸이 안 돌아가면 <em>뒤꿈치를 들어서라도 회전을 만드는 게</em> 낫습니다.</p>
+      <p class="b">억지로 붙이고 안 돌아가는 것보다 백배 좋아요.</p>
+      <p class="b">셋째, <em>백스윙을 짧게 가져가세요.</em> 대신 <em>몸통 회전 비율은 유지</em>하시고요.</p>
+      <p class="b">아까 말씀드렸죠. <em>흔들리는 큰 톱보다 단단한 작은 톱이 낫습니다.</em> 유연성이 부족하면 톱은 짧은 게 정답이에요.</p>
+      <p class="b">넷째, 이건 스윙이 아니라 숙제인데요. <em>흉추 회전 스트레칭.</em></p>
+      <p class="b">의자에 앉아서 클럽을 어깨에 걸치고, 하체는 고정한 채 <em>상체만 좌우로 돌리세요.</em> 하루 2분이면 됩니다.</p>
+      <p class="b">2주만 하시면 백스윙이 확실히 커집니다. (강조) <em>이건 연습이 아니라 몸을 바꾸는 겁니다.</em></p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 오른발 닫은 상태 / 15도 연 상태 백스윙 비교 (후방 캠). 의자 흉추 스트레칭 시연 3회.</p>
+    <p class="cue cg"><b>자막</b> "흔들리는 큰 톱 &lt; 단단한 작은 톱"</p>
+  </div>
+
+  <!-- ================= 정리 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">15:20</span>
+      <span class="blk-name">흔한 실수 · 정리 · 마무리</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ① 토킹캠</p>
+
+    <div class="say">
+      <p class="b">흔한 실수 세 가지 정리할게요.</p>
+      <p class="b">첫째, <em>크게 들려고 팔을 올리는 것.</em> 크기는 팔이 아니라 <em>어깨 회전</em>이 만듭니다.</p>
+      <p class="b">둘째, <em>손목을 일부러 일찍 꺾는 것.</em> 손목은 클럽 무게로 자연스럽게 꺾입니다. 일찍 꺾으면 클럽이 몸 뒤로 넘어가요.</p>
+      <p class="b">셋째, <em>머리를 붙잡는 것.</em> 머리 고정하려다 어깨 회전이 막히는 분들 정말 많습니다. 조금 움직여도 됩니다.</p>
+      <p class="b">오늘 내용 한 줄로요.</p>
+      <p class="b"><em>백스윙은 팔로 드는 게 아니라 몸으로 감는 겁니다.</em></p>
+      <p class="b">그리고 <em>왼팔이 펴진 데까지가 내 백스윙</em>이라는 것. 이 두 개만 가져가세요.</p>
+      <p class="b">다음 영상에서는 30미터 어프로치, 거리감 만드는 방법을 다뤄보겠습니다.</p>
+      <p class="b">오늘도 감사합니다. 좋은 스윙 하세요.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 마지막 컷 — 톱에서 잠깐 멈췄다가 깔끔한 스윙 1구</p>
+    <p class="cue cg"><b>자막</b> 요약 카드 / 구독 · 좋아요 / 다음 영상 카드</p>
+  </div>
+
+  <div class="endmark">— EP 05 END —</div>
+</section>
+
+
+<!-- TITLE: EP 06 30m 어프로치, 거리감의 정체 -->
+
+<section class="script">
+  <div class="ep-head">
+    <div class="ep-no">EP 06</div>
+    <h1 class="ep-title">30m 어프로치,<br>거리감의 정체</h1>
+    <p class="ep-sub">감으로 치지 마세요. 거리는 힘이 아니라 <b>크기</b>로 만듭니다</p>
+  </div>
+
+  <div class="spec">
+    <dl>
+      <dt>촬영 시간</dt><dd>25~30분 (편집본 13분 목표)</dd>
+      <dt>준비물</dt><dd>피칭웨지 · 52도 · 56도 · 9번 아이언 · 수건 또는 타월 1장 · 목표 표적(우산·바구니 등)</dd>
+      <dt>장소</dt><dd>어프로치 연습장. 착지 지점이 보이는 곳이면 최고</dd>
+      <dt>핵심 한 줄</dt><dd>거리는 <b>힘 조절</b>이 아니라 <b>백스윙 크기</b>로 만든다</dd>
+    </dl>
+  </div>
+
+  <table class="toc">
+    <tr><th>타임</th><th>구성</th><th>분량</th></tr>
+    <tr><td>00:00</td><td>콜드 오픈 — 타수가 새는 진짜 구간</td><td>50초</td></tr>
+    <tr><td>00:50</td><td>인트로 · 오늘 다룰 것</td><td>1분</td></tr>
+    <tr><td>01:50</td><td>STEP 1 — 어프로치 셋업 4가지</td><td>2분 30초</td></tr>
+    <tr><td>04:20</td><td>STEP 2 — 시계 방식, 거리감의 정체</td><td>3분 30초</td></tr>
+    <tr><td>07:50</td><td>STEP 3 — 굴릴까 띄울까</td><td>2분 30초</td></tr>
+    <tr><td>10:20</td><td>STEP 4 — 드릴 3가지</td><td>2분 30초</td></tr>
+    <tr><td>12:50</td><td>실전 — 라이가 나쁠 때의 어프로치</td><td>1분 30초</td></tr>
+    <tr><td>14:20</td><td>흔한 실수 · 정리 · 마무리</td><td>1분 30초</td></tr>
+  </table>
+
+  <!-- ================= 콜드 오픈 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">00:00</span>
+      <span class="blk-name">콜드 오픈</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ① 토킹캠. 웨지 하나 들고 공 옆에 서서.</p>
+
+    <div class="say">
+      <p class="b">라운드 끝나고 스코어카드 보면서 이런 생각 해보신 적 있으실 거예요.</p>
+      <p class="b">"오늘 드라이버 잘 맞았는데 왜 스코어가 이렇지."</p>
+      <p class="b">이유는 대부분 여기입니다. (공 가리키며) <em>그린 앞 30미터.</em></p>
+      <p class="b">여기서 한 번에 못 올려서 두 번, 세 번 치는 거요. 그거 한 홀에 두 타씩만 새도 라운드 전체로는 열 몇 타예요.</p>
+      <p class="b">그런데 제가 물어볼게요. 여러분, <em>30미터 어프로치를 어떻게 치세요?</em></p>
+      <p class="b">(한 박자 쉬고) 아마 대부분 <em>"이 정도 힘으로"</em> 라고 답하실 겁니다.</p>
+      <p class="b"><em>그 '이 정도'가 매번 다른 게 문제입니다.</em> 오늘 그걸 숫자로 바꿔 드릴게요.</p>
+    </div>
+
+    <p class="cue cg"><b>자막</b> 타이틀 / "30m 어프로치, 감으로 치지 마세요"</p>
+  </div>
+
+  <!-- ================= 인트로 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">00:50</span>
+      <span class="blk-name">인트로</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ① 토킹캠</p>
+
+    <div class="say">
+      <p class="b">안녕하세요. (채널 인사)</p>
+      <p class="b">오늘 주제는 30미터 안쪽 어프로치입니다. 스코어를 제일 빨리 줄일 수 있는 구간이에요.</p>
+      <p class="b">순서는 이렇습니다. 먼저 <em>셋업</em>. 어프로치는 풀스윙이랑 셋업이 완전히 다릅니다.</p>
+      <p class="b">그다음 오늘의 핵심, <em>시계 방식</em>으로 거리를 만드는 법.</p>
+      <p class="b">그리고 <em>굴릴지 띄울지</em> 판단하는 기준. 마지막으로 드릴입니다.</p>
+      <p class="b">특히 두 번째 파트는 <em>여러분이 직접 숙제를 해오셔야</em> 하는 내용이에요. 그 얘기 나오면 메모 준비하세요.</p>
+    </div>
+  </div>
+
+  <!-- ================= STEP 1 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">01:50</span>
+      <span class="blk-name">STEP 1 — 어프로치 셋업 4가지</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ② 정면 스윙캠 — 어드레스 전신</p>
+
+    <div class="say">
+      <p class="b">어프로치 셋업, 네 가지만 바꾸시면 됩니다.</p>
+      <p class="b">하나. <em>스탠스를 좁힙니다.</em> 어깨너비의 절반 정도. 발이 거의 붙었다 싶을 만큼요.</p>
+      <p class="b">왜냐면 어프로치는 <em>체중 이동을 안 하는</em> 샷이거든요. 넓게 서면 몸이 움직입니다.</p>
+      <p class="b">둘. <em>몸을 살짝 왼쪽으로 엽니다.</em> 발이랑 골반을 타겟 쪽으로 조금만 돌리세요.</p>
+      <p class="b">이렇게 하면 하체가 막히지 않아서 <em>클럽이 몸에 걸리지 않고</em> 빠져나갑니다.</p>
+      <p class="b">셋. <em>체중을 왼발에 60퍼센트</em> 두고, 그대로 <em>끝까지 유지</em>합니다. 오른쪽으로 넘기지 마세요.</p>
+      <p class="b">넷. <em>그립을 짧게 잡습니다.</em> 두세 센티만 내려 잡아도 컨트롤이 확 좋아집니다.</p>
+      <p class="b">그리고 <em>손이 공보다 살짝 앞에</em> 있게 하세요. 클럽 손잡이가 왼쪽 허벅지를 향하는 느낌으로요.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 네 가지를 하나씩 순서대로 세팅하면서 보여주기 (정면 캠). 완성된 셋업 5초 정지.</p>
+    <p class="cue cg"><b>자막</b> "좁게 · 살짝 열고 · 왼발 60% · 짧게 잡고"</p>
+  </div>
+
+  <!-- ================= STEP 2 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">04:20</span>
+      <span class="blk-name">STEP 2 — 시계 방식, 거리감의 정체</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ② 정면 스윙캠 — 팔 높이가 잘 보이게. 설명은 CAM ①</p>
+
+    <div class="say">
+      <p class="b">자, 오늘의 핵심입니다.</p>
+      <p class="b">대부분 거리 조절을 <em>힘으로</em> 하십니다. "이건 좀 살살", "이건 좀 세게".</p>
+      <p class="b">(강조하며) <em>힘 조절은 사람이 제일 못하는 일입니다.</em> 긴장하면 무조건 세지고, 자신 없으면 무조건 약해져요.</p>
+      <p class="b">그래서 프로들은 힘이 아니라 <em>크기</em>로 조절합니다. 힘은 항상 똑같이 쓰고, <em>백스윙 크기만</em> 바꿔요.</p>
+      <p class="b">방법은 이렇습니다. 내 몸이 시계라고 생각하세요. 머리가 12시, 발이 6시입니다.</p>
+      <p class="b">그리고 <em>왼팔이 어디까지 올라가는지</em>로 크기를 정합니다.</p>
+      <p class="b">왼팔이 <em>7시 30분</em>, 그러니까 무릎 높이까지. 이게 제일 작은 스윙.</p>
+      <p class="b">왼팔이 <em>9시</em>, 지면과 평행. 이게 중간.</p>
+      <p class="b">왼팔이 <em>10시 30분</em>, 어깨 높이보다 살짝 위. 이게 큰 스윙.</p>
+      <p class="b">딱 세 개만 만드세요. 그 이상은 필요 없습니다.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 7시반 / 9시 / 10시반 각각 백스윙 정지 자세 5초씩 (정면 캠). 화면에 시계 그래픽 겹칠 예정.</p>
+
+    <div class="say">
+      <p class="b">여기서 <em>숙제</em>가 나옵니다. 메모하세요.</p>
+      <p class="b">연습장 가셔서, 클럽 세 개를 고르세요. <em>피칭웨지, 52도, 56도.</em> 이 정도면 충분합니다.</p>
+      <p class="b">그리고 각 클럽으로 <em>세 가지 크기</em>를 각각 열 번씩 치세요.</p>
+      <p class="b">그러면 몇 개의 거리가 나올까요. 클럽 세 개 곱하기 크기 세 개, <em>아홉 가지 거리</em>가 나옵니다.</p>
+      <p class="b">그걸 <em>휴대폰 메모장에 적으세요.</em> "56도 9시 = 25미터" 이런 식으로요.</p>
+      <p class="b">(강조) <em>이 표가 완성되는 순간, 어프로치는 감이 아니라 계산이 됩니다.</em></p>
+      <p class="b">30미터가 남았다? 표를 보고 그 거리에 맞는 클럽과 크기를 고르면 끝이에요. 고민할 게 없어집니다.</p>
+      <p class="b">그리고 하나 더. 크기가 세 배 커진다고 거리가 세 배 늘지 않습니다. 그러니까 <em>반드시 직접 재보셔야</em> 해요.</p>
+    </div>
+
+    <p class="cue cg"><b>자막</b> 3×3 표 그래픽 — 가로: PW/52/56, 세로: 7시반/9시/10시반</p>
+
+    <div class="say">
+      <p class="b">그리고 딱 하나 지켜야 할 규칙이 있습니다.</p>
+      <p class="b"><em>백스윙이 7시 30분이면, 폴로스루도 7시 30분입니다.</em> 대칭이어야 해요.</p>
+      <p class="b">백스윙 크게 하고 임팩트에서 멈추는 것. 이게 어프로치 미스의 <em>1등 원인</em>입니다.</p>
+      <p class="b">공이 무서워서 <em>감속</em>하면 클럽이 땅에 박히거나, 아니면 몸이 들려서 공 머리를 때립니다.</p>
+      <p class="b">(강조) <em>작게 치되, 끝까지 가속하세요.</em> 이게 전부입니다.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 감속하는 나쁜 예 1구 (뒤땅/토핑) → 대칭 가속 좋은 예 2구</p>
+    <p class="cue cg"><b>자막</b> "백스윙 = 폴로스루 (대칭)"</p>
+  </div>
+
+  <!-- ================= STEP 3 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">07:50</span>
+      <span class="blk-name">STEP 3 — 굴릴까 띄울까</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ③ 후방 — 공이 떨어지고 굴러가는 게 보이게</p>
+
+    <div class="say">
+      <p class="b">이제 판단 기준입니다. 굴릴 거냐, 띄울 거냐.</p>
+      <p class="b">원칙은 하나예요. (강조) <em>굴릴 수 있으면 무조건 굴리세요.</em></p>
+      <p class="b">띄우는 샷은 실수 폭이 큽니다. 조금만 잘못 맞아도 확 짧아지거나 확 길어져요.</p>
+      <p class="b">그런데 굴리는 샷은 <em>퍼팅에 가깝습니다.</em> 실수해도 결과가 크게 안 벌어져요.</p>
+      <p class="b">프로들이 그린 주변에서 8번 아이언 꺼내는 거 보신 적 있으실 거예요. 멋있어 보이려고 그러는 게 아닙니다. <em>제일 안전해서</em> 그러는 겁니다.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 같은 자리에서 56도 띄우기 / 9번 굴리기 각각 2구. 결과 비교.</p>
+
+    <div class="say">
+      <p class="b">그럼 클럽은 어떻게 고를까요. 대략적인 기준을 드릴게요.</p>
+      <p class="b">공이 <em>뜬 거리와 굴러간 거리의 비율</em>로 외우시면 편합니다.</p>
+      <p class="b"><em>56도는 대략 1대 1.</em> 뜬 만큼 굴러갑니다.</p>
+      <p class="b"><em>피칭웨지는 1대 2</em> 정도. 1만큼 뜨고 2만큼 굴러가요.</p>
+      <p class="b"><em>9번 아이언은 1대 3, 8번은 1대 4</em> 정도 봅니다.</p>
+      <p class="b">그래서 순서는 이렇게 정하세요. 먼저 <em>공을 떨어뜨릴 지점</em>을 정합니다. 보통 그린 초입, 평평한 곳이요.</p>
+      <p class="b">그리고 <em>거기서 홀까지 얼마나 굴러가야 하는지</em> 보고, 그 비율에 맞는 클럽을 고르는 겁니다.</p>
+      <p class="b">(강조하며) 이 순서가 중요해요. <em>클럽을 먼저 고르는 게 아니라, 떨어뜨릴 지점을 먼저 정하는 겁니다.</em></p>
+      <p class="b">그리고 실제로 칠 때는 홀을 보지 말고 <em>그 떨어뜨릴 지점만</em> 보세요. 훨씬 정확해집니다.</p>
+    </div>
+
+    <p class="cue cg"><b>자막</b> 클럽별 캐리 : 런 비율 표 (56도 1:1 / PW 1:2 / 9i 1:3 / 8i 1:4)</p>
+    <p class="cue demo"><b>시연</b> 착지 지점에 수건 깔아놓고, 수건 맞히기 3구</p>
+  </div>
+
+  <!-- ================= STEP 4 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">10:20</span>
+      <span class="blk-name">STEP 4 — 드릴 3가지</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ② 정면 위주</p>
+
+    <div class="say">
+      <p class="b">드릴 세 개입니다.</p>
+      <p class="b">드릴 하나. <em>수건 착지 드릴.</em> 방금 보여드린 거예요.</p>
+      <p class="b">수건을 목표 지점에 깔아놓고, <em>수건 위에 떨어뜨리는 것만</em> 목표로 열 번 치세요.</p>
+      <p class="b">홀에 넣으려고 하지 마세요. <em>착지 지점 컨트롤</em>만 연습하는 겁니다. 이게 되면 나머지는 계산이에요.</p>
+      <p class="b">드릴 둘. <em>왼팔 한 손 어프로치.</em></p>
+      <p class="b">오른손을 떼고 <em>왼손만으로</em> 작은 어프로치를 쳐보세요. 처음엔 잘 안 됩니다.</p>
+      <p class="b">그런데 이걸 하면 <em>손목으로 퍼올리는 동작이 원천적으로 안 나옵니다.</em> 힘이 없으니까요.</p>
+      <p class="b">몸통이 돌면서 팔이 따라가는 감각. 그게 어프로치의 정답입니다.</p>
+      <p class="b">드릴 셋. <em>수건 겨드랑이 드릴.</em></p>
+      <p class="b">수건을 <em>양쪽 겨드랑이에 끼우고</em> 어프로치를 치세요. 수건이 떨어지면 실패입니다.</p>
+      <p class="b">팔이 몸에서 떨어지면 수건이 빠져요. 안 빠지게 하려면 <em>팔과 몸이 같이 움직일 수밖에</em> 없습니다.</p>
+      <p class="b">이게 어프로치에서 제일 중요한 <em>몸통과 팔의 연결</em>을 만들어 줍니다.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 세 드릴 각각 2회씩. 수건 떨어지는 나쁜 예 1회 포함.</p>
+    <p class="cue cg"><b>자막</b> "① 수건 착지 ② 왼팔 한 손 ③ 겨드랑이 수건"</p>
+  </div>
+
+  <!-- ================= 실전 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">12:50</span>
+      <span class="blk-name">실전 — 라이가 나쁠 때</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ① 토킹캠 → 각 상황 시연은 CAM ②</p>
+
+    <div class="say">
+      <p class="b">여기까지가 <em>좋은 자리</em>에서 친 얘기였고요. 코스에서는 자리가 매번 다릅니다.</p>
+      <p class="b">상황별로 세 가지만 정리해 드릴게요.</p>
+      <p class="b">첫째, <em>맨땅이나 딱딱한 자리.</em> 여기가 제일 실수가 많습니다.</p>
+      <p class="b">여기서 56도로 띄우려고 하시면 (강조) <em>거의 다 실패합니다.</em> 클럽 바닥이 땅에 튕겨서 공 머리를 때려요.</p>
+      <p class="b">이럴 땐 무조건 <em>굴리세요.</em> 9번이나 피칭웨지 들고 <em>퍼팅하듯이</em> 치는 게 정답입니다.</p>
+      <p class="b">둘째, <em>깊은 러프.</em> 공이 잔디에 푹 잠겨 있는 상황이요.</p>
+      <p class="b">여기서는 반대입니다. <em>페이스를 살짝 열고, 평소보다 세게</em> 치세요.</p>
+      <p class="b">잔디가 클럽을 잡아채기 때문에, 평소 세기로 치면 <em>공이 3미터도 안 갑니다.</em></p>
+      <p class="b">그리고 러프에서는 공이 <em>스핀 없이 나와서 많이 굴러갑니다.</em> 그거 감안하고 짧게 떨어뜨리세요.</p>
+      <p class="b">셋째, <em>그린이 오르막이냐 내리막이냐.</em></p>
+      <p class="b">오르막 그린이면 <em>굴러가는 게 줄어듭니다.</em> 그러니까 홀 가까이 떨어뜨려도 돼요.</p>
+      <p class="b">내리막 그린이면 <em>계속 굴러갑니다.</em> 이럴 땐 로프트가 큰 클럽으로, <em>훨씬 앞쪽에</em> 떨어뜨리셔야 합니다.</p>
+      <p class="b">(강조) 그린 상황을 안 보고 클럽부터 꺼내는 게 제일 흔한 실수예요. <em>먼저 보고, 그다음에 꺼내세요.</em></p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 맨땅에서 56도 띄우기 실패 예 1구 → 9번으로 굴리기 성공 1구. 러프에서 1구.</p>
+    <p class="cue cg"><b>자막</b> "맨땅 = 굴리기 / 러프 = 열고 세게 / 내리막 = 앞쪽에"</p>
+  </div>
+
+  <!-- ================= 정리 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">14:20</span>
+      <span class="blk-name">흔한 실수 · 정리 · 마무리</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ① 토킹캠</p>
+
+    <div class="say">
+      <p class="b">흔한 실수 세 가지입니다.</p>
+      <p class="b">첫째, <em>손목으로 퍼올리기.</em> 공을 띄우려고 손목을 쓰는 순간 뒤땅 아니면 토핑입니다. 로프트가 알아서 띄웁니다.</p>
+      <p class="b">둘째, <em>임팩트에서 감속하기.</em> 아까 말씀드린 1등 원인이에요. 작게 치되 <em>끝까지</em> 가세요.</p>
+      <p class="b">셋째, <em>무조건 56도만 쓰기.</em> 상황에 상관없이 한 클럽만 쓰면 어려운 샷을 계속 하시는 겁니다. 굴릴 수 있으면 굴리세요.</p>
+      <p class="b">오늘 내용 정리합니다.</p>
+      <p class="b"><em>거리는 힘이 아니라 크기로 만든다. 그리고 그 크기별 거리를 숫자로 적어둔다.</em></p>
+      <p class="b">이번 주에 연습장 가시면 <em>공 백 개 중에 서른 개는</em> 어프로치에 쓰세요. 스코어가 제일 빨리 줄어드는 투자입니다.</p>
+      <p class="b">그리고 아까 그 표. 만드시고 나면 댓글로 알려주세요. (웃으며) 궁금합니다.</p>
+      <p class="b">다음 영상은 퍼팅입니다. 3퍼트 없애는 방법으로 찾아뵐게요.</p>
+      <p class="b">오늘도 감사합니다. 좋은 스윙 하세요.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 마지막 컷 — 어프로치 한 구 붙이기</p>
+    <p class="cue cg"><b>자막</b> 요약 카드 / 구독 · 좋아요 / 다음 영상 카드</p>
+  </div>
+
+  <div class="endmark">— EP 06 END —</div>
+</section>
+
+
+<!-- TITLE: EP 07 3퍼트가 사라지는 퍼팅 루틴 -->
+
+<section class="script">
+  <div class="ep-head">
+    <div class="ep-no">EP 07</div>
+    <h1 class="ep-title">3퍼트가 사라지는<br>퍼팅 루틴</h1>
+    <p class="ep-sub">넣으려고 하지 마세요. 거리부터 맞추면 3퍼트가 사라집니다</p>
+  </div>
+
+  <div class="spec">
+    <dl>
+      <dt>촬영 시간</dt><dd>20~30분 (편집본 13분 목표)</dd>
+      <dt>준비물</dt><dd>퍼터 · 티 4개 · 얼라인먼트 스틱 1개 · 동전 또는 볼마커 여러 개</dd>
+      <dt>장소</dt><dd>퍼팅 연습 그린 (길이 10m 이상 나오는 곳)</dd>
+      <dt>핵심 한 줄</dt><dd>3퍼트는 <b>방향</b>이 아니라 <b>거리</b> 때문에 난다</dd>
+    </dl>
+  </div>
+
+  <table class="toc">
+    <tr><th>타임</th><th>구성</th><th>분량</th></tr>
+    <tr><td>00:00</td><td>콜드 오픈 — 3퍼트가 만들어지는 순간</td><td>50초</td></tr>
+    <tr><td>00:50</td><td>인트로 · 오늘 다룰 것</td><td>1분</td></tr>
+    <tr><td>01:50</td><td>STEP 1 — 3퍼트의 진짜 원인</td><td>2분</td></tr>
+    <tr><td>03:50</td><td>STEP 2 — 퍼팅 셋업</td><td>3분</td></tr>
+    <tr><td>06:50</td><td>STEP 3 — 진자 스트로크</td><td>2분 30초</td></tr>
+    <tr><td>09:20</td><td>STEP 4 — 거리감 드릴 3가지</td><td>3분</td></tr>
+    <tr><td>12:20</td><td>실전 — 그린 읽기 3단계</td><td>1분 30초</td></tr>
+    <tr><td>13:50</td><td>퍼팅 루틴 · 정리 · 시리즈 마무리</td><td>1분 40초</td></tr>
+  </table>
+
+  <!-- ================= 콜드 오픈 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">00:00</span>
+      <span class="blk-name">콜드 오픈</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ② 정면. 10m 롱퍼트를 짧게 남기고 → 남은 2m를 또 놓치는 장면 재현</p>
+
+    <div class="say">
+      <p class="b">(퍼트가 짧게 멈춘 걸 보고) 이거요. 이게 3퍼트가 만들어지는 순간입니다.</p>
+      <p class="b">첫 퍼트가 짧았어요. 그래서 2미터가 남았죠. 그리고 (두 번째 퍼트 놓치고) 이렇게 됩니다.</p>
+      <p class="b">그런데 잘 보세요. <em>방향은 나쁘지 않았습니다.</em> 홀 쪽으로 잘 갔어요.</p>
+      <p class="b"><em>3퍼트는 거의 다 거리 때문에 납니다. 방향 때문이 아니에요.</em></p>
+      <p class="b">그런데 우리는 연습장에서 뭘 연습할까요. (한 박자 쉬고) 홀 앞 1미터에서 <em>넣는 연습</em>만 합니다.</p>
+      <p class="b">오늘은 순서를 바꿔보겠습니다. <em>넣는 연습 말고, 거리 맞추는 연습.</em> 이게 3퍼트를 없애는 방법입니다.</p>
+    </div>
+
+    <p class="cue cg"><b>자막</b> 타이틀 / "3퍼트의 원인 = 거리"</p>
+  </div>
+
+  <!-- ================= 인트로 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">00:50</span>
+      <span class="blk-name">인트로</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ① 토킹캠. 퍼터 짚고.</p>
+
+    <div class="say">
+      <p class="b">안녕하세요. (채널 인사)</p>
+      <p class="b">퍼팅은 골프에서 <em>스코어의 40퍼센트</em>를 차지합니다. 그런데 연습 시간은 아마 10퍼센트도 안 쓰실 거예요.</p>
+      <p class="b">(웃으며) 저도 그랬습니다. 드라이버가 재밌으니까요.</p>
+      <p class="b">오늘은 퍼팅을 네 단계로 정리하겠습니다. <em>원인, 셋업, 스트로크, 그리고 거리감 드릴.</em></p>
+      <p class="b">마지막에는 그린 위에서 그대로 쓸 수 있는 <em>루틴</em>까지 만들어 드릴게요.</p>
+    </div>
+  </div>
+
+  <!-- ================= STEP 1 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">01:50</span>
+      <span class="blk-name">STEP 1 — 3퍼트의 진짜 원인</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ① 토킹캠 → 설명 중 CAM ③ 후방으로 그린 전경</p>
+
+    <div class="say">
+      <p class="b">10미터 퍼트를 생각해 봅시다.</p>
+      <p class="b">방향이 조금 틀어져도, 거리만 맞으면 홀 옆 <em>한 걸음 안쪽</em>에 붙습니다. 그럼 다음은 쉽게 넣죠.</p>
+      <p class="b">그런데 방향은 완벽한데 거리가 2미터 짧으면? <em>2미터 퍼트가 남습니다.</em> 이건 프로도 자주 놓치는 거리예요.</p>
+      <p class="b">보이시죠. (강조) <em>같은 실수라도 거리 실수가 훨씬 비쌉니다.</em></p>
+      <p class="b">그래서 롱퍼트의 목표는 <em>넣는 게 아닙니다.</em> 목표는 <em>홀 주변 한 걸음 안에 세우는 것</em>이에요.</p>
+      <p class="b">그리고 하나 더. <em>짧은 건 무조건 안 들어갑니다.</em> 지나가야 들어갈 확률이라도 있어요.</p>
+      <p class="b">그래서 기준을 이렇게 잡으세요. <em>홀을 30센티에서 50센티 정도 지나가는 세기.</em></p>
+      <p class="b">짧게 치는 습관, 오늘 이 영상 보시고 버리세요. 그것만 고쳐도 라운드에서 두세 타는 줄어듭니다.</p>
+    </div>
+
+    <p class="cue cg"><b>자막</b> "롱퍼트 목표 = 홀 주변 한 걸음 안" / "짧은 퍼트는 0% 확률"</p>
+    <p class="cue demo"><b>시연</b> 홀 주변에 반경 1m 원 표시(볼마커 여러 개) → 롱퍼트 3구를 원 안에 넣기</p>
+  </div>
+
+  <!-- ================= STEP 2 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">03:50</span>
+      <span class="blk-name">STEP 2 — 퍼팅 셋업</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ③ 후방 — 눈 위치와 어깨 라인이 보이게. 그립은 CAM ① 클로즈업</p>
+
+    <div class="say">
+      <p class="b">셋업 갑니다. 네 가지예요.</p>
+      <p class="b">하나. <em>눈이 공 바로 위, 혹은 아주 살짝 안쪽에.</em></p>
+      <p class="b">확인법 알려드릴게요. 어드레스 하고 <em>눈 아래에 공을 하나 떨어뜨려 보세요.</em></p>
+      <p class="b">그 공이 <em>치려는 공 위에 떨어지거나 살짝 안쪽에</em> 떨어지면 정상입니다.</p>
+      <p class="b">눈이 공보다 바깥에 있으면 라인이 왼쪽으로 보이고, 안쪽에 너무 있으면 오른쪽으로 보입니다. 그러면 <em>제대로 쳐도 안 들어가요.</em></p>
+      <p class="b">둘. <em>어깨는 라인과 평행.</em> 퍼팅은 어깨가 스트로크 방향을 결정합니다. 어깨가 열려 있으면 컷으로 깎여요.</p>
+      <p class="b">셋. <em>손은 그립 아래에 매달린 느낌으로.</em> 팔에 힘을 빼고 어깨에서 축 늘어뜨리세요.</p>
+      <p class="b">넷. <em>공은 스탠스 중앙보다 살짝 왼쪽, 왼쪽 눈 아래</em>쯤에 둡니다.</p>
+      <p class="b">여기가 퍼터가 <em>최저점을 지나 살짝 올라가는</em> 지점이라서, 공이 깨끗하게 굴러갑니다.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 눈 위치 공 떨어뜨리기 테스트 (클로즈업). 어깨 라인에 스틱 대고 평행 확인.</p>
+
+    <div class="say">
+      <p class="b">그립도 잠깐 짚을게요. 퍼팅 그립의 목적은 딱 하나입니다. <em>손목을 안 쓰게 만드는 것.</em></p>
+      <p class="b">그래서 풀스윙이랑 반대로 <em>손가락이 아니라 손바닥</em>으로 잡습니다. 손바닥과 팔이 일직선이 되게요.</p>
+      <p class="b">양손 엄지는 <em>그립 위쪽에 나란히</em> 놓으시고요.</p>
+      <p class="b">손목이 자꾸 꺾이시는 분은 <em>왼손을 아래로 내려 잡는</em> 방식도 해보세요. 크로스 핸드라고 하는데, 왼쪽 손목이 훨씬 안정됩니다.</p>
+      <p class="b">(웃으며) 남들이 뭐라 해도 괜찮아요. 퍼팅 그립은 <em>정답이 없고 결과만 있습니다.</em></p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 일반 그립 / 크로스 핸드 그립 클로즈업 비교</p>
+  </div>
+
+  <!-- ================= STEP 3 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">06:50</span>
+      <span class="blk-name">STEP 3 — 진자 스트로크</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ② 정면 — 어깨 움직임이 보이게</p>
+
+    <div class="say">
+      <p class="b">스트로크는 <em>진자</em>입니다. 시계추요.</p>
+      <p class="b">양팔과 어깨가 삼각형을 만들죠. 그 삼각형을 <em>통째로</em> 움직입니다. 손목이나 팔꿈치는 안 씁니다.</p>
+      <p class="b">움직이는 건 <em>어깨</em>예요. 왼쪽 어깨가 내려가면 오른쪽 어깨가 올라가고, 반대로 오면 반대가 되고.</p>
+      <p class="b">하체와 머리는 <em>완전히 고정</em>입니다. 퍼팅은 골프에서 유일하게 머리를 진짜로 고정해도 되는 샷이에요.</p>
+      <p class="b">그리고 <em>공을 친 다음에도 잠깐 그 자리를 보세요.</em> 소리로 결과를 듣는 겁니다. 고개를 들면 어깨가 열려서 왼쪽으로 밀려요.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 진자 스트로크 느리게 3회 (정면 캠). 손목 쓰는 나쁜 예도 1회.</p>
+
+    <div class="say">
+      <p class="b">그리고 <em>템포.</em> 이게 거리감의 절반입니다.</p>
+      <p class="b">거리가 멀든 가깝든, <em>스트로크 속도는 항상 똑같아야 합니다.</em></p>
+      <p class="b">거리는 속도가 아니라 <em>길이</em>로 조절해요. 짧은 퍼트는 짧게, 긴 퍼트는 길게. 속도는 그대로.</p>
+      <p class="b">(강조하며) 이게 어프로치 때 말씀드린 거랑 똑같은 원리입니다. <em>힘이 아니라 크기.</em></p>
+      <p class="b">그리고 <em>백스트로크보다 폴로스루를 길게</em> 가져가세요. 그래야 가속이 됩니다.</p>
+      <p class="b">뒤로 크게 뺐다가 툭 멈추는 스트로크. 이게 거리감이 제일 안 맞는 스트로크입니다.</p>
+    </div>
+
+    <p class="cue cg"><b>자막</b> "속도는 항상 같게 · 길이로 조절"</p>
+  </div>
+
+  <!-- ================= STEP 4 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">09:20</span>
+      <span class="blk-name">STEP 4 — 거리감 드릴 3가지</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ③ 후방 — 그린 전체와 공이 굴러가는 게 보이게</p>
+
+    <div class="say">
+      <p class="b">이제 드릴입니다. 오늘의 진짜 핵심이에요.</p>
+      <p class="b">드릴 하나. <em>사다리 드릴.</em> 거리감 만드는 데 이거보다 좋은 게 없습니다.</p>
+      <p class="b">한 지점에서 출발해서, <em>3미터, 6미터, 9미터</em> 지점에 볼마커를 놓으세요.</p>
+      <p class="b">그리고 공 세 개를 <em>순서대로</em> 각 지점에 세우는 겁니다. 홀에 넣는 게 아니라 <em>그 자리에 세우는</em> 거예요.</p>
+      <p class="b">이게 되면 반대로 <em>9미터, 6미터, 3미터</em> 순서로 내려오세요. 이게 훨씬 어렵습니다.</p>
+      <p class="b">이 드릴을 하면 <em>내 몸이 거리별 스트로크 길이를 기억하기 시작합니다.</em> 머리로 아는 게 아니라 몸이 알아요.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 사다리 드릴 — 올라가기 3구, 내려오기 3구. 후방 캠 롱샷.</p>
+
+    <div class="say">
+      <p class="b">드릴 둘. <em>눈 감고 치기.</em> 이게 진짜 물건입니다.</p>
+      <p class="b">5미터 정도 거리에서, <em>어드레스 하고 눈을 감고</em> 퍼트하세요.</p>
+      <p class="b">그리고 공이 굴러가는 동안, <em>눈 뜨기 전에 짧을지 길지 맞춰보세요.</em></p>
+      <p class="b">처음엔 완전히 틀립니다. 그런데 스무 개쯤 하다 보면 <em>맞기 시작해요.</em></p>
+      <p class="b">그게 감각이 생기는 겁니다. 눈이 아니라 <em>손과 몸이 거리를 아는 상태.</em> 그린에서 필요한 게 딱 이거예요.</p>
+      <p class="b">드릴 셋. <em>게이트 드릴.</em> 이건 방향용입니다.</p>
+      <p class="b">퍼터 헤드보다 <em>양쪽으로 손가락 하나씩</em> 넓게, 티 두 개를 꽂으세요. 그 사이로 퍼터를 통과시키는 겁니다.</p>
+      <p class="b">티를 건드리면 스트로크가 흔들린 거예요. 열 번 중에 여덟 번 통과하면 합격입니다.</p>
+      <p class="b">(강조) 근데 순서를 지키세요. <em>거리 드릴 먼저, 방향 드릴 나중.</em> 대부분 반대로 하셔서 3퍼트가 안 없어집니다.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 눈 감고 퍼팅 2구 (표정 잡히게 정면 캠) → 게이트 드릴 3구 (클로즈업)</p>
+    <p class="cue cg"><b>자막</b> "① 사다리 ② 눈 감고 ③ 게이트 — 이 순서로"</p>
+  </div>
+
+  <!-- ================= 실전 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">12:20</span>
+      <span class="blk-name">실전 — 그린 읽기 3단계</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ③ 후방 — 그린 경사가 보이게. 설명은 CAM ①</p>
+
+    <div class="say">
+      <p class="b">거리감이 잡혔으면 이제 <em>라인</em>입니다. 그린 읽기, 어렵게 생각하지 마세요. 세 단계면 됩니다.</p>
+      <p class="b">1단계, <em>걸어 들어가면서 읽습니다.</em></p>
+      <p class="b">그린에 올라갈 때 <em>발바닥으로</em> 느끼세요. 오르막인지 내리막인지는 눈보다 발이 훨씬 정확합니다.</p>
+      <p class="b">그리고 <em>그린 전체가 어느 쪽으로 기울어 있는지</em>도 보세요. 대부분의 그린은 <em>물이 빠지는 쪽</em>으로 기울어 있습니다.</p>
+      <p class="b">2단계, <em>공 뒤 낮은 쪽에서 봅니다.</em></p>
+      <p class="b">높은 쪽에서 보면 경사가 평평해 보여요. 반드시 <em>낮은 쪽에 쪼그려 앉아서</em> 보셔야 경사가 보입니다.</p>
+      <p class="b">3단계, 이게 제일 중요한데 아무도 안 알려줍니다. <em>홀 주변 1.5미터만 집중해서 보세요.</em></p>
+      <p class="b">왜냐면 공은 <em>홀 근처에서 제일 느려지고</em>, 느려질수록 경사를 많이 탑니다.</p>
+      <p class="b">출발할 때는 빨라서 경사를 별로 안 타요. (강조) <em>라인의 8할은 마지막 1.5미터에서 결정됩니다.</em></p>
+      <p class="b">그리고 강도에 대한 팁 하나. <em>오르막은 홀 뒤 벽을 맞힌다는 느낌으로 과감하게.</em></p>
+      <p class="b"><em>내리막은 홀을 직접 보지 말고, 홀 앞 30센티에 세운다는 느낌으로</em> 치세요.</p>
+      <p class="b">마지막으로요. 라인을 못 읽겠다 싶으면 <em>그냥 똑바로 치세요.</em></p>
+      <p class="b">애매하게 읽고 그만큼 안 치는 것보다, <em>확실하게 결정하고 그대로 치는 게</em> 훨씬 잘 들어갑니다.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 그린 낮은 쪽에서 라인 읽는 자세 → 홀 주변 1.5m 손으로 짚어주기 → 경사 있는 퍼트 2구</p>
+    <p class="cue cg"><b>자막</b> "라인의 8할은 마지막 1.5m에서 결정된다"</p>
+  </div>
+
+  <!-- ================= 루틴 & 마무리 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">13:50</span>
+      <span class="blk-name">퍼팅 루틴 · 정리 · 시리즈 마무리</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ① 토킹캠 → 루틴 시연은 CAM ③</p>
+
+    <div class="say">
+      <p class="b">마지막으로 그린 위에서 쓸 루틴 정리해 드릴게요. 네 단계입니다.</p>
+      <p class="b">하나. <em>공 뒤에서 홀까지 걸어가면서</em> 오르막인지 내리막인지 발로 느낍니다. 눈보다 발이 정확합니다.</p>
+      <p class="b">둘. <em>공 뒤 낮은 쪽에 앉아서</em> 라인을 봅니다. 높은 쪽에서 보면 경사가 잘 안 보여요.</p>
+      <p class="b">셋. <em>연습 스트로크는 홀을 보면서</em> 두 번. 라인이 아니라 <em>거리를 느끼려고</em> 하는 겁니다.</p>
+      <p class="b">넷. 어드레스 하고 <em>홀 한 번 보고, 공 보고, 바로 칩니다.</em> 3초 안에요.</p>
+      <p class="b">(강조) 여기서 오래 서 있으면 무조건 나빠집니다. 퍼팅은 <em>고민이 길수록 안 들어갑니다.</em></p>
+      <p class="b">오늘 내용 한 줄로 정리할게요.</p>
+      <p class="b"><em>넣으려고 하지 말고, 거리를 맞추세요. 그러면 3퍼트가 사라지고, 그 다음에 넣는 퍼트가 늘어납니다.</em></p>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ① 토킹캠. 퍼터 내려놓고 정면. 톤을 조금 낮춰서 진심으로.</p>
+
+    <div class="say">
+      <p class="b">그리고 이번 영상으로 <em>기본기 시리즈 일곱 편이 마무리</em>됐습니다.</p>
+      <p class="b">슬라이스부터 드라이버, 아이언, 셋업, 백스윙, 어프로치, 그리고 퍼팅까지 왔네요.</p>
+      <p class="b">혹시 못 보신 편 있으시면 재생목록에 정리해 뒀으니까 순서대로 보시면 좋을 것 같습니다.</p>
+      <p class="b">다음 시리즈에서는 <em>실전 라운드</em>를 다뤄보려고 해요. 코스에서 어떻게 판단하고 어떻게 스코어를 지키는지요.</p>
+      <p class="b">보고 싶은 주제 있으시면 댓글로 남겨주세요. 다 읽어보고 반영하겠습니다.</p>
+      <p class="b">오늘도 끝까지 봐주셔서 감사합니다. 좋은 스윙 하세요.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 마지막 컷 — 롱퍼트가 홀에 붙는 장면, 혹은 들어가는 장면으로 마무리</p>
+    <p class="cue cg"><b>자막</b> 시리즈 7편 썸네일 나열 / 재생목록 링크 / 구독 · 좋아요</p>
+  </div>
+
+  <div class="endmark">— EP 07 END —</div>
+</section>
+
+</div>
+</body>
+</html>

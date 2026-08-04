@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EP 07 3퍼트가 사라지는 퍼팅 루틴</title>
+<style>
+/* =========================================================
+   골프 유튜브 레슨 대본 — 인쇄용 스타일
+   A4 세로 / 낭독용 큰 글씨 / 흑백 인쇄 대응
+   ========================================================= */
+
+@page {
+  size: A4 portrait;
+  margin: 15mm 14mm 15mm 14mm;
+}
+
+:root {
+  --ink:        #14181a;
+  --ink-soft:   #4a5257;
+  --green:      #1d5b3c;
+  --green-pale: #eef4f0;
+  --line:       #c9d1cd;
+  --line-soft:  #e3e8e5;
+  --gray-bg:    #f4f5f4;
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+body {
+  margin: 0;
+  color: var(--ink);
+  font-family: "Noto Sans CJK KR", "Noto Sans KR", "Malgun Gothic",
+               "Apple SD Gothic Neo", "맑은 고딕", sans-serif;
+  font-size: 15pt;
+  line-height: 1.9;
+  letter-spacing: -0.01em;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+/* ---------- 표지 ---------- */
+
+.cover {
+  page-break-after: always;
+  padding-top: 34mm;
+  text-align: center;
+}
+.cover .kicker {
+  font-size: 13pt;
+  letter-spacing: 0.32em;
+  color: var(--green);
+  font-weight: 700;
+  margin-bottom: 10mm;
+}
+.cover h1 {
+  font-size: 34pt;
+  line-height: 1.35;
+  font-weight: 800;
+  margin: 0 0 6mm;
+  letter-spacing: -0.03em;
+}
+.cover .sub {
+  font-size: 14pt;
+  color: var(--ink-soft);
+  line-height: 1.8;
+  margin-bottom: 16mm;
+}
+.cover .rule {
+  width: 46mm; height: 3px; background: var(--green);
+  margin: 0 auto 14mm;
+}
+.cover-list {
+  display: inline-block;
+  text-align: left;
+  border: 1.5px solid var(--line);
+  border-radius: 4mm;
+  padding: 8mm 10mm;
+  font-size: 13pt;
+  line-height: 2.15;
+}
+.cover-list b { color: var(--green); margin-right: 4mm; font-weight: 800; }
+
+/* ---------- 대본 1편 단위 ---------- */
+
+.script { page-break-before: always; }
+.script:first-of-type { page-break-before: auto; }
+
+.ep-head {
+  border-bottom: 3px solid var(--green);
+  padding-bottom: 5mm;
+  margin-bottom: 7mm;
+}
+.ep-no {
+  display: inline-block;
+  background: var(--green);
+  color: #fff;
+  font-size: 12pt;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  padding: 1.2mm 4mm;
+  border-radius: 2mm;
+  margin-bottom: 4mm;
+}
+.ep-title {
+  font-size: 25pt;
+  font-weight: 800;
+  line-height: 1.4;
+  margin: 0 0 3mm;
+  letter-spacing: -0.03em;
+}
+.ep-sub {
+  font-size: 13pt;
+  color: var(--ink-soft);
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* ---------- 촬영 정보 박스 ---------- */
+
+.spec {
+  background: var(--gray-bg);
+  border: 1px solid var(--line-soft);
+  border-radius: 3mm;
+  padding: 5mm 6mm;
+  margin-bottom: 6mm;
+  font-size: 11.5pt;
+  line-height: 1.85;
+  page-break-inside: avoid;
+}
+.spec dl { margin: 0; display: grid; grid-template-columns: 26mm 1fr; gap: 1mm 0; }
+.spec dt { font-weight: 800; color: var(--green); }
+.spec dd { margin: 0; color: var(--ink); }
+
+/* ---------- 러닝 타임 표 ---------- */
+
+.toc {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11.5pt;
+  margin-bottom: 8mm;
+  page-break-inside: avoid;
+}
+.toc th, .toc td {
+  border-bottom: 1px solid var(--line-soft);
+  padding: 2.2mm 2mm;
+  text-align: left;
+  line-height: 1.6;
+}
+.toc th {
+  background: var(--green-pale);
+  font-weight: 800;
+  font-size: 11pt;
+  border-bottom: 1.5px solid var(--line);
+}
+.toc td:first-child, .toc th:first-child { width: 24mm; white-space: nowrap; font-weight: 700; }
+.toc td:last-child,  .toc th:last-child  { width: 26mm; white-space: nowrap; color: var(--ink-soft); }
+
+/* ---------- 블록(장면) ---------- */
+
+.blk { margin-bottom: 8mm; }
+
+.blk-head {
+  display: flex;
+  align-items: baseline;
+  gap: 3mm;
+  border-left: 5px solid var(--green);
+  background: var(--green-pale);
+  padding: 2.5mm 4mm;
+  margin-bottom: 4mm;
+  page-break-after: avoid;
+  page-break-inside: avoid;
+}
+.blk-time {
+  font-size: 11.5pt;
+  font-weight: 800;
+  color: var(--green);
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+}
+.blk-name {
+  font-size: 15pt;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.5;
+}
+
+/* ---------- 지시문(큐) ---------- */
+
+.cue {
+  font-size: 11.5pt;
+  line-height: 1.7;
+  color: var(--ink-soft);
+  border-left: 3px solid var(--line);
+  padding: 1.5mm 0 1.5mm 4mm;
+  margin: 0 0 3.5mm;
+  page-break-inside: avoid;
+}
+.cue b {
+  display: inline-block;
+  min-width: 17mm;
+  color: var(--ink);
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+.cue.cam  { border-left-color: var(--green); }
+.cue.demo { border-left-color: #7a7f82; background: var(--gray-bg); }
+.cue.cg   { border-left-color: var(--line); font-style: normal; }
+
+/* ---------- 대사 ---------- */
+
+.say { margin: 0 0 4.5mm; orphans: 2; widows: 2; }
+.say p {
+  position: relative;
+  margin: 0 0 2mm;
+  padding-left: 7mm;
+  font-size: 15pt;
+  line-height: 1.95;
+  font-weight: 450;
+  page-break-inside: avoid;
+}
+.say p.b::before {
+  content: "●";
+  position: absolute;
+  left: 0.4mm;
+  top: 0;
+  line-height: 1.95;
+  color: var(--green);
+  font-size: 8pt;
+}
+.say em {
+  font-style: normal;
+  font-weight: 800;
+  border-bottom: 2.5px solid #b9d8c6;
+  padding-bottom: 0.3mm;
+}
+.say .pause { color: var(--green); font-weight: 800; }
+
+/* ---------- 팁/메모 ---------- */
+
+.tip {
+  border: 1.5px dashed var(--line);
+  border-radius: 2.5mm;
+  padding: 4mm 5mm;
+  margin: 0 0 6mm;
+  font-size: 12pt;
+  line-height: 1.8;
+  background: #fbfcfb;
+  page-break-inside: avoid;
+}
+.tip b { color: var(--green); font-weight: 800; }
+.tip ul { margin: 2mm 0 0; padding-left: 6mm; }
+.tip li { margin-bottom: 1.5mm; }
+
+/* ---------- 가이드 페이지 ---------- */
+
+.guide { page-break-before: always; }
+.guide h2 {
+  font-size: 21pt;
+  font-weight: 800;
+  border-bottom: 3px solid var(--green);
+  padding-bottom: 3mm;
+  margin: 0 0 6mm;
+  letter-spacing: -0.03em;
+}
+.guide h3 {
+  font-size: 15pt;
+  font-weight: 800;
+  color: var(--green);
+  margin: 7mm 0 3mm;
+  page-break-after: avoid;
+}
+.guide p, .guide li { font-size: 12.5pt; line-height: 1.9; }
+.guide ul, .guide ol { padding-left: 7mm; margin: 0 0 4mm; }
+.guide li { margin-bottom: 1.5mm; }
+.guide .box {
+  background: var(--gray-bg);
+  border-left: 5px solid var(--green);
+  padding: 4mm 5mm;
+  margin: 0 0 5mm;
+  page-break-inside: avoid;
+}
+.guide table {
+  width: 100%; border-collapse: collapse; font-size: 12pt; margin-bottom: 5mm;
+  page-break-inside: avoid;
+}
+.guide table th, .guide table td {
+  border: 1px solid var(--line); padding: 2.5mm 3mm; text-align: left; line-height: 1.65;
+}
+.guide table th { background: var(--green-pale); font-weight: 800; }
+
+/* ---------- 마무리 ---------- */
+
+.endmark {
+  text-align: center;
+  color: var(--ink-soft);
+  font-size: 11pt;
+  letter-spacing: 0.25em;
+  margin-top: 6mm;
+  padding-top: 4mm;
+  border-top: 1px solid var(--line-soft);
+}
+
+/* ---------- 화면(브라우저)에서 볼 때 ---------- */
+
+@media screen {
+  body { background: #e9ecea; }
+  .sheet {
+    background: #fff;
+    max-width: 210mm;
+    margin: 0 auto;
+    padding: 15mm 14mm;
+    box-shadow: 0 2px 18px rgba(0,0,0,.12);
+  }
+}
+@media print {
+  .sheet { max-width: none; margin: 0; padding: 0; box-shadow: none; }
+}
+
+</style>
+</head>
+<body>
+<div class="sheet">
+<style>.solo{page-break-before:auto !important;}</style>
+<!-- TITLE: EP 07 3퍼트가 사라지는 퍼팅 루틴 -->
+
+<section class="script solo">
+  <div class="ep-head">
+    <div class="ep-no">EP 07</div>
+    <h1 class="ep-title">3퍼트가 사라지는<br>퍼팅 루틴</h1>
+    <p class="ep-sub">넣으려고 하지 마세요. 거리부터 맞추면 3퍼트가 사라집니다</p>
+  </div>
+
+  <div class="spec">
+    <dl>
+      <dt>촬영 시간</dt><dd>20~30분 (편집본 13분 목표)</dd>
+      <dt>준비물</dt><dd>퍼터 · 티 4개 · 얼라인먼트 스틱 1개 · 동전 또는 볼마커 여러 개</dd>
+      <dt>장소</dt><dd>퍼팅 연습 그린 (길이 10m 이상 나오는 곳)</dd>
+      <dt>핵심 한 줄</dt><dd>3퍼트는 <b>방향</b>이 아니라 <b>거리</b> 때문에 난다</dd>
+    </dl>
+  </div>
+
+  <table class="toc">
+    <tr><th>타임</th><th>구성</th><th>분량</th></tr>
+    <tr><td>00:00</td><td>콜드 오픈 — 3퍼트가 만들어지는 순간</td><td>50초</td></tr>
+    <tr><td>00:50</td><td>인트로 · 오늘 다룰 것</td><td>1분</td></tr>
+    <tr><td>01:50</td><td>STEP 1 — 3퍼트의 진짜 원인</td><td>2분</td></tr>
+    <tr><td>03:50</td><td>STEP 2 — 퍼팅 셋업</td><td>3분</td></tr>
+    <tr><td>06:50</td><td>STEP 3 — 진자 스트로크</td><td>2분 30초</td></tr>
+    <tr><td>09:20</td><td>STEP 4 — 거리감 드릴 3가지</td><td>3분</td></tr>
+    <tr><td>12:20</td><td>실전 — 그린 읽기 3단계</td><td>1분 30초</td></tr>
+    <tr><td>13:50</td><td>퍼팅 루틴 · 정리 · 시리즈 마무리</td><td>1분 40초</td></tr>
+  </table>
+
+  <!-- ================= 콜드 오픈 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">00:00</span>
+      <span class="blk-name">콜드 오픈</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ② 정면. 10m 롱퍼트를 짧게 남기고 → 남은 2m를 또 놓치는 장면 재현</p>
+
+    <div class="say">
+      <p class="b">(퍼트가 짧게 멈춘 걸 보고) 이거요. 이게 3퍼트가 만들어지는 순간입니다.</p>
+      <p class="b">첫 퍼트가 짧았어요. 그래서 2미터가 남았죠. 그리고 (두 번째 퍼트 놓치고) 이렇게 됩니다.</p>
+      <p class="b">그런데 잘 보세요. <em>방향은 나쁘지 않았습니다.</em> 홀 쪽으로 잘 갔어요.</p>
+      <p class="b"><em>3퍼트는 거의 다 거리 때문에 납니다. 방향 때문이 아니에요.</em></p>
+      <p class="b">그런데 우리는 연습장에서 뭘 연습할까요. (한 박자 쉬고) 홀 앞 1미터에서 <em>넣는 연습</em>만 합니다.</p>
+      <p class="b">오늘은 순서를 바꿔보겠습니다. <em>넣는 연습 말고, 거리 맞추는 연습.</em> 이게 3퍼트를 없애는 방법입니다.</p>
+    </div>
+
+    <p class="cue cg"><b>자막</b> 타이틀 / "3퍼트의 원인 = 거리"</p>
+  </div>
+
+  <!-- ================= 인트로 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">00:50</span>
+      <span class="blk-name">인트로</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ① 토킹캠. 퍼터 짚고.</p>
+
+    <div class="say">
+      <p class="b">안녕하세요. (채널 인사)</p>
+      <p class="b">퍼팅은 골프에서 <em>스코어의 40퍼센트</em>를 차지합니다. 그런데 연습 시간은 아마 10퍼센트도 안 쓰실 거예요.</p>
+      <p class="b">(웃으며) 저도 그랬습니다. 드라이버가 재밌으니까요.</p>
+      <p class="b">오늘은 퍼팅을 네 단계로 정리하겠습니다. <em>원인, 셋업, 스트로크, 그리고 거리감 드릴.</em></p>
+      <p class="b">마지막에는 그린 위에서 그대로 쓸 수 있는 <em>루틴</em>까지 만들어 드릴게요.</p>
+    </div>
+  </div>
+
+  <!-- ================= STEP 1 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">01:50</span>
+      <span class="blk-name">STEP 1 — 3퍼트의 진짜 원인</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ① 토킹캠 → 설명 중 CAM ③ 후방으로 그린 전경</p>
+
+    <div class="say">
+      <p class="b">10미터 퍼트를 생각해 봅시다.</p>
+      <p class="b">방향이 조금 틀어져도, 거리만 맞으면 홀 옆 <em>한 걸음 안쪽</em>에 붙습니다. 그럼 다음은 쉽게 넣죠.</p>
+      <p class="b">그런데 방향은 완벽한데 거리가 2미터 짧으면? <em>2미터 퍼트가 남습니다.</em> 이건 프로도 자주 놓치는 거리예요.</p>
+      <p class="b">보이시죠. (강조) <em>같은 실수라도 거리 실수가 훨씬 비쌉니다.</em></p>
+      <p class="b">그래서 롱퍼트의 목표는 <em>넣는 게 아닙니다.</em> 목표는 <em>홀 주변 한 걸음 안에 세우는 것</em>이에요.</p>
+      <p class="b">그리고 하나 더. <em>짧은 건 무조건 안 들어갑니다.</em> 지나가야 들어갈 확률이라도 있어요.</p>
+      <p class="b">그래서 기준을 이렇게 잡으세요. <em>홀을 30센티에서 50센티 정도 지나가는 세기.</em></p>
+      <p class="b">짧게 치는 습관, 오늘 이 영상 보시고 버리세요. 그것만 고쳐도 라운드에서 두세 타는 줄어듭니다.</p>
+    </div>
+
+    <p class="cue cg"><b>자막</b> "롱퍼트 목표 = 홀 주변 한 걸음 안" / "짧은 퍼트는 0% 확률"</p>
+    <p class="cue demo"><b>시연</b> 홀 주변에 반경 1m 원 표시(볼마커 여러 개) → 롱퍼트 3구를 원 안에 넣기</p>
+  </div>
+
+  <!-- ================= STEP 2 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">03:50</span>
+      <span class="blk-name">STEP 2 — 퍼팅 셋업</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ③ 후방 — 눈 위치와 어깨 라인이 보이게. 그립은 CAM ① 클로즈업</p>
+
+    <div class="say">
+      <p class="b">셋업 갑니다. 네 가지예요.</p>
+      <p class="b">하나. <em>눈이 공 바로 위, 혹은 아주 살짝 안쪽에.</em></p>
+      <p class="b">확인법 알려드릴게요. 어드레스 하고 <em>눈 아래에 공을 하나 떨어뜨려 보세요.</em></p>
+      <p class="b">그 공이 <em>치려는 공 위에 떨어지거나 살짝 안쪽에</em> 떨어지면 정상입니다.</p>
+      <p class="b">눈이 공보다 바깥에 있으면 라인이 왼쪽으로 보이고, 안쪽에 너무 있으면 오른쪽으로 보입니다. 그러면 <em>제대로 쳐도 안 들어가요.</em></p>
+      <p class="b">둘. <em>어깨는 라인과 평행.</em> 퍼팅은 어깨가 스트로크 방향을 결정합니다. 어깨가 열려 있으면 컷으로 깎여요.</p>
+      <p class="b">셋. <em>손은 그립 아래에 매달린 느낌으로.</em> 팔에 힘을 빼고 어깨에서 축 늘어뜨리세요.</p>
+      <p class="b">넷. <em>공은 스탠스 중앙보다 살짝 왼쪽, 왼쪽 눈 아래</em>쯤에 둡니다.</p>
+      <p class="b">여기가 퍼터가 <em>최저점을 지나 살짝 올라가는</em> 지점이라서, 공이 깨끗하게 굴러갑니다.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 눈 위치 공 떨어뜨리기 테스트 (클로즈업). 어깨 라인에 스틱 대고 평행 확인.</p>
+
+    <div class="say">
+      <p class="b">그립도 잠깐 짚을게요. 퍼팅 그립의 목적은 딱 하나입니다. <em>손목을 안 쓰게 만드는 것.</em></p>
+      <p class="b">그래서 풀스윙이랑 반대로 <em>손가락이 아니라 손바닥</em>으로 잡습니다. 손바닥과 팔이 일직선이 되게요.</p>
+      <p class="b">양손 엄지는 <em>그립 위쪽에 나란히</em> 놓으시고요.</p>
+      <p class="b">손목이 자꾸 꺾이시는 분은 <em>왼손을 아래로 내려 잡는</em> 방식도 해보세요. 크로스 핸드라고 하는데, 왼쪽 손목이 훨씬 안정됩니다.</p>
+      <p class="b">(웃으며) 남들이 뭐라 해도 괜찮아요. 퍼팅 그립은 <em>정답이 없고 결과만 있습니다.</em></p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 일반 그립 / 크로스 핸드 그립 클로즈업 비교</p>
+  </div>
+
+  <!-- ================= STEP 3 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">06:50</span>
+      <span class="blk-name">STEP 3 — 진자 스트로크</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ② 정면 — 어깨 움직임이 보이게</p>
+
+    <div class="say">
+      <p class="b">스트로크는 <em>진자</em>입니다. 시계추요.</p>
+      <p class="b">양팔과 어깨가 삼각형을 만들죠. 그 삼각형을 <em>통째로</em> 움직입니다. 손목이나 팔꿈치는 안 씁니다.</p>
+      <p class="b">움직이는 건 <em>어깨</em>예요. 왼쪽 어깨가 내려가면 오른쪽 어깨가 올라가고, 반대로 오면 반대가 되고.</p>
+      <p class="b">하체와 머리는 <em>완전히 고정</em>입니다. 퍼팅은 골프에서 유일하게 머리를 진짜로 고정해도 되는 샷이에요.</p>
+      <p class="b">그리고 <em>공을 친 다음에도 잠깐 그 자리를 보세요.</em> 소리로 결과를 듣는 겁니다. 고개를 들면 어깨가 열려서 왼쪽으로 밀려요.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 진자 스트로크 느리게 3회 (정면 캠). 손목 쓰는 나쁜 예도 1회.</p>
+
+    <div class="say">
+      <p class="b">그리고 <em>템포.</em> 이게 거리감의 절반입니다.</p>
+      <p class="b">거리가 멀든 가깝든, <em>스트로크 속도는 항상 똑같아야 합니다.</em></p>
+      <p class="b">거리는 속도가 아니라 <em>길이</em>로 조절해요. 짧은 퍼트는 짧게, 긴 퍼트는 길게. 속도는 그대로.</p>
+      <p class="b">(강조하며) 이게 어프로치 때 말씀드린 거랑 똑같은 원리입니다. <em>힘이 아니라 크기.</em></p>
+      <p class="b">그리고 <em>백스트로크보다 폴로스루를 길게</em> 가져가세요. 그래야 가속이 됩니다.</p>
+      <p class="b">뒤로 크게 뺐다가 툭 멈추는 스트로크. 이게 거리감이 제일 안 맞는 스트로크입니다.</p>
+    </div>
+
+    <p class="cue cg"><b>자막</b> "속도는 항상 같게 · 길이로 조절"</p>
+  </div>
+
+  <!-- ================= STEP 4 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">09:20</span>
+      <span class="blk-name">STEP 4 — 거리감 드릴 3가지</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ③ 후방 — 그린 전체와 공이 굴러가는 게 보이게</p>
+
+    <div class="say">
+      <p class="b">이제 드릴입니다. 오늘의 진짜 핵심이에요.</p>
+      <p class="b">드릴 하나. <em>사다리 드릴.</em> 거리감 만드는 데 이거보다 좋은 게 없습니다.</p>
+      <p class="b">한 지점에서 출발해서, <em>3미터, 6미터, 9미터</em> 지점에 볼마커를 놓으세요.</p>
+      <p class="b">그리고 공 세 개를 <em>순서대로</em> 각 지점에 세우는 겁니다. 홀에 넣는 게 아니라 <em>그 자리에 세우는</em> 거예요.</p>
+      <p class="b">이게 되면 반대로 <em>9미터, 6미터, 3미터</em> 순서로 내려오세요. 이게 훨씬 어렵습니다.</p>
+      <p class="b">이 드릴을 하면 <em>내 몸이 거리별 스트로크 길이를 기억하기 시작합니다.</em> 머리로 아는 게 아니라 몸이 알아요.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 사다리 드릴 — 올라가기 3구, 내려오기 3구. 후방 캠 롱샷.</p>
+
+    <div class="say">
+      <p class="b">드릴 둘. <em>눈 감고 치기.</em> 이게 진짜 물건입니다.</p>
+      <p class="b">5미터 정도 거리에서, <em>어드레스 하고 눈을 감고</em> 퍼트하세요.</p>
+      <p class="b">그리고 공이 굴러가는 동안, <em>눈 뜨기 전에 짧을지 길지 맞춰보세요.</em></p>
+      <p class="b">처음엔 완전히 틀립니다. 그런데 스무 개쯤 하다 보면 <em>맞기 시작해요.</em></p>
+      <p class="b">그게 감각이 생기는 겁니다. 눈이 아니라 <em>손과 몸이 거리를 아는 상태.</em> 그린에서 필요한 게 딱 이거예요.</p>
+      <p class="b">드릴 셋. <em>게이트 드릴.</em> 이건 방향용입니다.</p>
+      <p class="b">퍼터 헤드보다 <em>양쪽으로 손가락 하나씩</em> 넓게, 티 두 개를 꽂으세요. 그 사이로 퍼터를 통과시키는 겁니다.</p>
+      <p class="b">티를 건드리면 스트로크가 흔들린 거예요. 열 번 중에 여덟 번 통과하면 합격입니다.</p>
+      <p class="b">(강조) 근데 순서를 지키세요. <em>거리 드릴 먼저, 방향 드릴 나중.</em> 대부분 반대로 하셔서 3퍼트가 안 없어집니다.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 눈 감고 퍼팅 2구 (표정 잡히게 정면 캠) → 게이트 드릴 3구 (클로즈업)</p>
+    <p class="cue cg"><b>자막</b> "① 사다리 ② 눈 감고 ③ 게이트 — 이 순서로"</p>
+  </div>
+
+  <!-- ================= 실전 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">12:20</span>
+      <span class="blk-name">실전 — 그린 읽기 3단계</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ③ 후방 — 그린 경사가 보이게. 설명은 CAM ①</p>
+
+    <div class="say">
+      <p class="b">거리감이 잡혔으면 이제 <em>라인</em>입니다. 그린 읽기, 어렵게 생각하지 마세요. 세 단계면 됩니다.</p>
+      <p class="b">1단계, <em>걸어 들어가면서 읽습니다.</em></p>
+      <p class="b">그린에 올라갈 때 <em>발바닥으로</em> 느끼세요. 오르막인지 내리막인지는 눈보다 발이 훨씬 정확합니다.</p>
+      <p class="b">그리고 <em>그린 전체가 어느 쪽으로 기울어 있는지</em>도 보세요. 대부분의 그린은 <em>물이 빠지는 쪽</em>으로 기울어 있습니다.</p>
+      <p class="b">2단계, <em>공 뒤 낮은 쪽에서 봅니다.</em></p>
+      <p class="b">높은 쪽에서 보면 경사가 평평해 보여요. 반드시 <em>낮은 쪽에 쪼그려 앉아서</em> 보셔야 경사가 보입니다.</p>
+      <p class="b">3단계, 이게 제일 중요한데 아무도 안 알려줍니다. <em>홀 주변 1.5미터만 집중해서 보세요.</em></p>
+      <p class="b">왜냐면 공은 <em>홀 근처에서 제일 느려지고</em>, 느려질수록 경사를 많이 탑니다.</p>
+      <p class="b">출발할 때는 빨라서 경사를 별로 안 타요. (강조) <em>라인의 8할은 마지막 1.5미터에서 결정됩니다.</em></p>
+      <p class="b">그리고 강도에 대한 팁 하나. <em>오르막은 홀 뒤 벽을 맞힌다는 느낌으로 과감하게.</em></p>
+      <p class="b"><em>내리막은 홀을 직접 보지 말고, 홀 앞 30센티에 세운다는 느낌으로</em> 치세요.</p>
+      <p class="b">마지막으로요. 라인을 못 읽겠다 싶으면 <em>그냥 똑바로 치세요.</em></p>
+      <p class="b">애매하게 읽고 그만큼 안 치는 것보다, <em>확실하게 결정하고 그대로 치는 게</em> 훨씬 잘 들어갑니다.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 그린 낮은 쪽에서 라인 읽는 자세 → 홀 주변 1.5m 손으로 짚어주기 → 경사 있는 퍼트 2구</p>
+    <p class="cue cg"><b>자막</b> "라인의 8할은 마지막 1.5m에서 결정된다"</p>
+  </div>
+
+  <!-- ================= 루틴 & 마무리 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">13:50</span>
+      <span class="blk-name">퍼팅 루틴 · 정리 · 시리즈 마무리</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ① 토킹캠 → 루틴 시연은 CAM ③</p>
+
+    <div class="say">
+      <p class="b">마지막으로 그린 위에서 쓸 루틴 정리해 드릴게요. 네 단계입니다.</p>
+      <p class="b">하나. <em>공 뒤에서 홀까지 걸어가면서</em> 오르막인지 내리막인지 발로 느낍니다. 눈보다 발이 정확합니다.</p>
+      <p class="b">둘. <em>공 뒤 낮은 쪽에 앉아서</em> 라인을 봅니다. 높은 쪽에서 보면 경사가 잘 안 보여요.</p>
+      <p class="b">셋. <em>연습 스트로크는 홀을 보면서</em> 두 번. 라인이 아니라 <em>거리를 느끼려고</em> 하는 겁니다.</p>
+      <p class="b">넷. 어드레스 하고 <em>홀 한 번 보고, 공 보고, 바로 칩니다.</em> 3초 안에요.</p>
+      <p class="b">(강조) 여기서 오래 서 있으면 무조건 나빠집니다. 퍼팅은 <em>고민이 길수록 안 들어갑니다.</em></p>
+      <p class="b">오늘 내용 한 줄로 정리할게요.</p>
+      <p class="b"><em>넣으려고 하지 말고, 거리를 맞추세요. 그러면 3퍼트가 사라지고, 그 다음에 넣는 퍼트가 늘어납니다.</em></p>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ① 토킹캠. 퍼터 내려놓고 정면. 톤을 조금 낮춰서 진심으로.</p>
+
+    <div class="say">
+      <p class="b">그리고 이번 영상으로 <em>기본기 시리즈 일곱 편이 마무리</em>됐습니다.</p>
+      <p class="b">슬라이스부터 드라이버, 아이언, 셋업, 백스윙, 어프로치, 그리고 퍼팅까지 왔네요.</p>
+      <p class="b">혹시 못 보신 편 있으시면 재생목록에 정리해 뒀으니까 순서대로 보시면 좋을 것 같습니다.</p>
+      <p class="b">다음 시리즈에서는 <em>실전 라운드</em>를 다뤄보려고 해요. 코스에서 어떻게 판단하고 어떻게 스코어를 지키는지요.</p>
+      <p class="b">보고 싶은 주제 있으시면 댓글로 남겨주세요. 다 읽어보고 반영하겠습니다.</p>
+      <p class="b">오늘도 끝까지 봐주셔서 감사합니다. 좋은 스윙 하세요.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 마지막 컷 — 롱퍼트가 홀에 붙는 장면, 혹은 들어가는 장면으로 마무리</p>
+    <p class="cue cg"><b>자막</b> 시리즈 7편 썸네일 나열 / 재생목록 링크 / 구독 · 좋아요</p>
+  </div>
+
+  <div class="endmark">— EP 07 END —</div>
+</section>
+
+</div>
+</body>
+</html>

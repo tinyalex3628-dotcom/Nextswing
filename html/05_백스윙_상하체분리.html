@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EP 05 백스윙, 팔로 들지 말고 몸으로 감으세요</title>
+<style>
+/* =========================================================
+   골프 유튜브 레슨 대본 — 인쇄용 스타일
+   A4 세로 / 낭독용 큰 글씨 / 흑백 인쇄 대응
+   ========================================================= */
+
+@page {
+  size: A4 portrait;
+  margin: 15mm 14mm 15mm 14mm;
+}
+
+:root {
+  --ink:        #14181a;
+  --ink-soft:   #4a5257;
+  --green:      #1d5b3c;
+  --green-pale: #eef4f0;
+  --line:       #c9d1cd;
+  --line-soft:  #e3e8e5;
+  --gray-bg:    #f4f5f4;
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+body {
+  margin: 0;
+  color: var(--ink);
+  font-family: "Noto Sans CJK KR", "Noto Sans KR", "Malgun Gothic",
+               "Apple SD Gothic Neo", "맑은 고딕", sans-serif;
+  font-size: 15pt;
+  line-height: 1.9;
+  letter-spacing: -0.01em;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+/* ---------- 표지 ---------- */
+
+.cover {
+  page-break-after: always;
+  padding-top: 34mm;
+  text-align: center;
+}
+.cover .kicker {
+  font-size: 13pt;
+  letter-spacing: 0.32em;
+  color: var(--green);
+  font-weight: 700;
+  margin-bottom: 10mm;
+}
+.cover h1 {
+  font-size: 34pt;
+  line-height: 1.35;
+  font-weight: 800;
+  margin: 0 0 6mm;
+  letter-spacing: -0.03em;
+}
+.cover .sub {
+  font-size: 14pt;
+  color: var(--ink-soft);
+  line-height: 1.8;
+  margin-bottom: 16mm;
+}
+.cover .rule {
+  width: 46mm; height: 3px; background: var(--green);
+  margin: 0 auto 14mm;
+}
+.cover-list {
+  display: inline-block;
+  text-align: left;
+  border: 1.5px solid var(--line);
+  border-radius: 4mm;
+  padding: 8mm 10mm;
+  font-size: 13pt;
+  line-height: 2.15;
+}
+.cover-list b { color: var(--green); margin-right: 4mm; font-weight: 800; }
+
+/* ---------- 대본 1편 단위 ---------- */
+
+.script { page-break-before: always; }
+.script:first-of-type { page-break-before: auto; }
+
+.ep-head {
+  border-bottom: 3px solid var(--green);
+  padding-bottom: 5mm;
+  margin-bottom: 7mm;
+}
+.ep-no {
+  display: inline-block;
+  background: var(--green);
+  color: #fff;
+  font-size: 12pt;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  padding: 1.2mm 4mm;
+  border-radius: 2mm;
+  margin-bottom: 4mm;
+}
+.ep-title {
+  font-size: 25pt;
+  font-weight: 800;
+  line-height: 1.4;
+  margin: 0 0 3mm;
+  letter-spacing: -0.03em;
+}
+.ep-sub {
+  font-size: 13pt;
+  color: var(--ink-soft);
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* ---------- 촬영 정보 박스 ---------- */
+
+.spec {
+  background: var(--gray-bg);
+  border: 1px solid var(--line-soft);
+  border-radius: 3mm;
+  padding: 5mm 6mm;
+  margin-bottom: 6mm;
+  font-size: 11.5pt;
+  line-height: 1.85;
+  page-break-inside: avoid;
+}
+.spec dl { margin: 0; display: grid; grid-template-columns: 26mm 1fr; gap: 1mm 0; }
+.spec dt { font-weight: 800; color: var(--green); }
+.spec dd { margin: 0; color: var(--ink); }
+
+/* ---------- 러닝 타임 표 ---------- */
+
+.toc {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11.5pt;
+  margin-bottom: 8mm;
+  page-break-inside: avoid;
+}
+.toc th, .toc td {
+  border-bottom: 1px solid var(--line-soft);
+  padding: 2.2mm 2mm;
+  text-align: left;
+  line-height: 1.6;
+}
+.toc th {
+  background: var(--green-pale);
+  font-weight: 800;
+  font-size: 11pt;
+  border-bottom: 1.5px solid var(--line);
+}
+.toc td:first-child, .toc th:first-child { width: 24mm; white-space: nowrap; font-weight: 700; }
+.toc td:last-child,  .toc th:last-child  { width: 26mm; white-space: nowrap; color: var(--ink-soft); }
+
+/* ---------- 블록(장면) ---------- */
+
+.blk { margin-bottom: 8mm; }
+
+.blk-head {
+  display: flex;
+  align-items: baseline;
+  gap: 3mm;
+  border-left: 5px solid var(--green);
+  background: var(--green-pale);
+  padding: 2.5mm 4mm;
+  margin-bottom: 4mm;
+  page-break-after: avoid;
+  page-break-inside: avoid;
+}
+.blk-time {
+  font-size: 11.5pt;
+  font-weight: 800;
+  color: var(--green);
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+}
+.blk-name {
+  font-size: 15pt;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.5;
+}
+
+/* ---------- 지시문(큐) ---------- */
+
+.cue {
+  font-size: 11.5pt;
+  line-height: 1.7;
+  color: var(--ink-soft);
+  border-left: 3px solid var(--line);
+  padding: 1.5mm 0 1.5mm 4mm;
+  margin: 0 0 3.5mm;
+  page-break-inside: avoid;
+}
+.cue b {
+  display: inline-block;
+  min-width: 17mm;
+  color: var(--ink);
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+.cue.cam  { border-left-color: var(--green); }
+.cue.demo { border-left-color: #7a7f82; background: var(--gray-bg); }
+.cue.cg   { border-left-color: var(--line); font-style: normal; }
+
+/* ---------- 대사 ---------- */
+
+.say { margin: 0 0 4.5mm; orphans: 2; widows: 2; }
+.say p {
+  position: relative;
+  margin: 0 0 2mm;
+  padding-left: 7mm;
+  font-size: 15pt;
+  line-height: 1.95;
+  font-weight: 450;
+  page-break-inside: avoid;
+}
+.say p.b::before {
+  content: "●";
+  position: absolute;
+  left: 0.4mm;
+  top: 0;
+  line-height: 1.95;
+  color: var(--green);
+  font-size: 8pt;
+}
+.say em {
+  font-style: normal;
+  font-weight: 800;
+  border-bottom: 2.5px solid #b9d8c6;
+  padding-bottom: 0.3mm;
+}
+.say .pause { color: var(--green); font-weight: 800; }
+
+/* ---------- 팁/메모 ---------- */
+
+.tip {
+  border: 1.5px dashed var(--line);
+  border-radius: 2.5mm;
+  padding: 4mm 5mm;
+  margin: 0 0 6mm;
+  font-size: 12pt;
+  line-height: 1.8;
+  background: #fbfcfb;
+  page-break-inside: avoid;
+}
+.tip b { color: var(--green); font-weight: 800; }
+.tip ul { margin: 2mm 0 0; padding-left: 6mm; }
+.tip li { margin-bottom: 1.5mm; }
+
+/* ---------- 가이드 페이지 ---------- */
+
+.guide { page-break-before: always; }
+.guide h2 {
+  font-size: 21pt;
+  font-weight: 800;
+  border-bottom: 3px solid var(--green);
+  padding-bottom: 3mm;
+  margin: 0 0 6mm;
+  letter-spacing: -0.03em;
+}
+.guide h3 {
+  font-size: 15pt;
+  font-weight: 800;
+  color: var(--green);
+  margin: 7mm 0 3mm;
+  page-break-after: avoid;
+}
+.guide p, .guide li { font-size: 12.5pt; line-height: 1.9; }
+.guide ul, .guide ol { padding-left: 7mm; margin: 0 0 4mm; }
+.guide li { margin-bottom: 1.5mm; }
+.guide .box {
+  background: var(--gray-bg);
+  border-left: 5px solid var(--green);
+  padding: 4mm 5mm;
+  margin: 0 0 5mm;
+  page-break-inside: avoid;
+}
+.guide table {
+  width: 100%; border-collapse: collapse; font-size: 12pt; margin-bottom: 5mm;
+  page-break-inside: avoid;
+}
+.guide table th, .guide table td {
+  border: 1px solid var(--line); padding: 2.5mm 3mm; text-align: left; line-height: 1.65;
+}
+.guide table th { background: var(--green-pale); font-weight: 800; }
+
+/* ---------- 마무리 ---------- */
+
+.endmark {
+  text-align: center;
+  color: var(--ink-soft);
+  font-size: 11pt;
+  letter-spacing: 0.25em;
+  margin-top: 6mm;
+  padding-top: 4mm;
+  border-top: 1px solid var(--line-soft);
+}
+
+/* ---------- 화면(브라우저)에서 볼 때 ---------- */
+
+@media screen {
+  body { background: #e9ecea; }
+  .sheet {
+    background: #fff;
+    max-width: 210mm;
+    margin: 0 auto;
+    padding: 15mm 14mm;
+    box-shadow: 0 2px 18px rgba(0,0,0,.12);
+  }
+}
+@media print {
+  .sheet { max-width: none; margin: 0; padding: 0; box-shadow: none; }
+}
+
+</style>
+</head>
+<body>
+<div class="sheet">
+<style>.solo{page-break-before:auto !important;}</style>
+<!-- TITLE: EP 05 백스윙, 팔로 들지 말고 몸으로 감으세요 -->
+
+<section class="script solo">
+  <div class="ep-head">
+    <div class="ep-no">EP 05</div>
+    <h1 class="ep-title">백스윙, 팔로 들지 말고<br>몸으로 감으세요</h1>
+    <p class="ep-sub">오버스윙 · 스웨이 · 힘 빠지는 톱 — 원인은 하나입니다</p>
+  </div>
+
+  <div class="spec">
+    <dl>
+      <dt>촬영 시간</dt><dd>25~30분 (편집본 14분 목표)</dd>
+      <dt>준비물</dt><dd>7번 아이언 · 얼라인먼트 스틱 2개 · 의자 또는 박스 1개</dd>
+      <dt>장소</dt><dd>후방(다운 더 라인) 카메라 자리 확보 필수</dd>
+      <dt>핵심 한 줄</dt><dd>백스윙의 목적은 <b>크기</b>가 아니라 <b>비틀림</b>이다</dd>
+    </dl>
+  </div>
+
+  <table class="toc">
+    <tr><th>타임</th><th>구성</th><th>분량</th></tr>
+    <tr><td>00:00</td><td>콜드 오픈 — 큰 백스윙 vs 작은 백스윙</td><td>50초</td></tr>
+    <tr><td>00:50</td><td>인트로 · 오늘 다룰 것</td><td>1분</td></tr>
+    <tr><td>01:50</td><td>STEP 1 — 백스윙은 왜 하는가</td><td>2분 30초</td></tr>
+    <tr><td>04:20</td><td>STEP 2 — 처음 30센티가 전부다</td><td>3분</td></tr>
+    <tr><td>07:20</td><td>STEP 3 — 몸통 회전과 오른쪽 다리</td><td>3분 30초</td></tr>
+    <tr><td>10:50</td><td>STEP 4 — 드릴 3가지</td><td>3분</td></tr>
+    <tr><td>13:50</td><td>실전 — 몸이 뻣뻣한 분들을 위한 백스윙</td><td>1분 30초</td></tr>
+    <tr><td>15:20</td><td>흔한 실수 · 정리 · 마무리</td><td>1분</td></tr>
+  </table>
+
+  <!-- ================= 콜드 오픈 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">00:00</span>
+      <span class="blk-name">콜드 오픈 — 두 개의 백스윙</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ③ 후방 스윙캠. 말 없이 두 방. ① 오버스윙으로 크게 ② 톱을 짧게 끊고</p>
+
+    <div class="say">
+      <p class="b">(두 번째 공 결과 확인하고 카메라로) 방금 첫 번째가 백스윙이 훨씬 컸어요. 근데 (한 박자 쉬고) 두 번째가 더 잘 맞고 더 나갔습니다.</p>
+      <p class="b">골프에서 제일 흔한 오해가 이겁니다. <em>백스윙이 크면 멀리 간다.</em></p>
+      <p class="b">아닙니다. 정확히 말하면 <em>몸통이 크게 감기면</em> 멀리 갑니다. <em>팔이 크게 올라가는 건</em> 아무 상관이 없어요.</p>
+      <p class="b">오히려 팔로 들어 올린 백스윙은 <em>힘을 저장하는 게 아니라 흘려버립니다.</em></p>
+      <p class="b">오늘은 그 차이를 확실하게 잡아드릴게요.</p>
+    </div>
+
+    <p class="cue cg"><b>자막</b> 두 스윙 톱 자세 나란히 비교 / 타이틀</p>
+  </div>
+
+  <!-- ================= 인트로 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">00:50</span>
+      <span class="blk-name">인트로</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ① 토킹캠</p>
+
+    <div class="say">
+      <p class="b">안녕하세요. (채널 인사)</p>
+      <p class="b">백스윙 고민, 크게 세 가지죠. <em>오버스윙, 스웨이, 그리고 톱에서 힘이 빠지는 느낌.</em></p>
+      <p class="b">그런데 이 세 개가 전부 <em>같은 뿌리</em>에서 나옵니다. <em>몸통 대신 팔로 백스윙을 만들고 있는 것.</em></p>
+      <p class="b">그래서 오늘은 팔을 어떻게 드는지 말고, <em>몸을 어떻게 감는지</em>를 다루겠습니다.</p>
+      <p class="b">백스윙의 목적, 처음 30센티, 몸통 회전, 그리고 드릴. 이 순서로 갈게요.</p>
+    </div>
+  </div>
+
+  <!-- ================= STEP 1 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">01:50</span>
+      <span class="blk-name">STEP 1 — 백스윙은 왜 하는가</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ① 토킹캠. 손으로 고무줄 당기는 시늉하며 설명.</p>
+
+    <div class="say">
+      <p class="b">질문 하나 드릴게요. 백스윙은 왜 할까요.</p>
+      <p class="b">답은 하나입니다. <em>힘을 저장하려고요.</em> 그게 전부예요.</p>
+      <p class="b">고무줄 새총 아시죠. 고무줄을 뒤로 당겨야 앞으로 날아갑니다. 당기는 동작이 백스윙이에요.</p>
+      <p class="b">그럼 여기서 중요한 질문. <em>고무줄은 어디가 늘어나야 할까요.</em></p>
+      <p class="b">우리 몸에서 고무줄 역할을 하는 건 <em>몸통</em>입니다. 정확히는 <em>어깨는 많이 돌고, 골반은 덜 도는 그 차이</em>예요.</p>
+      <p class="b">이걸 <em>상하체 분리</em>라고 부릅니다. 오늘의 핵심 단어예요.</p>
+      <p class="b">기준을 드릴게요. <em>어깨는 90도, 골반은 45도.</em> 이 차이 45도가 저장된 힘입니다.</p>
+      <p class="b">그런데 팔로 백스윙을 만들면 어떻게 될까요. <em>몸통은 안 감기고 팔만 올라갑니다.</em></p>
+      <p class="b">고무줄은 그대로인데 새총만 높이 든 거예요. (한 박자 쉬고) 아무 일도 안 일어납니다.</p>
+      <p class="b">그래서 오버스윙 하시는 분들이 오히려 비거리가 안 나오는 겁니다. 크게 들었지만 <em>당겨진 건 없어서</em>요.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 팔만 든 백스윙 / 몸통 감은 백스윙 — 톱에서 각각 5초 정지. 후방 캠으로 어깨·골반 각도 비교.</p>
+    <p class="cue cg"><b>자막</b> "어깨 90도 · 골반 45도 = 저장된 힘"</p>
+  </div>
+
+  <!-- ================= STEP 2 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">04:20</span>
+      <span class="blk-name">STEP 2 — 처음 30센티가 전부다</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ③ 후방 — 테이크어웨이 구간 클로즈업</p>
+
+    <div class="say">
+      <p class="b">백스윙에서 제일 중요한 구간이 어딜까요. 톱? 아닙니다.</p>
+      <p class="b"><em>처음 30센티입니다.</em> 여기서 방향이 정해지면 나머지는 그냥 따라와요.</p>
+      <p class="b">규칙은 딱 하나입니다. <em>처음 30센티는 손으로 움직이지 않습니다.</em></p>
+      <p class="b">그럼 뭘로 움직이냐. <em>가슴으로요.</em></p>
+      <p class="b">어드레스 하면 양팔과 어깨가 <em>삼각형</em>을 만들죠. 그 삼각형을 그대로 유지한 채로, <em>가슴이 오른쪽으로 돌면</em> 클럽이 따라 나갑니다.</p>
+      <p class="b">이때 손목은 <em>아직 아무것도 안 합니다.</em> 그냥 따라만 가요.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 어드레스 → 30cm 테이크어웨이에서 정지 (후방 캠). 삼각형 유지되는 것 보여주고 5초 유지.</p>
+
+    <div class="say">
+      <p class="b">여기서 두 가지 실수가 나옵니다.</p>
+      <p class="b">첫째, <em>손으로 클럽을 안쪽으로 당기는 것.</em> 클럽 헤드가 손보다 먼저 몸 안쪽으로 들어가는 경우예요.</p>
+      <p class="b">이렇게 되면 백스윙이 몸 뒤로 감기면서, 다운스윙에서 다시 밖으로 나오게 됩니다. 결과는 아웃 인, 슬라이스죠.</p>
+      <p class="b">둘째, <em>클럽을 밖으로 밀어내는 것.</em> 이건 반대인데, 팔이 몸에서 멀어지면서 스윙이 커집니다. 톱에서 클럽이 흔들려요.</p>
+      <p class="b">확인법 알려드릴게요. 클럽이 <em>허리 높이</em>에 왔을 때 멈춰 보세요.</p>
+      <p class="b">그때 <em>클럽 샤프트가 발끝 라인과 평행</em>이면 됩니다. 그리고 클럽 헤드가 <em>손보다 살짝 뒤에</em> 있으면 정상이에요.</p>
+      <p class="b">손목은 <em>허리 높이를 지나면서 자연스럽게 꺾입니다.</em> 일부러 꺾지 마세요. 클럽 무게가 알아서 해줍니다.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 허리 높이 체크포인트 — 좋은 예 1회 + 안쪽으로 당긴 나쁜 예 1회 (후방 캠 정지화면용)</p>
+    <p class="cue cg"><b>자막</b> "허리 높이 = 샤프트가 발끝 라인과 평행"</p>
+  </div>
+
+  <!-- ================= STEP 3 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">07:20</span>
+      <span class="blk-name">STEP 3 — 몸통 회전과 오른쪽 다리</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ② 정면 스윙캠 — 하체 움직임이 보이게</p>
+
+    <div class="say">
+      <p class="b">이제 몸통을 감습니다. 그런데 감기려면 <em>버텨주는 게</em> 있어야 해요.</p>
+      <p class="b">그 역할을 하는 게 <em>오른쪽 다리</em>입니다. 오늘 이 얘기 꼭 기억하세요.</p>
+      <p class="b">백스윙 하면서 어깨가 돌 때, <em>오른 무릎은 어드레스 때 각도를 그대로 유지</em>해야 합니다.</p>
+      <p class="b">오른 무릎이 펴지거나 오른쪽으로 밀리면요. 감기는 게 아니라 <em>그냥 옆으로 이동</em>한 게 됩니다. 이걸 스웨이라고 하죠.</p>
+      <p class="b">스웨이가 나면 (한 박자 쉬고) 저장되는 힘이 없습니다. 그리고 다운스윙에서 다시 돌아와야 하니까 타이밍도 어려워져요.</p>
+      <p class="b">느낌으로 말씀드리면요. <em>오른쪽 엉덩이가 뒤로 돌아간다</em>는 느낌이지, <em>오른쪽으로 밀린다</em>는 느낌이 아닙니다.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 스웨이 나쁜 예 / 회전 좋은 예. 오른발 바깥에 스틱 세워두고 닿는지 안 닿는지로 보여주기.</p>
+
+    <div class="say">
+      <p class="b">체중은요. <em>오른발 안쪽</em>으로 실립니다. 발 바깥쪽이 아니라 <em>안쪽</em>이에요.</p>
+      <p class="b">오른발 바깥으로 체중이 넘어가면 몸이 오른쪽으로 넘어간 겁니다. 스웨이예요.</p>
+      <p class="b">그리고 왼쪽 어깨. <em>왼쪽 어깨가 턱 밑으로 들어오면</em> 제대로 감긴 겁니다. 이게 제일 쉬운 확인법이에요.</p>
+      <p class="b">머리에 대해서도 하나 짚을게요. <em>머리를 고정하려고 애쓰지 마세요.</em></p>
+      <p class="b">몸통이 감기면 머리는 <em>아주 조금 오른쪽으로 움직입니다.</em> 그게 정상이에요. 억지로 붙잡으면 회전이 막힙니다.</p>
+      <p class="b">마지막으로 <em>톱의 크기.</em></p>
+      <p class="b">기준은 이겁니다. <em>왼팔이 펴져 있는 데까지가 내 백스윙입니다.</em></p>
+      <p class="b">왼팔이 접히기 시작하는 순간부터는 팔로 더 든 거예요. 그건 백스윙이 아니라 그냥 <em>낭비</em>입니다.</p>
+      <p class="b">몸이 뻣뻣하신 분은 톱이 작아도 됩니다. 작은 톱이 <em>흔들리는 큰 톱보다</em> 백배 낫습니다.</p>
+    </div>
+
+    <p class="cue cg"><b>자막</b> "왼팔이 펴진 데까지 = 내 백스윙"</p>
+  </div>
+
+  <!-- ================= STEP 4 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">10:50</span>
+      <span class="blk-name">STEP 4 — 드릴 3가지</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ② / CAM ③ 번갈아. 드릴 소개는 CAM ①</p>
+
+    <div class="say">
+      <p class="b">드릴 세 개 드릴게요. 전부 공 없이 할 수 있습니다. 집에서도 되고요.</p>
+      <p class="b">드릴 하나. <em>클럽 가슴 드릴.</em></p>
+      <p class="b">클럽을 <em>가슴 앞에 가로로 대고</em>, 양팔로 안으세요. 그 상태로 어드레스 자세를 잡습니다.</p>
+      <p class="b">그리고 팔은 쓰지 말고 <em>몸통만 오른쪽으로 돌리세요.</em> 클럽이 몸을 따라 돌겠죠.</p>
+      <p class="b">이게 <em>진짜 백스윙 회전</em>입니다. 팔이 하나도 관여하지 않은 순수한 몸통 회전이에요.</p>
+      <p class="b">이때 <em>오른 무릎이 버티고 있는지</em> 느껴보세요. 그리고 <em>왼쪽 옆구리가 당기는지</em>도요. 그 당기는 느낌이 저장된 힘입니다.</p>
+      <p class="b">열 번 하고 나서 바로 클럽 잡고 백스윙하면, 느낌이 확 다릅니다.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 클럽 가슴 드릴 3회 (정면 + 후방). 옆구리 당기는 지점 손으로 짚어주기.</p>
+
+    <div class="say">
+      <p class="b">드릴 둘. <em>의자 드릴.</em> 스웨이 잡는 데는 이게 최고입니다.</p>
+      <p class="b">오른쪽 엉덩이 바깥에 <em>의자나 박스</em>를 하나 붙여 놓으세요.</p>
+      <p class="b">그리고 백스윙을 하는데, <em>의자에 엉덩이가 닿으면 실패</em>입니다.</p>
+      <p class="b">몸이 오른쪽으로 밀리면 무조건 닿아요. 안 닿으려면 <em>회전할 수밖에 없습니다.</em></p>
+      <p class="b">(웃으며) 처음엔 계속 닿으실 거예요. 그만큼 밀고 계셨던 겁니다.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 의자 드릴 — 닿는 나쁜 예 1회, 안 닿는 좋은 예 2회 (정면 캠)</p>
+
+    <div class="say">
+      <p class="b">드릴 셋. <em>톱에서 3초 멈추기.</em></p>
+      <p class="b">백스윙 톱까지 올리고, <em>거기서 셋을 세고</em> 다운스윙 하세요.</p>
+      <p class="b">이거 해보시면 바로 아십니다. 톱이 너무 크거나 균형이 안 맞으면 <em>3초를 못 버팁니다.</em> 흔들려요.</p>
+      <p class="b">3초를 편하게 버틸 수 있는 위치. 그게 <em>내 몸에 맞는 톱</em>입니다.</p>
+      <p class="b">그리고 이 드릴에는 보너스가 있어요. 톱에서 멈췄다가 치면 <em>반동을 못 쓰니까</em>, 하체부터 시작하는 법을 저절로 배우게 됩니다.</p>
+      <p class="b">공 놓고 열 개만 해보세요. 처음엔 이상한데 다섯 개쯤부터 감이 옵니다.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 톱 3초 정지 후 타격 2구. 흔들리는 나쁜 예도 1회.</p>
+    <p class="cue cg"><b>자막</b> "① 클럽 가슴 드릴 ② 의자 드릴 ③ 톱 3초"</p>
+  </div>
+
+  <!-- ================= 실전 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">13:50</span>
+      <span class="blk-name">실전 — 몸이 뻣뻣하다면</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ③ 후방 — 회전량 차이가 보이게</p>
+
+    <div class="say">
+      <p class="b">여기까지 보시고 이런 생각 드신 분 계실 거예요. "말은 알겠는데 <em>몸이 안 돌아간다.</em>"</p>
+      <p class="b">맞습니다. 나이가 있으시거나 앉아서 일하시는 분들은 <em>흉추</em>, 그러니까 등뼈가 잘 안 돌아갑니다.</p>
+      <p class="b">그럴 때 억지로 돌리면 <em>허리로 돌리게 되고</em>, 그러면 다칩니다. 그래서 방법을 바꿔야 해요.</p>
+      <p class="b">첫째, <em>오른발을 15도 정도 바깥으로 여세요.</em></p>
+      <p class="b">이거 하나로 골반 회전이 훨씬 편해집니다. 골반이 돌면 어깨도 따라 돌아요.</p>
+      <p class="b">둘째, <em>왼쪽 뒤꿈치를 살짝 들어도 됩니다.</em></p>
+      <p class="b">옛날 프로들 스윙 보시면 다 그렇게 쳤어요. 몸이 안 돌아가면 <em>뒤꿈치를 들어서라도 회전을 만드는 게</em> 낫습니다.</p>
+      <p class="b">억지로 붙이고 안 돌아가는 것보다 백배 좋아요.</p>
+      <p class="b">셋째, <em>백스윙을 짧게 가져가세요.</em> 대신 <em>몸통 회전 비율은 유지</em>하시고요.</p>
+      <p class="b">아까 말씀드렸죠. <em>흔들리는 큰 톱보다 단단한 작은 톱이 낫습니다.</em> 유연성이 부족하면 톱은 짧은 게 정답이에요.</p>
+      <p class="b">넷째, 이건 스윙이 아니라 숙제인데요. <em>흉추 회전 스트레칭.</em></p>
+      <p class="b">의자에 앉아서 클럽을 어깨에 걸치고, 하체는 고정한 채 <em>상체만 좌우로 돌리세요.</em> 하루 2분이면 됩니다.</p>
+      <p class="b">2주만 하시면 백스윙이 확실히 커집니다. (강조) <em>이건 연습이 아니라 몸을 바꾸는 겁니다.</em></p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 오른발 닫은 상태 / 15도 연 상태 백스윙 비교 (후방 캠). 의자 흉추 스트레칭 시연 3회.</p>
+    <p class="cue cg"><b>자막</b> "흔들리는 큰 톱 &lt; 단단한 작은 톱"</p>
+  </div>
+
+  <!-- ================= 정리 ================= -->
+  <div class="blk">
+    <div class="blk-head">
+      <span class="blk-time">15:20</span>
+      <span class="blk-name">흔한 실수 · 정리 · 마무리</span>
+    </div>
+
+    <p class="cue cam"><b>카메라</b> CAM ① 토킹캠</p>
+
+    <div class="say">
+      <p class="b">흔한 실수 세 가지 정리할게요.</p>
+      <p class="b">첫째, <em>크게 들려고 팔을 올리는 것.</em> 크기는 팔이 아니라 <em>어깨 회전</em>이 만듭니다.</p>
+      <p class="b">둘째, <em>손목을 일부러 일찍 꺾는 것.</em> 손목은 클럽 무게로 자연스럽게 꺾입니다. 일찍 꺾으면 클럽이 몸 뒤로 넘어가요.</p>
+      <p class="b">셋째, <em>머리를 붙잡는 것.</em> 머리 고정하려다 어깨 회전이 막히는 분들 정말 많습니다. 조금 움직여도 됩니다.</p>
+      <p class="b">오늘 내용 한 줄로요.</p>
+      <p class="b"><em>백스윙은 팔로 드는 게 아니라 몸으로 감는 겁니다.</em></p>
+      <p class="b">그리고 <em>왼팔이 펴진 데까지가 내 백스윙</em>이라는 것. 이 두 개만 가져가세요.</p>
+      <p class="b">다음 영상에서는 30미터 어프로치, 거리감 만드는 방법을 다뤄보겠습니다.</p>
+      <p class="b">오늘도 감사합니다. 좋은 스윙 하세요.</p>
+    </div>
+
+    <p class="cue demo"><b>시연</b> 마지막 컷 — 톱에서 잠깐 멈췄다가 깔끔한 스윙 1구</p>
+    <p class="cue cg"><b>자막</b> 요약 카드 / 구독 · 좋아요 / 다음 영상 카드</p>
+  </div>
+
+  <div class="endmark">— EP 05 END —</div>
+</section>
+
+</div>
+</body>
+</html>
