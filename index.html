@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>기타 키/카포 파인더 — 산들 · 나의 어릴 적 이야기</title>
+<style>
+  :root {
+    --bg: #faf8f4;
+    --card: #ffffff;
+    --ink: #2b2a26;
+    --sub: #6f6a5e;
+    --accent: #b0413e;
+    --chord: #1d5c8f;
+    --line: #e6e1d6;
+    --gold: #f3ead4;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+    padding: 24px 16px 80px;
+    max-width: 760px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+  h1 { font-size: 1.35rem; margin-bottom: 4px; }
+  .byline { color: var(--sub); font-size: .9rem; margin-bottom: 20px; }
+  .panel {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+  .panel h2 { font-size: 1rem; margin-bottom: 10px; }
+  .preset-grid { display: grid; gap: 8px; }
+  .preset {
+    display: flex; align-items: center; gap: 12px;
+    border: 1.5px solid var(--line);
+    border-radius: 10px;
+    padding: 10px 12px;
+    background: #fff;
+    cursor: pointer;
+    text-align: left;
+    font: inherit;
+    width: 100%;
+    transition: border-color .15s, background .15s;
+  }
+  .preset:hover { border-color: var(--accent); }
+  .preset.active { border-color: var(--accent); background: var(--gold); }
+  .preset .badge {
+    flex-shrink: 0;
+    background: var(--accent); color: #fff;
+    border-radius: 8px; padding: 4px 10px;
+    font-weight: 700; font-size: .85rem;
+    min-width: 74px; text-align: center;
+  }
+  .preset.easy .badge { background: #2e7d4f; }
+  .preset .desc { font-size: .85rem; color: var(--sub); }
+  .preset .title { font-weight: 700; font-size: .92rem; }
+  .controls { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
+  .controls label { font-size: .85rem; color: var(--sub); margin-right: 6px; }
+  select {
+    font: inherit; padding: 6px 10px;
+    border: 1px solid var(--line); border-radius: 8px;
+    background: #fff;
+  }
+  .summary {
+    margin-top: 10px; font-size: .9rem;
+    background: var(--gold); border-radius: 8px; padding: 8px 12px;
+  }
+  .summary b { color: var(--accent); }
+  .chordset { margin-top: 8px; font-size: .95rem; }
+  .chordset .c { color: var(--chord); font-weight: 700; margin-right: 10px; white-space: nowrap; }
+  .sheet { font-size: .95rem; }
+  .sheet .section-label {
+    color: var(--sub); font-size: .78rem; letter-spacing: .08em;
+    margin: 18px 0 4px; text-transform: uppercase;
+  }
+  .sheet .pair { margin-bottom: 10px; }
+  .sheet .chords {
+    color: var(--chord); font-weight: 700;
+    font-family: "SF Mono", Menlo, Consolas, monospace;
+    font-size: .88rem; white-space: pre-wrap;
+  }
+  .sheet .lyric { white-space: pre-wrap; }
+  .sheet .inst { color: var(--sub); font-style: italic; }
+  footer { margin-top: 28px; color: var(--sub); font-size: .78rem; }
+</style>
+</head>
+<body>
+
+<h1>산들 — 나의 어릴 적 이야기</h1>
+<div class="byline">원곡 키: G · 원하는 만큼 키를 내리고, 카포로 쉬운 코드폼을 찾아보세요</div>
+
+<div class="panel">
+  <h2>추천 조합 (2~4키 다운 기준)</h2>
+  <div class="preset-grid" id="presets"></div>
+</div>
+
+<div class="panel">
+  <h2>직접 설정</h2>
+  <div class="controls">
+    <span><label>실제 키(음높이)</label><select id="keySel"></select></span>
+    <span><label>카포</label><select id="capoSel"></select></span>
+  </div>
+  <div class="summary" id="summary"></div>
+  <div class="chordset" id="chordset"></div>
+</div>
+
+<div class="panel sheet" id="sheet"></div>
+
+<footer>
+  코드 진행은 업로드된 악보 이미지 기준으로 옮긴 것입니다. 카포를 낀 상태에서는 표시된 코드폼 그대로 잡으면 실제 키로 소리가 납니다.
+</footer>
+
+<script>
+// ---- 음이론 유틸 ----
+const SHARPS = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"];
+const FLATS  = ["C","Db","D","Eb","E","F","Gb","G","Ab","A","Bb","B"];
+const FLAT_KEYS = new Set(["F","Bb","Eb","Ab","Db","Gb","Dm","Gm","Cm"]);
+
+function noteIndex(n) {
+  const i = SHARPS.indexOf(n);
+  return i >= 0 ? i : FLATS.indexOf(n);
+}
+function transposeNote(n, semis, preferFlat) {
+  const idx = ((noteIndex(n) + semis) % 12 + 12) % 12;
+  return preferFlat ? FLATS[idx] : SHARPS[idx];
+}
+function transposeChord(chord, semis, keyName) {
+  if (semis === 0) return chord;
+  const preferFlat = FLAT_KEYS.has(keyName);
+  return chord.replace(/([A-G][#b]?)/g, m => transposeNote(m, semis, preferFlat));
+}
+
+// ---- 곡 데이터 (원키 G) ----
+const SONG = [
+  { label: "Intro", lines: [
+    { chords: "C  D  Em  D  Am  D7", lyric: null },
+  ]},
+  { label: "Verse 1", lines: [
+    { chords: "G        D/F#  Em      C    G      Am   D7sus4 D7",
+      lyric:  "어느 날 갑자기 생각나  내 이름 부르시던 목소리" },
+    { chords: "C     G   D/F#  Em       C      D     Gsus4  G",
+      lyric:  "지금도 내 귓가에 울리는데  아무도 기억 못하나 보다" },
+    { chords: "G        D/F#  Em      C     G      Am   D7sus4 D7",
+      lyric:  "사진 속 우리 바라보니  그때는 아주 평범했구나" },
+    { chords: "C       G   D/F#  Em         C      D     G   G7",
+      lyric:  "생각만 해도 내 맘 이렇게 아픈데  아무도 기억 못하나 보다" },
+  ]},
+  { label: "Chorus", lines: [
+    { chords: "C            D          G      C     D",
+      lyric:  "네 얘기만 듣고 가세요  한 번도 용기 내지 못한" },
+    { chords: "C           D    Em  C  D        Am   D7",
+      lyric:  "평생을 나 기억할게요  내 말 듣고 가세요" },
+    { chords: "G          D/F#   Em       C     G       Am   D7sus4 D7",
+      lyric:  "저기요 아저씨 잠시만요  사진 좀 같이 찍어주세요" },
+    { chords: "C        G   D/F#  Em        C      D    Gsus4  G",
+      lyric:  "언젠가 당신 얼굴 잊어버릴까  내는요 여기 남길 랍니다" },
+  ]},
+  { label: "Interlude", lines: [
+    { chords: "(G  D/F#  Em  Bm7  C  D  Em  G  C  D  Gsus4  G)", lyric: null },
+  ]},
+  { label: "Verse 2", lines: [
+    { chords: "G        D/F#  Em        C      G     Am   D7sus4 D7",
+      lyric:  "어느 날 갑자기 생각나니  손잡고 거닐던 그 골목길" },
+    { chords: "C      G    D/F#  Em          C      D     Gsus4  G",
+      lyric:  "하나 둘 셋 걸으며 모두 좋았었는데  아무도 기억 못하나 보다" },
+  ]},
+  { label: "Chorus", lines: [
+    { chords: "C            D          G      C     D",
+      lyric:  "네 얘기만 듣고 가세요  한 번도 용기 내지 못한" },
+    { chords: "C           D    Em  C  D        Am   D7",
+      lyric:  "평생을 나 기억할게요  내 말 듣고 가세요" },
+    { chords: "G          D/F#   Em       C     G       Am   D7sus4 D7",
+      lyric:  "저기요 아저씨 잠시만요  사진 좀 같이 찍어주세요" },
+    { chords: "C        G   D/F#  Em        C      D    Gsus4  G",
+      lyric:  "언젠가 당신 얼굴 잊어버릴까  내는요 여기 남길 랍니다" },
+  ]},
+  { label: "Outro", lines: [
+    { chords: "(G  D/F#  Em  Bm7  C  D  G)", lyric: null },
+  ]},
+];
+
+// 곡에 등장하는 대표 코드 (원키 G 기준)
+const CORE_CHORDS = ["G","D/F#","Em","C","D","Am","D7sus4","D7","Bm7","G7","Gsus4"];
+
+// ---- 키/카포 ----
+const KEYS = [
+  { name: "G",  offset: 0,  label: "G (원키)" },
+  { name: "F#", offset: -1, label: "F# (−1키)" },
+  { name: "F",  offset: -2, label: "F (−2키)" },
+  { name: "E",  offset: -3, label: "E (−3키)" },
+  { name: "Eb", offset: -4, label: "E♭ (−4키)" },
+  { name: "D",  offset: -5, label: "D (−5키)" },
+];
+
+const PRESETS = [
+  { key: "Eb", capo: 3, easy: true,
+    title: "E♭키 (−4키) · 카포 3 · C코드폼 — ★ 최고 추천",
+    desc: "C · G/B · Am · F · G · Dm 폼으로 연주. F 하나 빼면 전부 오픈코드라 제일 쉬워요." },
+  { key: "E", capo: 4, easy: true,
+    title: "E키 (−3키) · 카포 4 · C코드폼",
+    desc: "위와 같은 쉬운 C코드폼인데 한 키만 덜 내리고 싶을 때. 카포가 한 프렛 높아져요." },
+  { key: "E", capo: 2, easy: false,
+    title: "E키 (−3키) · 카포 2 · D코드폼",
+    desc: "D · A/C# · Bm · G · A · Em 폼. Bm 하이코드가 하나 필요하지만 나머지는 편해요." },
+  { key: "F", capo: 3, easy: false,
+    title: "F키 (−2키) · 카포 3 · D코드폼",
+    desc: "2키만 내리고 싶을 때. D코드폼(Bm 포함)으로 연주." },
+  { key: "E", capo: 0, easy: false,
+    title: "E키 (−3키) · 카포 없이",
+    desc: "E · B · C#m · A · F#m — 하이코드가 많아 오히려 어려워요. 카포 추천." },
+];
+
+// ---- 렌더링 ----
+const keySel = document.getElementById("keySel");
+const capoSel = document.getElementById("capoSel");
+
+KEYS.forEach(k => {
+  const o = document.createElement("option");
+  o.value = k.name; o.textContent = k.label;
+  keySel.appendChild(o);
+});
+for (let c = 0; c <= 7; c++) {
+  const o = document.createElement("option");
+  o.value = c; o.textContent = c === 0 ? "없음" : c + "프렛";
+  capoSel.appendChild(o);
+}
+
+const presetWrap = document.getElementById("presets");
+PRESETS.forEach((p, i) => {
+  const btn = document.createElement("button");
+  btn.className = "preset" + (p.easy ? " easy" : "");
+  btn.innerHTML = `<span class="badge">${p.key === "Eb" ? "E♭" : p.key}키 · 카포${p.capo}</span>
+    <span><div class="title">${p.title}</div><div class="desc">${p.desc}</div></span>`;
+  btn.addEventListener("click", () => {
+    keySel.value = p.key;
+    capoSel.value = p.capo;
+    render();
+  });
+  presetWrap.appendChild(btn);
+});
+
+function render() {
+  const keyName = keySel.value;
+  const capo = parseInt(capoSel.value, 10);
+  const key = KEYS.find(k => k.name === keyName);
+  const soundingOffset = key.offset;          // 원키 G 대비 실제 음높이
+  const shapeOffset = soundingOffset - capo;  // 카포 감안해 손으로 잡는 폼
+  const shapeKeyIdx = ((noteIndex("G") + shapeOffset) % 12 + 12) % 12;
+  const shapeKeyName = FLAT_KEYS.has(keyName) && capo === 0 ? FLATS[shapeKeyIdx] : SHARPS[shapeKeyIdx];
+
+  // 프리셋 활성 표시
+  document.querySelectorAll(".preset").forEach((el, i) => {
+    const p = PRESETS[i];
+    el.classList.toggle("active", p.key === keyName && p.capo === capo);
+  });
+
+  document.getElementById("summary").innerHTML =
+    capo === 0
+      ? `실제 키 <b>${key.label}</b> — 카포 없이 그대로 연주합니다.`
+      : `실제 키 <b>${key.label}</b> · 카포 <b>${capo}프렛</b> → 아래 악보는 <b>${shapeKeyName}코드폼</b>으로 표시됩니다. 그대로 잡으면 ${key.label.replace(/ .*/, "")}키로 소리 납니다.`;
+
+  const shapeKeyForSpelling = capo === 0 ? keyName : shapeKeyName;
+  document.getElementById("chordset").innerHTML =
+    "사용 코드: " + CORE_CHORDS
+      .map(c => `<span class="c">${transposeChord(c, shapeOffset, shapeKeyForSpelling)}</span>`)
+      .join("");
+
+  const sheet = document.getElementById("sheet");
+  sheet.innerHTML = "";
+  SONG.forEach(sec => {
+    const lbl = document.createElement("div");
+    lbl.className = "section-label";
+    lbl.textContent = sec.label;
+    sheet.appendChild(lbl);
+    sec.lines.forEach(line => {
+      const pair = document.createElement("div");
+      pair.className = "pair";
+      const ch = document.createElement("div");
+      ch.className = "chords";
+      ch.textContent = line.chords.replace(/([A-G][#b]?[^A-G\s()]*)/g,
+        m => transposeChord(m, shapeOffset, shapeKeyForSpelling));
+      pair.appendChild(ch);
+      if (line.lyric) {
+        const ly = document.createElement("div");
+        ly.className = "lyric";
+        ly.textContent = line.lyric;
+        pair.appendChild(ly);
+      } else {
+        ch.classList.add("inst");
+      }
+      sheet.appendChild(pair);
+    });
+  });
+}
+
+keySel.addEventListener("change", render);
+capoSel.addEventListener("change", render);
+
+// 기본값: 최고 추천 (E♭키 · 카포 3)
+keySel.value = "Eb";
+capoSel.value = 3;
+render();
+</script>
+</body>
+</html>
