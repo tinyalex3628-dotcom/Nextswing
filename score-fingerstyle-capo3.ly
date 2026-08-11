@@ -29,7 +29,7 @@ vmTwo = {
   g,8 d g b d8 a d' fis' |
   cis8 e a cis' b,8 fis b d' |
   a,8 d fis a g,8 d g b |
-  a,8 e a cis' d8 a d' fis' |
+  <a, e a cis'>4 <d a d' fis'>4 <d a d' g'>4 <d a d' fis'>4 |
 }
 
 vmThree = {
@@ -51,6 +51,13 @@ cmOne = {
   b,8 fis b d' a,8 fis a cis' |
   e,8 b, g b a,8 e a cis' |
   d8 a d' fis' d8 a c' fis' |
+}
+
+cmOneB = {
+  g,8 d g b a,8 e a cis' |
+  b,8 fis b d' a,8 fis a cis' |
+  e,8 b, g b a,8 e a cis' |
+  d8 a d' fis' d8 a d' fis' |
 }
 
 cmTwo = {
@@ -136,7 +143,7 @@ vcOne = \chordmode {
   d2 a2/cis | b2:m fis2:m/a | g2 d2 | e2:m a4:7sus4 a4:7 |
 }
 vcTwo = \chordmode {
-  g2 d2 | a2/cis b2:m | d2/a g2 | a2 d2 |
+  g2 d2 | a2/cis b2:m | d2/a g2 | a4 d4 d4:sus4 d4 |
 }
 vcThree = \chordmode {
   d2 a2/cis | b2:m d2/a | g2 d2 | e2:m a4:7sus4 a4:7 |
@@ -146,6 +153,9 @@ vcFour = \chordmode {
 }
 ccOne = \chordmode {
   g2 a2 | b2:m fis2:m/a | e2:m a2 | d2 d2:7 |
+}
+ccOneB = \chordmode {
+  g2 a2 | b2:m fis2:m/a | e2:m a2 | d1 |
 }
 ccTwo = \chordmode {
   g2 a2 | ais2:dim7 b2:m | fis2:m/a e2:m | a2:7sus4 a2:7 |
@@ -174,7 +184,7 @@ music = {
   \mark \markup \box "2절"
   \vmThree \vmFour
   \mark \markup \box "후렴"
-  \cmOne \cmTwoB \vmOne \cmFourSus
+  \cmOneB \cmTwoB \vmOne \cmFourSus
   \mark \markup \box "엔딩"
   \endingMusic
   \mark \markup \box "Outro"
@@ -188,7 +198,7 @@ allChords = {
   \ccOne \ccTwo \vcOne \ccFourSus
   \vcThree \ccFourSus
   \vcThree \vcFour
-  \ccOne \ccTwoB \vcOne \ccFourSus
+  \ccOneB \ccTwoB \vcOne \ccFourSus
   \endingChords
   \outroChords
 }
