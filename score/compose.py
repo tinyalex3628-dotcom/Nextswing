@@ -5,7 +5,20 @@ from PIL import Image
 from crop_tab import analyze
 
 SCRATCH = "/tmp/claude-0/-home-user-Nextswing/9a4ae754-881c-5e76-a20b-08c510c7ffc4/scratchpad"
-TARGET_W = 1000
+TARGET_W = 1600
+
+def enhance(img):
+    """확대 후 선명화 + 배경/잉크 대비 보정 (숫자 모양은 그대로)."""
+    from PIL import ImageFilter
+    img = img.filter(ImageFilter.UnsharpMask(radius=2.2, percent=170, threshold=2))
+    arr = np.asarray(img).astype(np.float32)
+    lum = arr.mean(axis=2, keepdims=True)
+    # 배경(밝은 픽셀) -> 완전한 흰색, 잉크는 어둡게, 중간은 선형 스트레치
+    lo, hi = 70.0, 200.0
+    scale = np.clip((lum - lo) / (hi - lo), 0.0, 1.0)
+    out = arr * (0.55 + 0.45 * (1 - scale))  # 어두운 픽셀 더 진하게
+    out = np.where(lum >= hi, 255.0, out)
+    return Image.fromarray(np.clip(out, 0, 255).astype(np.uint8))
 
 def page_strip(path):
     im, clusters, removes = analyze(path)
@@ -40,6 +53,7 @@ def main(pages):
         img = Image.fromarray(strip)
         if w != TARGET_W:
             img = img.resize((TARGET_W, int(img.size[1] * TARGET_W / w)), Image.LANCZOS)
+        img = enhance(img)
         strips.append(np.asarray(img))
     full = np.concatenate(strips, axis=0)
     full = collapse_white(full, max_gap=14)
