@@ -30,21 +30,53 @@ def page_strip(path):
     strip = arr[keep_rows]
     return strip, w
 
-def collapse_white(strip, max_gap=12):
-    """연속 흰 row 구간을 max_gap으로 압축."""
+def drop_black_bands(strip):
+    """캡처 경계의 전폭 검은 띠 제거."""
+    gray = strip.mean(axis=2)
+    frac = (gray < 120).mean(axis=1)
+    bad = frac > 0.75
+    # 오선(1~2px)은 남기고, 5px 이상 이어지는 두꺼운 띠만 제거 (±2px 여유)
+    remove = np.zeros(len(strip), dtype=bool)
+    i, n = 0, len(strip)
+    while i < n:
+        if bad[i]:
+            j = i
+            while j < n and bad[j]:
+                j += 1
+            if j - i >= 5:
+                remove[max(0, i - 2):min(n, j + 2)] = True
+            i = j
+        else:
+            i += 1
+    return strip[~remove]
+
+def collapse_white(strip, max_gap=12, cut_min_run=26):
+    """연속 흰 row 구간을 max_gap으로 압축.
+    반환: (압축 strip, 페이지 분할 허용 row 마스크) — 원래 길었던 흰 구간만 분할 지점."""
     gray = strip.mean(axis=2)
     dark = (gray < 200).sum(axis=1)
     is_white = dark <= 1
-    keep = np.ones(len(strip), dtype=bool)
-    run = 0
-    for i, wht in enumerate(is_white):
-        if wht:
-            run += 1
-            if run > max_gap:
-                keep[i] = False
+    n = len(strip)
+    keep = np.ones(n, dtype=bool)
+    # 흰 run 찾기
+    runs = []
+    i = 0
+    while i < n:
+        if is_white[i]:
+            j = i
+            while j < n and is_white[j]:
+                j += 1
+            runs.append((i, j))
+            i = j
         else:
-            run = 0
-    return strip[keep]
+            i += 1
+    cuttable = np.zeros(n, dtype=bool)
+    for a, b in runs:
+        if b - a > max_gap:
+            keep[a + max_gap:b] = False
+        if b - a >= cut_min_run:
+            cuttable[a:a + max_gap] = True
+    return strip[keep], cuttable[keep]
 
 def main(pages):
     strips = []
@@ -56,21 +88,32 @@ def main(pages):
         img = enhance(img)
         strips.append(np.asarray(img))
     full = np.concatenate(strips, axis=0)
-    full = collapse_white(full, max_gap=14)
+    full = drop_black_bands(full)
+    full, cuttable = collapse_white(full, max_gap=14)
+    # 얇은 블록(코드 글자/헤더 줄)은 다음 블록과 분리 금지:
+    # cuttable 갭 사이 콘텐츠 블록 높이가 작으면 그 '뒤' 갭을 잘라내기 금지로 변경
+    idx = np.where(cuttable)[0]
+    gaps = []
+    for k in idx:
+        if not gaps or k > gaps[-1][1] + 1:
+            gaps.append([k, k])
+        else:
+            gaps[-1][1] = k
+    for gi in range(1, len(gaps)):
+        block_h = gaps[gi][0] - gaps[gi - 1][1]
+        if block_h < 60:
+            cuttable[gaps[gi][0]:gaps[gi][1] + 1] = False
 
-    # A4 비율로 페이지 분할하되, 시스템 중간에서 자르지 않게 흰 row에서 자른다
+    # A4 비율로 페이지 분할: 원래 시스템 사이였던 긴 흰 구간에서만 자른다
     page_h = int(TARGET_W * 1.414 * 1.08)  # 여유
-    gray = full.mean(axis=2)
-    darkc = (gray < 200).sum(axis=1)
     pages_out, y = [], 0
     H = len(full)
     while y < H:
         end = min(y + page_h, H)
         if end < H:
-            # end 근처 위쪽으로 흰 row 탐색
             cut = end
             for k in range(end, max(y + page_h // 2, y + 1), -1):
-                if darkc[k] <= 1:
+                if cuttable[k]:
                     cut = k
                     break
             end = cut
