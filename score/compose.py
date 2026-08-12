@@ -8,16 +8,12 @@ SCRATCH = "/tmp/claude-0/-home-user-Nextswing/9a4ae754-881c-5e76-a20b-08c510c7ff
 TARGET_W = 1600
 
 def enhance(img):
-    """확대 후 선명화 + 배경/잉크 대비 보정 (숫자 모양은 그대로)."""
+    """약한 선명화 + 배경만 흰색 정리 (잉크 굵기/진하기는 원본 그대로)."""
     from PIL import ImageFilter
-    img = img.filter(ImageFilter.UnsharpMask(radius=2.2, percent=170, threshold=2))
+    img = img.filter(ImageFilter.UnsharpMask(radius=1.0, percent=55, threshold=3))
     arr = np.asarray(img).astype(np.float32)
     lum = arr.mean(axis=2, keepdims=True)
-    # 배경(밝은 픽셀) -> 완전한 흰색, 잉크는 어둡게, 중간은 선형 스트레치
-    lo, hi = 70.0, 200.0
-    scale = np.clip((lum - lo) / (hi - lo), 0.0, 1.0)
-    out = arr * (0.55 + 0.45 * (1 - scale))  # 어두운 픽셀 더 진하게
-    out = np.where(lum >= hi, 255.0, out)
+    out = np.where(lum >= 205, 255.0, arr)  # 밝은 배경/노이즈만 흰색으로
     return Image.fromarray(np.clip(out, 0, 255).astype(np.uint8))
 
 def page_strip(path):
@@ -104,8 +100,11 @@ def main(pages):
         if block_h < 60:
             cuttable[gaps[gi][0]:gaps[gi][1] + 1] = False
 
-    # A4 비율로 페이지 분할: 원래 시스템 사이였던 긴 흰 구간에서만 자른다
-    page_h = int(TARGET_W * 1.414 * 1.08)  # 여유
+    # A4 실치수 기준 페이지 분할: 원래 시스템 사이였던 긴 흰 구간에서만 자른다
+    side_pad, top_pad = 40, 30
+    canvas_w = TARGET_W + side_pad * 2
+    canvas_h = int(canvas_w * 297 / 210)  # A4 비율
+    page_h = canvas_h - top_pad * 2
     pages_out, y = [], 0
     H = len(full)
     while y < H:
@@ -121,20 +120,18 @@ def main(pages):
         y = end
     outs = []
     for i, pg in enumerate(pages_out, 1):
-        canvas = np.full((page_h, TARGET_W, 3), 255, dtype=np.uint8)
-        canvas[:len(pg)] = pg
-        # 좌우 여백 추가
-        pad = 40
-        page = np.full((page_h + 60, TARGET_W + pad * 2, 3), 255, dtype=np.uint8)
-        page[30:30 + page_h, pad:pad + TARGET_W] = canvas
+        page = np.full((canvas_h, canvas_w, 3), 255, dtype=np.uint8)
+        page[top_pad:top_pad + len(pg), side_pad:side_pad + TARGET_W] = pg[:page_h]
         out = Image.fromarray(page)
         fn = f"{SCRATCH}/out_page{i}.png"
         out.save(fn)
         outs.append(out)
         print("page", i, "content rows:", len(pg))
+    # A4(210mm) 폭에 캔버스 폭이 정확히 맞도록 dpi 설정 -> 인쇄 시 잘림 없음
+    dpi = canvas_w / (210 / 25.4)
     outs[0].save("/home/user/Nextswing/score/나의_어릴적_이야기_탭전용.pdf",
-                 save_all=True, append_images=outs[1:], resolution=120)
-    print("pages:", len(outs))
+                 save_all=True, append_images=outs[1:], resolution=dpi)
+    print("pages:", len(outs), "dpi:", round(dpi, 1))
 
 if __name__ == "__main__":
     import sys
