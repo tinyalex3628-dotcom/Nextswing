@@ -46,12 +46,67 @@ def drop_black_bands(strip):
             i += 1
     return strip[~remove]
 
+def remove_junk_blocks(strip):
+    """시스템 사이의 잡동사니(워터마크 footer, 제목, 페이지 헤더) 삭제.
+    기준: 흰 구간으로 분리된 낮은 블록 중 가로 분포가 좁은 것."""
+    gray = strip.mean(axis=2)
+    w = gray.shape[1]
+    is_white = ((gray < 200).sum(axis=1) <= 10)
+    n = len(strip)
+    remove = np.zeros(n, dtype=bool)
+    # 블록 나누기: 12row 이상 흰 구간이 경계
+    blocks, i = [], 0
+    while i < n:
+        if not is_white[i]:
+            j = i
+            gap = 0
+            while j < n and gap < 12:
+                if is_white[j]:
+                    gap += 1
+                else:
+                    gap = 0
+                j += 1
+            blocks.append((i, j - gap))
+            i = j
+        else:
+            i += 1
+    for bi, (a, b) in enumerate(blocks):
+        h = b - a
+        if h >= 70 or bi == 0:  # 시스템 블록/문서 첫 블록(템포)은 유지
+            continue
+        dark = gray[a:b] < 160
+        bins = 12
+        cov = sum(dark[:, w * k // bins:w * (k + 1) // bins].any() for k in range(bins))
+        if cov <= bins * 0.5:
+            remove[a:b] = True
+    # 블록 하단(마지막 보표선 아래) 오른쪽에 붙은 footer(akbobada.com) 제거
+    dark_all = gray < 160
+    linerow = dark_all.sum(axis=1) > 0.5 * w
+    dc = dark_all.sum(axis=1)
+    for a, b in blocks:
+        lines = [r for r in range(a, b) if linerow[r]]
+        if not lines:
+            continue
+        last = lines[-1]
+        r = last + 3
+        while r < b:
+            if dc[r] > 10:
+                s = r
+                while r < b and dc[r] > 10:
+                    r += 1
+                cols = np.where(dark_all[s:r].any(axis=0))[0]
+                if len(cols) and cols.min() > 0.55 * w:
+                    remove[s:r] = True
+            else:
+                r += 1
+    return strip[~remove]
+
 def collapse_white(strip, max_gap=12, cut_min_run=26):
     """연속 흰 row 구간을 max_gap으로 압축.
     반환: (압축 strip, 페이지 분할 허용 row 마스크) — 원래 길었던 흰 구간만 분할 지점."""
     gray = strip.mean(axis=2)
     dark = (gray < 200).sum(axis=1)
-    is_white = dark <= 1
+    is_white = dark <= 10
     n = len(strip)
     keep = np.ones(n, dtype=bool)
     # 흰 run 찾기
@@ -85,6 +140,7 @@ def main(pages):
         strips.append(np.asarray(img))
     full = np.concatenate(strips, axis=0)
     full = drop_black_bands(full)
+    full = remove_junk_blocks(full)
     full, cuttable = collapse_white(full, max_gap=14)
     # 얇은 블록(코드 글자/헤더 줄)은 다음 블록과 분리 금지:
     # cuttable 갭 사이 콘텐츠 블록 높이가 작으면 그 '뒤' 갭을 잘라내기 금지로 변경
@@ -110,12 +166,13 @@ def main(pages):
     while y < H:
         end = min(y + page_h, H)
         if end < H:
-            cut = end
-            for k in range(end, max(y + page_h // 2, y + 1), -1):
+            # 페이지 안에 들어오는 마지막 분할 가능 지점까지 후퇴 (단 중간 절대 금지)
+            cut = None
+            for k in range(end, y + 1, -1):
                 if cuttable[k]:
                     cut = k
                     break
-            end = cut
+            end = cut if cut is not None else end
         pages_out.append(full[y:end])
         y = end
     outs = []
