@@ -16,13 +16,61 @@ def enhance(img):
     out = np.where(lum >= 205, 255.0, arr)  # 밝은 배경/노이즈만 흰색으로
     return Image.fromarray(np.clip(out, 0, 255).astype(np.uint8))
 
-def page_strip(path):
+def page_strip(path, first=False):
     im, clusters, removes = analyze(path)
     w, h = im.size
     arr = np.asarray(im.convert("RGB"))
     keep_rows = np.ones(h, dtype=bool)
     for t, b in removes:
         keep_rows[t:b + 1] = False
+    if clusters:
+        gray = arr.mean(axis=2)
+        rc = (gray < 160).sum(axis=1)
+        # 위: 첫 보표 위의 코드 줄(+볼타 등 1개 더)까지만 유지 → 헤더/제목 제거
+        top = clusters[0]["top"]
+        r, gap = top - 1, 0
+        while r >= 0 and rc[r] <= 2 and gap <= 45:
+            r -= 1
+            gap += 1
+        if r >= 0 and rc[r] > 2:  # 코드 줄 발견 (볼타 등은 보통 코드 줄과 연속)
+            while r - 1 >= 0 and rc[r - 1] > 2:
+                r -= 1
+            top = r
+            # 아주 가까이(<=8px) 붙은 밴드 하나 더(분리된 코드 줄) 포함, 헤더(>=13px)는 제외
+            r2, gap2 = top - 1, 0
+            while r2 >= 0 and rc[r2] <= 2 and gap2 <= 8:
+                r2 -= 1
+                gap2 += 1
+            if r2 >= 0 and rc[r2] > 2 and gap2 <= 8:
+                while r2 - 1 >= 0 and rc[r2 - 1] > 2:
+                    r2 -= 1
+                top = r2
+        top = 0 if first else max(0, top - 4)
+        # 아래: TAB에 붙은 리듬 기둥/빔(연속 잉크)을 먼저 포함
+        bot = clusters[-1]["bot"]
+        while bot + 1 < h and rc[bot + 1] > 2:
+            bot += 1
+        # 이어서 작은 기호(S, 페르마타)까지만 유지 → 조각 부스러기 제거
+        r = bot + 1
+        while r < h:
+            if rc[r] <= 2:
+                # 흰 구간 12 초과면 종료
+                s = r
+                while r < h and rc[r] <= 2:
+                    r += 1
+                if r - s > 12:
+                    break
+            else:
+                s = r
+                while r < h and rc[r] > 2:
+                    r += 1
+                band_h = r - s
+                if band_h > 24 or (rc[s:r] > 0.4 * w).any():
+                    break  # 보표 부스러기
+                bot = r - 1
+        bot = min(h - 1, bot + 4)
+        keep_rows[:top] = False
+        keep_rows[bot + 1:] = False
     strip = arr[keep_rows]
     return strip, w
 
@@ -129,10 +177,11 @@ def collapse_white(strip, max_gap=12, cut_min_run=26):
             cuttable[a:a + max_gap] = True
     return strip[keep], cuttable[keep]
 
-def main(pages):
+def main(pages, out_pdf="/home/user/Nextswing/score/나의_어릴적_이야기_탭전용.pdf",
+         out_prefix="out_page"):
     strips = []
-    for p in pages:
-        strip, w = page_strip(p)
+    for pi, p in enumerate(pages):
+        strip, w = page_strip(p, first=(pi == 0))
         img = Image.fromarray(strip)
         if w != TARGET_W:
             img = img.resize((TARGET_W, int(img.size[1] * TARGET_W / w)), Image.LANCZOS)
@@ -180,13 +229,13 @@ def main(pages):
         page = np.full((canvas_h, canvas_w, 3), 255, dtype=np.uint8)
         page[top_pad:top_pad + len(pg), side_pad:side_pad + TARGET_W] = pg[:page_h]
         out = Image.fromarray(page)
-        fn = f"{SCRATCH}/out_page{i}.png"
+        fn = f"{SCRATCH}/{out_prefix}{i}.png"
         out.save(fn)
         outs.append(out)
         print("page", i, "content rows:", len(pg))
     # A4(210mm) 폭에 캔버스 폭이 정확히 맞도록 dpi 설정 -> 인쇄 시 잘림 없음
     dpi = canvas_w / (210 / 25.4)
-    outs[0].save("/home/user/Nextswing/score/나의_어릴적_이야기_탭전용.pdf",
+    outs[0].save(out_pdf,
                  save_all=True, append_images=outs[1:], resolution=dpi)
     print("pages:", len(outs), "dpi:", round(dpi, 1))
 

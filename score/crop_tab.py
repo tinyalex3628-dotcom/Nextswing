@@ -51,6 +51,40 @@ def band_expand(gray, top, bot, up_limit, down_limit):
         b += 1
     return t, b
 
+def extend_over_chord_row(gray, t, staff_top, up_limit):
+    """제거 밴드 위쪽에 붙은 '기타용 코드 글자 줄'까지 밴드를 확장.
+    가사 줄(음절 뭉치가 많고 폭넓게 분포)은 절대 삼키지 않는다."""
+    h, w = gray.shape
+    dark = (gray < 160)
+    rc = dark.sum(axis=1)
+    if t < staff_top - 45:  # 이미 충분히 위까지 확장됨(코드 줄 포함 추정)
+        return t
+    # 위로 흰 구간(<=16) 건너뛰고 텍스트 밴드 찾기
+    r, gap = t - 1, 0
+    while r > up_limit and rc[r] <= 2 and gap <= 16:
+        r -= 1
+        gap += 1
+    if r <= up_limit or rc[r] <= 2:
+        return t
+    e = r
+    s = e
+    while s - 1 > up_limit and rc[s - 1] > 2:
+        s -= 1
+    if e - s > 34:  # 텍스트 줄 높이가 아님
+        return t
+    cols = np.where(dark[s:e + 1].any(axis=0))[0]
+    if len(cols) == 0:
+        return t
+    coverage = len(cols) / w
+    clumps, prev = 1, cols[0]
+    for c in cols[1:]:
+        if c - prev > 15:
+            clumps += 1
+        prev = c
+    if coverage < 0.30 and clumps <= 7:  # 코드 라벨 몇 개 = 코드 줄
+        return max(up_limit + 1, s - 2)
+    return t
+
 def analyze(path):
     im, gray = load_gray(path)
     h, w = gray.shape
@@ -59,11 +93,15 @@ def analyze(path):
     removes = []
     for i, cl in enumerate(clusters):
         if cl["n"] >= 6:  # TAB
-            # 바로 앞 클러스터가 5선이면 제거 대상
-            if i > 0 and clusters[i - 1]["n"] == 5:
-                prev = clusters[i - 1]
-                up_limit = clusters[i - 2]["bot"] + 3 if i >= 2 else 0
+            # 앞쪽으로 잡선(빔 등 5선 미만 클러스터)은 건너뛰고 5선 보표를 찾는다
+            j = i - 1
+            while j >= 0 and clusters[j]["n"] < 5:
+                j -= 1
+            if j >= 0 and clusters[j]["n"] == 5:
+                prev = clusters[j]
+                up_limit = clusters[j - 1]["bot"] + 3 if j >= 1 else 0
                 t, b = band_expand(gray, prev["top"], prev["bot"], up_limit, cl["top"] - 3)
+                t = extend_over_chord_row(gray, t, prev["top"], up_limit)
                 removes.append((t, b))
     return im, clusters, removes
 
