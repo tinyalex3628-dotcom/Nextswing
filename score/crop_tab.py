@@ -39,9 +39,9 @@ def find_staff_clusters(gray):
 
 def band_expand(gray, top, bot, up_limit, down_limit):
     """보표 클러스터를 위아래로 확장: 잉크가 이어진 구간(빔/기둥/기호) 포함,
-    거의 흰 row를 만나면 멈춤."""
+    거의 흰 row를 만나면 멈춤. 워터마크(연한 잉크)는 잉크로 치지 않는다."""
     h, w = gray.shape
-    dark = (gray < 160)
+    dark = (gray < 130)
     rowcount = dark.sum(axis=1)
     t = top
     while t - 1 > up_limit and rowcount[t - 1] > 2:
