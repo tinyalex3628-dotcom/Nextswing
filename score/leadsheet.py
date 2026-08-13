@@ -77,7 +77,7 @@ def barlines(gray, top, bot):
 def lyric_band(gray, mel_bot, not_top):
     """멜로디 아래~기타보표 위 구간에서 '가사 줄' 밴드만 선별.
     음표 꼬리/빔 잔재(뭉치 적음)와 가사(음절 뭉치 많음)를 구분한다."""
-    dark = gray < 190
+    dark = gray < 140  # 워터마크(연한 잉크)는 제외하고 진짜 글자만
     rc = dark.sum(axis=1)
     a, b = mel_bot + 2, not_top - 3
     bands, r = [], a
@@ -108,7 +108,7 @@ def lyric_band(gray, mel_bot, not_top):
     if best is None or best_cl < 6:
         return None
     # 받침/윗부분 잘림 방지: 옅은 잉크까지 포함해 위아래로 확장 + 넉넉한 패딩
-    loose = (gray < 210).sum(axis=1) > 0
+    loose = (gray < 175).sum(axis=1) > 0
     s, e = best
     for _ in range(3):
         if s - 1 > mel_bot and loose[s - 1]:
