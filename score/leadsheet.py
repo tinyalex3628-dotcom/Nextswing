@@ -107,7 +107,16 @@ def lyric_band(gray, mel_bot, not_top):
             best, best_cl = (s, e), clumps
     if best is None or best_cl < 6:
         return None
-    return max(a, best[0] - 2), min(b, best[1] + 2)
+    # 받침/윗부분 잘림 방지: 옅은 잉크까지 포함해 위아래로 확장 + 넉넉한 패딩
+    loose = (gray < 210).sum(axis=1) > 0
+    s, e = best
+    for _ in range(3):
+        if s - 1 > mel_bot and loose[s - 1]:
+            s -= 1
+    for _ in range(3):
+        if e + 1 < not_top - 4 and loose[e + 1]:
+            e += 1
+    return max(mel_bot + 1, s - 2), min(not_top - 4, e + 3)
 
 def make(delta, out_pdf, title_note):
     files = [f"/home/user/Nextswing/10-{n}.PNG" for n in range(1, 7)]
