@@ -25,7 +25,19 @@ def page_strip(path, first=False):
         keep_rows[t:b + 1] = False
     if clusters:
         gray = arr.mean(axis=2)
-        rc = (gray < 160).sum(axis=1)
+        rc = (gray < 190).sum(axis=1)
+
+        def climb(r0, tol=3):
+            """r0에서 위로, tol 이하의 흰 끊김은 무시하며 잉크 밴드 시작 row 반환."""
+            r, best, gap = r0, r0, 0
+            while r - 1 >= 0 and gap <= tol:
+                r -= 1
+                if rc[r] > 2:
+                    best, gap = r, 0
+                else:
+                    gap += 1
+            return best
+
         # 위: 첫 보표 위의 코드 줄(+볼타 등 1개 더)까지만 유지 → 헤더/제목 제거
         top = clusters[0]["top"]
         r, gap = top - 1, 0
@@ -33,9 +45,7 @@ def page_strip(path, first=False):
             r -= 1
             gap += 1
         if r >= 0 and rc[r] > 2:  # 코드 줄 발견 (볼타 등은 보통 코드 줄과 연속)
-            while r - 1 >= 0 and rc[r - 1] > 2:
-                r -= 1
-            top = r
+            top = climb(r)
             # 위에 붙은 밴드가 '분리된 코드 줄'처럼 보일 때만 추가 포함.
             # 코드 줄: 라벨 뭉치 4개 이상 + 오른쪽까지 분포 / 헤더·제목: 뭉치 2~3개
             r2, gap2 = top - 1, 0
