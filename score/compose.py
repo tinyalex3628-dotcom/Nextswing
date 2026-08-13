@@ -36,15 +36,26 @@ def page_strip(path, first=False):
             while r - 1 >= 0 and rc[r - 1] > 2:
                 r -= 1
             top = r
-            # 아주 가까이(<=8px) 붙은 밴드 하나 더(분리된 코드 줄) 포함, 헤더(>=13px)는 제외
+            # 위에 붙은 밴드가 '분리된 코드 줄'처럼 보일 때만 추가 포함.
+            # 코드 줄: 라벨 뭉치 4개 이상 + 오른쪽까지 분포 / 헤더·제목: 뭉치 2~3개
             r2, gap2 = top - 1, 0
             while r2 >= 0 and rc[r2] <= 2 and gap2 <= 8:
                 r2 -= 1
                 gap2 += 1
             if r2 >= 0 and rc[r2] > 2 and gap2 <= 8:
+                e2 = r2
                 while r2 - 1 >= 0 and rc[r2 - 1] > 2:
                     r2 -= 1
-                top = r2
+                band = (gray[r2:e2 + 1] < 160)
+                cols = np.where(band.any(axis=0))[0]
+                if len(cols):
+                    clumps, prev = 1, cols[0]
+                    for c in cols[1:]:
+                        if c - prev > 15:
+                            clumps += 1
+                        prev = c
+                    if clumps >= 4 and cols.max() > 0.55 * w:
+                        top = r2
         top = 0 if first else max(0, top - 4)
         # 아래: TAB에 붙은 리듬 기둥/빔(연속 잉크)을 먼저 포함
         bot = clusters[-1]["bot"]
@@ -187,26 +198,27 @@ def main(pages, out_pdf="/home/user/Nextswing/score/나의_어릴적_이야기_�
             img = img.resize((TARGET_W, int(img.size[1] * TARGET_W / w)), Image.LANCZOS)
         img = enhance(img)
         strips.append(np.asarray(img))
-    full = np.concatenate(strips, axis=0)
-    full = drop_black_bands(full)
-    full = remove_junk_blocks(full)
-    full, cuttable = collapse_white(full, max_gap=14)
-    # 얇은 블록(코드 글자/헤더 줄)은 다음 블록과 분리 금지:
-    # cuttable 갭 사이 콘텐츠 블록 높이가 작으면 그 '뒤' 갭을 잘라내기 금지로 변경
-    idx = np.where(cuttable)[0]
-    gaps = []
-    for k in idx:
-        if not gaps or k > gaps[-1][1] + 1:
-            gaps.append([k, k])
-        else:
-            gaps[-1][1] = k
-    for gi in range(1, len(gaps)):
-        block_h = gaps[gi][0] - gaps[gi - 1][1]
-        if block_h < 60:
-            cuttable[gaps[gi][0]:gaps[gi][1] + 1] = False
+    # 조각(=시스템) 단위로 정리 후, 조각 사이에 고정 간격을 넣고 그 지점만 분할 허용
+    SPACER = 18
+    cleaned = []
+    for s in strips:
+        s = drop_black_bands(s)
+        s = remove_junk_blocks(s)
+        s, _ = collapse_white(s, max_gap=14)
+        cleaned.append(s)
+    parts, cut_parts = [], []
+    spacer = np.full((SPACER, TARGET_W, 3), 255, dtype=np.uint8)
+    for i, s in enumerate(cleaned):
+        if i > 0:
+            parts.append(spacer)
+            cut_parts.append(np.ones(SPACER, dtype=bool))
+        parts.append(s)
+        cut_parts.append(np.zeros(len(s), dtype=bool))
+    full = np.concatenate(parts, axis=0)
+    cuttable = np.concatenate(cut_parts)
 
     # A4 실치수 기준 페이지 분할: 원래 시스템 사이였던 긴 흰 구간에서만 자른다
-    side_pad, top_pad = 40, 30
+    side_pad, top_pad = 70, 30
     canvas_w = TARGET_W + side_pad * 2
     canvas_h = int(canvas_w * 297 / 210)  # A4 비율
     page_h = canvas_h - top_pad * 2
