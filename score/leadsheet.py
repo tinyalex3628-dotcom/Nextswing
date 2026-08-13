@@ -172,7 +172,8 @@ def make(delta, out_pdf, title_note):
                 canvas_parts.append(Image.fromarray(la.astype(np.uint8)))
             else:
                 inst = Image.new("RGB", (OUT_W, 30), "white")
-                ImageDraw.Draw(inst).text((20, 2), "(연주)", font=kfont, fill=(120, 120, 120))
+                lab = "-   (연주)" if measure_no == 29 else "(연주)"
+                ImageDraw.Draw(inst).text((20, 2), lab, font=kfont, fill=(120, 120, 120))
                 canvas_parts.append(inst)
             total_h = sum(p.size[1] for p in canvas_parts) + 16
             block = Image.new("RGB", (OUT_W, total_h), "white")
