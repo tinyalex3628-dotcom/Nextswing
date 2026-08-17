@@ -1,0 +1,656 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>스윙 유형 테스트 | 나는 어떤 골퍼일까?</title>
+<meta name="description" content="12문항 1분 30초. 16가지 골퍼 유형 중 나는 어떤 타입일까? 코스 공략·접근 방식·라운드 성향·멘탈까지 한 번에.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="스윙 유형 테스트 — 나는 어떤 골퍼일까?">
+<meta property="og:description" content="12문항으로 알아보는 내 골프 성향. 노브레이크 타짜부터 필드 위 신선까지, 16유형 중 당신은?">
+<!-- og:image는 배포 도메인 확정 후 절대 URL로 추가 (카카오는 절대 경로 권장) -->
+<meta name="theme-color" content="#0B7A45">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛳</text></svg>">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+  :root{
+    --ink:#191F28; --g700:#333D4B; --g600:#4E5968; --g500:#6B7684; --g400:#8B95A1;
+    --g200:#E5E8EB; --g100:#F2F4F6; --bg:#F7F8FA;
+    --green:#0B7A45; --green-press:#096A3C; --green-tint:#EAF6F0; --green-line:#BFE3D0;
+    --amber-bg:#FFF7E8; --amber-line:#F3E3BF; --amber-ink:#8A6116;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased; line-height:1.5;
+  }
+  button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+  a{color:inherit;text-decoration:none}
+  .app{max-width:480px;margin:0 auto;min-height:100dvh;background:#fff;display:flex;flex-direction:column;position:relative}
+  @media(min-width:600px){.app{box-shadow:0 0 0 1px var(--g200)}}
+  .screen{display:none;flex:1;flex-direction:column}
+  .screen.on{display:flex}
+  .wrap{padding:0 20px}
+
+  /* ---------- 시작 화면 ---------- */
+  #scr-start{justify-content:center;text-align:center;padding:48px 24px}
+  .start-badge{display:inline-block;margin:0 auto 16px;padding:7px 14px;border-radius:999px;background:var(--green-tint);color:var(--green);font-size:13px;font-weight:700}
+  .start-title{font-size:38px;font-weight:800;letter-spacing:-.03em;line-height:1.2}
+  .start-sub{margin-top:12px;font-size:17px;color:var(--g600);font-weight:500}
+  .start-meta{margin-top:8px;font-size:14px;color:var(--g400)}
+  .type-chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:32px 0 0}
+  .type-chips span{padding:8px 12px;border:1px solid var(--g200);border-radius:999px;font-size:13px;color:var(--g600);font-weight:600}
+  .start-cta{margin-top:40px}
+
+  /* ---------- 공통 버튼 ---------- */
+  .btn{display:flex;align-items:center;justify-content:center;width:100%;min-height:56px;border-radius:14px;font-size:17px;font-weight:700;transition:transform .08s,background .12s}
+  .btn:active{transform:scale(.98)}
+  .btn-primary{background:var(--green);color:#fff}
+  .btn-primary:active{background:var(--green-press)}
+  .btn-second{background:var(--g100);color:var(--g700)}
+  .btn-ghost{min-height:48px;color:var(--g500);font-size:15px;font-weight:600}
+  .btn:focus-visible{outline:3px solid var(--green-line);outline-offset:2px}
+
+  /* ---------- 질문 화면 ---------- */
+  .quiz-top{display:flex;align-items:center;gap:10px;padding:14px 12px 10px}
+  .back-btn{width:44px;height:44px;min-width:44px;display:flex;align-items:center;justify-content:center;border-radius:12px;color:var(--g600)}
+  .back-btn:active{background:var(--g100)}
+  .back-btn svg{width:22px;height:22px}
+  .prog-track{flex:1;height:6px;border-radius:3px;background:var(--g100);overflow:hidden}
+  .prog-fill{height:100%;width:0;border-radius:3px;background:var(--green);transition:width .25s ease}
+  .prog-num{min-width:44px;text-align:right;font-size:13px;font-weight:700;color:var(--g500);padding-right:8px;font-variant-numeric:tabular-nums}
+  .q-body{flex:1;display:flex;flex-direction:column;padding:16px 20px 32px}
+  .q-label{font-size:15px;font-weight:800;color:var(--green)}
+  .q-text{margin-top:8px;font-size:22px;font-weight:800;letter-spacing:-.02em;line-height:1.35;min-height:88px}
+  .choices{margin-top:20px;display:flex;flex-direction:column;gap:12px}
+  .choice{display:flex;gap:12px;align-items:flex-start;text-align:left;width:100%;padding:18px 16px;border:1.5px solid var(--g200);border-radius:16px;background:#fff;font-size:16px;font-weight:600;line-height:1.5;color:var(--g700);transition:border-color .12s,background .12s,transform .08s}
+  .choice:active{transform:scale(.98)}
+  .choice.selected{border-color:var(--green);background:var(--green-tint);color:var(--ink)}
+  .choice:focus-visible{outline:3px solid var(--green-line);outline-offset:2px}
+  .choice .k{flex:none;width:26px;height:26px;border-radius:50%;background:var(--g100);color:var(--g500);font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;margin-top:1px}
+  .choice.selected .k{background:var(--green);color:#fff}
+  .q-anim{animation:qin .22s ease}
+  @keyframes qin{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:none}}
+
+  /* ---------- 결과 화면 ---------- */
+  #scr-result{padding-bottom:40px}
+  .res-head{padding:20px 20px 0;display:flex;justify-content:flex-end}
+  .cap{margin:8px 16px 0;background:#fff;border:1px solid var(--g200);border-radius:20px;padding:28px 22px 22px;text-align:center}
+  .cap-label{font-size:14px;font-weight:700;color:var(--g500)}
+  .cap-code{display:inline-block;margin-top:12px;padding:6px 14px;border-radius:10px;background:var(--green-tint);color:var(--green);font-weight:800;font-size:16px;letter-spacing:.22em;text-indent:.22em}
+  .cap-name{margin-top:12px;font-size:31px;font-weight:800;letter-spacing:-.03em;line-height:1.25}
+  .cap-catch{margin-top:8px;font-size:16px;color:var(--g600);font-weight:500}
+  .axes{margin-top:24px;display:flex;flex-direction:column;gap:16px;text-align:left}
+  .ax-title{font-size:12px;font-weight:700;color:var(--g400);letter-spacing:.02em}
+  .ax-labels{display:flex;justify-content:space-between;align-items:baseline;margin-top:3px}
+  .ax-labels b{font-size:14px;font-weight:800}
+  .ax-labels .win{color:var(--green)}
+  .ax-labels .lose{color:var(--g400);font-weight:600}
+  .ax-track{margin-top:6px;height:8px;border-radius:4px;background:var(--g100);overflow:hidden;display:flex}
+  .ax-fill{height:100%;background:var(--green);border-radius:4px}
+  .ax-fill.rev{margin-left:auto}
+  .pole-chips{margin-top:24px;display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+  .pole-chips span{padding:8px 14px;border-radius:999px;background:var(--green-tint);color:var(--green);font-size:14px;font-weight:700}
+  .cap-water{margin-top:22px;font-size:12px;color:var(--g400);font-weight:600}
+
+  .sect{margin:14px 16px 0;background:#fff;border:1px solid var(--g200);border-radius:20px;padding:20px}
+  .sect h3{font-size:15px;font-weight:800;color:var(--g500);letter-spacing:-.01em}
+  .traits{margin-top:12px;display:flex;flex-direction:column;gap:12px}
+  .traits li{display:flex;gap:10px;list-style:none;font-size:15.5px;font-weight:500;color:var(--g700);line-height:1.55}
+  .traits .dot{flex:none;width:6px;height:6px;border-radius:50%;background:var(--green);margin-top:9px}
+  .tone{margin:14px 16px 0;border-radius:20px;padding:20px}
+  .tone h3{font-size:14px;font-weight:800}
+  .tone p{margin-top:6px;font-size:15.5px;font-weight:500;line-height:1.55}
+  .tone-good{background:var(--green-tint);border:1px solid var(--green-line)}
+  .tone-good h3{color:var(--green)}
+  .tone-good p{color:#0d5c37}
+  .tone-warn{background:var(--amber-bg);border:1px solid var(--amber-line)}
+  .tone-warn h3{color:var(--amber-ink)}
+  .tone-warn p{color:#6e5220}
+  .tips{margin-top:12px;display:flex;flex-direction:column;gap:14px}
+  .tips .tip b{display:block;font-size:13px;font-weight:800;color:var(--green)}
+  .tips .tip p{margin-top:3px;font-size:15.5px;color:var(--g700);font-weight:500;line-height:1.55}
+  .rels{margin-top:12px;display:flex;flex-direction:column;gap:10px}
+  .rel{display:block;border:1.5px solid var(--g200);border-radius:16px;padding:14px 16px;transition:background .12s}
+  .rel:active{background:var(--g100)}
+  .rel .rl{font-size:12px;font-weight:800}
+  .rel.good .rl{color:var(--green)}
+  .rel.bad .rl{color:var(--amber-ink)}
+  .rel .rn{margin-top:3px;font-size:16px;font-weight:800}
+  .rel .rn span{color:var(--g400);font-weight:700;font-size:13px;margin-left:6px;letter-spacing:.12em}
+  .rel .rw{margin-top:3px;font-size:14px;color:var(--g500);font-weight:500;line-height:1.5}
+  .cta{margin:14px 16px 0;background:var(--ink);border-radius:20px;padding:22px 20px;text-align:center}
+  .cta p{color:#B0B8C1;font-size:14px;font-weight:600}
+  .cta strong{display:block;margin-top:4px;color:#fff;font-size:18px;font-weight:800;letter-spacing:-.02em}
+  .cta .btn{margin-top:16px;background:#fff;color:var(--ink);min-height:52px}
+  .res-actions{margin:20px 16px 0;display:flex;flex-direction:column;gap:10px}
+  .res-actions .row{display:flex;gap:10px}
+  .res-actions .row .btn{flex:1}
+
+  /* ---------- 토스트 / 저장 모달 ---------- */
+  .toast{position:fixed;left:50%;bottom:32px;transform:translateX(-50%) translateY(20px);background:rgba(25,31,40,.92);color:#fff;font-size:14px;font-weight:600;padding:12px 20px;border-radius:12px;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:60;white-space:nowrap}
+  .toast.show{opacity:1;transform:translateX(-50%)}
+  .modal{position:fixed;inset:0;background:rgba(15,18,22,.78);z-index:50;display:none;align-items:center;justify-content:center;padding:24px}
+  .modal.on{display:flex}
+  .modal-box{max-width:420px;width:100%;text-align:center}
+  .modal-box img{width:100%;border-radius:16px;background:#fff}
+  .modal-box p{margin-top:14px;color:#fff;font-size:15px;font-weight:600}
+  .modal-box .btn{margin-top:14px;background:rgba(255,255,255,.14);color:#fff}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- 시작 화면 -->
+  <section class="screen on" id="scr-start">
+    <div>
+      <span class="start-badge">골퍼 성향 테스트</span>
+      <h1 class="start-title">스윙 유형<br>테스트</h1>
+      <p class="start-sub">나는 어떤 골퍼일까?</p>
+      <p class="start-meta">12문항 · 1분 30초 · 16가지 유형</p>
+      <div class="type-chips" aria-hidden="true">
+        <span>노브레이크 타짜</span><span>필드 위 신선</span><span>인간 골프 내비</span><span>골프 짝사랑 10년차</span>
+      </div>
+      <div class="start-cta">
+        <button class="btn btn-primary" id="btn-start">시작하기</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 질문 화면 -->
+  <section class="screen" id="scr-quiz">
+    <div class="quiz-top">
+      <button class="back-btn" id="btn-back" aria-label="이전 질문으로">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="prog-track" role="progressbar" aria-label="진행률" aria-valuemin="1" aria-valuemax="12" aria-valuenow="1">
+        <div class="prog-fill" id="prog-fill"></div>
+      </div>
+      <span class="prog-num" id="prog-num">1/12</span>
+    </div>
+    <div class="q-body" id="q-body">
+      <span class="q-label" id="q-label">Q1</span>
+      <h2 class="q-text" id="q-text"></h2>
+      <div class="choices">
+        <button class="choice" id="choice-A"><span class="k">A</span><span class="t"></span></button>
+        <button class="choice" id="choice-B"><span class="k">B</span><span class="t"></span></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 결과 화면 -->
+  <section class="screen" id="scr-result">
+    <div class="cap" id="capture">
+      <p class="cap-label" id="cap-label">나의 스윙 유형은</p>
+      <span class="cap-code" id="cap-code"></span>
+      <h2 class="cap-name" id="cap-name"></h2>
+      <p class="cap-catch" id="cap-catch"></p>
+      <div id="cap-axes"></div>
+      <p class="cap-water">스윙 유형 테스트 · 12문항으로 알아보는 내 골프 성향</p>
+    </div>
+
+    <div class="sect">
+      <h3>이런 골퍼입니다</h3>
+      <ul class="traits" id="res-traits"></ul>
+    </div>
+    <div class="tone tone-good">
+      <h3>이게 당신의 강점</h3>
+      <p id="res-strength"></p>
+    </div>
+    <div class="tone tone-warn">
+      <h3>이것만 조심</h3>
+      <p id="res-pitfall"></p>
+    </div>
+    <div class="sect">
+      <h3>이렇게 치면 더 좋다</h3>
+      <div class="tips">
+        <div class="tip"><b>연습할 때</b><p id="res-practice"></p></div>
+        <div class="tip"><b>라운드에서</b><p id="res-round"></p></div>
+      </div>
+    </div>
+    <div class="sect">
+      <h3>골프 궁합</h3>
+      <div class="rels">
+        <a class="rel good" id="res-mate">
+          <span class="rl">잘 맞는 동반자</span>
+          <p class="rn"></p><p class="rw"></p>
+        </a>
+        <a class="rel bad" id="res-foe">
+          <span class="rl">같이 치면 피곤한</span>
+          <p class="rn"></p><p class="rw"></p>
+        </a>
+      </div>
+    </div>
+
+    <!-- Nextswing CTA 슬롯: 서비스 링크 확정 시 href 교체 -->
+    <div class="cta">
+      <p>내 유형은 알았고,</p>
+      <strong>내 스윙의 진짜 문제는 어딜까?</strong>
+      <a class="btn" href="#" id="cta-link">Nextswing에서 스윙 분석 받기</a>
+    </div>
+
+    <div class="res-actions" id="actions-own">
+      <div class="row">
+        <button class="btn btn-second" id="btn-save">결과 이미지 저장</button>
+        <button class="btn btn-second" id="btn-copy">링크 복사</button>
+      </div>
+      <button class="btn btn-ghost" id="btn-retry">다시 하기</button>
+    </div>
+    <div class="res-actions" id="actions-shared" style="display:none">
+      <button class="btn btn-primary" id="btn-metoo">나도 해보기</button>
+    </div>
+  </section>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+<div class="modal" id="save-modal">
+  <div class="modal-box">
+    <img id="save-img" alt="스윙 유형 테스트 결과 이미지">
+    <p>이미지를 길게 눌러 저장하세요</p>
+    <button class="btn" id="btn-modal-close">닫기</button>
+  </div>
+</div>
+
+<script>
+'use strict';
+
+/* ===== 데이터 ===== */
+const AXES = [
+  { title:'코스 공략',   poles:['A','S'], names:['공격형','안전형'] },
+  { title:'접근 방식',   poles:['F','T'], names:['감각형','분석형'] },
+  { title:'라운드 성향', poles:['W','J'], names:['승부형','힐링형'] },
+  { title:'멘탈',        poles:['I','G'], names:['강철멘탈','유리멘탈'] },
+];
+
+const QUESTIONS = [
+  { ax:3, q:'첫 홀부터 티샷이 OB 났다.\n속마음은?',
+    A:{ t:'"몸이 덜 풀렸네. 다음 홀부터가 진짜지"', p:'I' },
+    B:{ t:'"아… 오늘 뭔가 잘못될 것 같은 불길한 예감"', p:'G' } },
+  { ax:0, q:'파4 세컨샷. 그린 앞에 개울이 있고,\n거리는 애매하게 남았다.',
+    A:{ t:'"우드 뽑는다. 넘기면 버디 찬스잖아"', p:'A' },
+    B:{ t:'"끊어간다. 개울 앞에 갖다 놓고 어프로치로 승부"', p:'S' } },
+  { ax:1, q:'잘 맞던 드라이버가 갑자기\n슬라이스 나기 시작했다.',
+    A:{ t:'몇 번 더 쳐보면서 감으로 되돌린다', p:'F' },
+    B:{ t:'일단 멈추고 원인 분석. 그립? 정렬? 궤도?', p:'T' } },
+  { ax:2, q:'카트에서 동반자가\n"우리 내기 좀 태울까?"',
+    A:{ t:'"아주 조금만~ 부담되면 골프가 노동이야"', p:'J' },
+    B:{ t:'"콜. 긴장감이 있어야 라운드가 재밌지"', p:'W' } },
+  { ax:0, q:'양쪽이 OB인 좁은 파4\n티박스에 섰다.',
+    A:{ t:'"그래도 드라이버. 쫄아서 살살 치면 더 안 맞아"', p:'A' },
+    B:{ t:'"우드나 아이언으로 페어웨이만 지킨다. 살아있는 게 남는 장사"', p:'S' } },
+  { ax:3, q:'동반자 3명이 내 티샷을\n조용히 지켜보고 있다.',
+    A:{ t:'보는 눈이 있으면 오히려 더 잘 맞는 타입', p:'I' },
+    B:{ t:'갑자기 그립 잡는 법이 헷갈린다. 제발 앞으로만 가라…', p:'G' } },
+  { ax:1, q:'레슨 프로가 내 스윙에서\n고칠 점을 알려줬다.',
+    A:{ t:'왜 그렇게 해야 하는지 원리부터 이해돼야 몸이 움직인다', p:'T' },
+    B:{ t:'일단 시키는 대로 쳐본다. 몸이 기억하면 그게 내 거지', p:'F' } },
+  { ax:2, q:'18홀이 끝났다. 집 가는 길에\n머릿속에 남는 건?',
+    A:{ t:'오늘 스코어… 그 홀에서 그것만 안 말렸어도', p:'W' },
+    B:{ t:'그늘집 라면, 동반자 개그, 단톡방에 올릴 사진', p:'J' } },
+  { ax:3, q:'1m 파 퍼트를 놓쳤다.\n다음 홀 티박스에서 나는?',
+    A:{ t:'방금 그 퍼트 장면이 머릿속에서 무한 재생된다', p:'G' },
+    B:{ t:'홀아웃 하는 순간 삭제됨. 중요한 건 다음 샷', p:'I' } },
+  { ax:0, q:'그린 바로 앞 벙커 뒤에\n핀이 꽂혀 있다.',
+    A:{ t:'"그린 넓은 쪽으로 안전하게. 파만 해도 충분해"', p:'S' },
+    B:{ t:'"핀 보고 쏜다. 붙여야 버디를 하지"', p:'A' } },
+  { ax:1, q:'캐디가 "남은 거리\n135미터입니다"라고 했다.',
+    A:{ t:'느낌 오는 클럽을 바로 뽑는다. "이거면 딱이야"', p:'F' },
+    B:{ t:'바람, 오르막, 내 평균 거리까지 따져보고 뽑는다', p:'T' } },
+  { ax:2, q:'친한 친구와의 라운드.\n오늘따라 친구가 유난히 잘 친다.',
+    A:{ t:'"슬슬 승부욕이 올라온다. 이대로는 못 끝내지"', p:'W' },
+    B:{ t:'"잘 치니까 보기 좋네~ 오늘 밥은 네가 사라"', p:'J' } },
+];
+
+const TYPES = {
+  AFWI:{ name:'노브레이크 타짜', catch:'"쫄리면 지는 거야"',
+    traits:['캐디가 "안전하게 가시죠" 하면 웃으면서 드라이버를 뽑는다','OB 내고도 다음 홀 티박스에서 제일 먼저 "내기 콜?"을 외친다','연습장은 잘 안 가는데 필드만 오면 이상하게 잘 친다'],
+    strength:'승부처에서 망설임이 없다. 동반자들이 제일 무서워하는 유형.',
+    pitfall:'"한 번만 더"가 하루에 여덟 번 나온다. 안 되는 날 스코어는 안드로메다행.',
+    practice:'감을 살리는 반복 연습이 잘 맞는다. 대신 웨지 하나는 \'계산되는 클럽\'으로 만들어두자.',
+    round:'지를 홀과 버릴 홀을 티박스 밟기 전에 정해두면 진짜 무서운 골퍼가 된다.',
+    mate:'STWI', mateWhy:'내가 지르고 쟤가 수습하는 스크램블 최강 조합',
+    foe:'SFJG', foeWhy:'내기 걸자니까 "그냥 재밌게 치자~" 승부욕이 갈 곳을 잃는다' },
+  AFWG:{ name:'풀스윙 롤러코스터', catch:'"버디 아니면 트리플. 중간은 없다"',
+    traits:['전반 39 치고 "오늘 인생 라운드다" 했다가 후반 52','버디 세리머니는 투어급, 더블 나오면 카트에서 갑자기 과묵해짐','미스샷 원인은 모른다. 근데 다음 샷은 더 세게 친다'],
+    strength:'잘 되는 날은 그 조에서 제일 화려한 골프를 친다. 하이라이트 제조기.',
+    pitfall:'한 홀 무너지면 그날 골프 전체를 부정하기 시작한다.',
+    practice:'미스샷 다음의 \'리커버리 샷\'까지 세트로 연습해두면 롤러코스터 낙폭이 줄어든다.',
+    round:'트리플 나온 홀 끝나면 스코어카드 보지 말고 물 한 잔. 다음 홀은 새 라운드다.',
+    mate:'SFJI', mateWhy:'옆에 있으면 이상하게 마음이 편해진다',
+    foe:'ATWI', foeWhy:'무너진 날 옆에서 "그러게 왜 질렀어" 데이터 팩폭' },
+  AFJI:{ name:'해맑은 불도저', catch:'"OB? 괜찮아, 공은 많아"',
+    traits:['스코어를 안 세는 것 같은데 물어보면 "몰라~ 재밌으면 됐지"','파5만 오면 눈빛이 바뀐다. 무조건 2온 도전','해저드에 공 3개 넣고도 그늘집에서 제일 크게 웃는 사람'],
+    strength:'이 사람 있으면 라운드 분위기가 안 죽는다. 인간 비타민.',
+    pitfall:'매번 재밌게 치는데 실력은 3년째 제자리일 수 있다.',
+    practice:'목표 없는 연습도 좋지만, 한 달에 과제 하나만 정하면 그 장타에 방향이 생긴다.',
+    round:'18홀 중 딱 3홀만 \'진지 모드\'를 켜보자. 스코어가 의외로 훅 준다.',
+    mate:'SFJG', mateWhy:'내가 웃기고 쟤가 웃어주는 평화로운 조',
+    foe:'STWG', foeWhy:'내 3초짜리 프리샷 루틴을 못 견뎌하는 눈빛이 느껴진다' },
+  AFJG:{ name:'새가슴 불도저', catch:'"지를 땐 사자, 공 찾으러 갈 땐 다람쥐"',
+    traits:['"에라 모르겠다" 지르고 나서 공 날아가는 내내 두 손 모으고 기도','미스샷에 3초간 세상 잃은 표정, 그늘집 가면 5분 만에 부활','스윙 교정? 몰라. 오늘의 기분이 곧 오늘의 스윙'],
+    strength:'리액션이 커서 같이 치는 맛이 있다. 잘 맞은 날은 세상 다 가진 텐션.',
+    pitfall:'미스샷 한 방에 남은 홀 내내 소심해진 스윙이 나온다.',
+    practice:'실패해도 되는 \'막 지르기 타임\'을 연습장에서 미리 소진하고 필드에 가자.',
+    round:'미스샷 후엔 한 클럽 짧게 잡고 안전하게 한 샷. 자신감은 파에서 회복된다.',
+    mate:'STJI', mateWhy:'흔들릴 때 옆에서 페이스를 잡아주는 든든함',
+    foe:'AFWI', foeWhy:'자꾸 내기 판을 키워서 심장에 안 좋다' },
+  ATWI:{ name:'계산기 든 저격수', catch:'"감? 난 근거로 친다"',
+    traits:['그린 공략 전에 바람·경사·핀 위치까지 계산 끝. 그리고 핀을 직접 쏜다','미스샷에도 표정 변화 없음. 원인 분석하고 다음 샷에서 바로 수정','라운드 끝나면 오늘 데이터로 다음 라운드 전략을 업데이트한다'],
+    strength:'공격이 무모하지 않다. 리스크를 알고 지르는 몇 안 되는 유형.',
+    pitfall:'계산이 길어져서 동반자들이 먼저 카트에 타 있을 수 있다.',
+    practice:'이론은 충분하다. 실전처럼 한 공씩 루틴을 밟는 연습이 효율 최고.',
+    round:'가끔은 계산 끄고 감으로 한 샷. 그 샷이 의외로 오늘의 베스트가 된다.',
+    mate:'SFWI', mateWhy:'말없이 스코어카드로 대화하는 조용한 승부 듀오',
+    foe:'AFJG', foeWhy:'큰 리액션이 내 계산 타임을 자꾸 끊는다' },
+  ATWG:{ name:'완벽주의 폭격기', catch:'"시뮬레이션은 완벽했는데"',
+    traits:['전날 밤 코스 공략도를 머릿속으로 3회전 돌리고 잠든다','계획한 라인대로 안 맞으면 스윙이 아니라 인생을 의심하기 시작','그래도 다음 홀에서 또 핀을 노린다. 포기를 모름'],
+    strength:'준비성은 16유형 중 최상위. 계획이 맞아떨어진 날은 커리어하이가 나온다.',
+    pitfall:'완벽한 계획일수록 변수 하나에 크게 흔들린다. 골프는 변수 스포츠인데.',
+    practice:'\'일부러 나쁜 라이에서 치는\' 연습이 특효약. 변수 내성이 생긴다.',
+    round:'계획에 \'미스샷 2개당 보기 1개는 OK\' 같은 오차 허용치를 미리 넣어두자.',
+    mate:'SFWG', mateWhy:'서로의 1m 퍼트를 세상에서 제일 진심으로 응원해주는 사이',
+    foe:'AFJI', foeWhy:'노는 건 좋은데 내 집중 타임에 자꾸 말을 건다' },
+  ATJI:{ name:'낭만 과학자', catch:'"이 샷이 되나 안 되나, 그게 궁금해서 친다"',
+    traits:['스코어보다 "아까 그 드로우 봤어?"가 더 중요한 사람','나무 사이 창문 샷, 일부러 낮은 펀치샷… 시도 자체가 취미','실패해도 "오~ 데이터 얻었다" 하고 넘어간다'],
+    strength:'골프를 제일 오래, 제일 재밌게 칠 유형. 샷 레퍼토리가 계속 는다.',
+    pitfall:'실험하느라 스코어를 버리는 홀이 한 라운드에 꼭 두세 개 있다.',
+    practice:'실험 정신을 쇼트게임에 쓰면 스코어까지 따라온다. 웨지 거리 나누기 추천.',
+    round:'내기 걸린 날만이라도 실험은 연습 라운드로 미뤄두자.',
+    mate:'STJG', mateWhy:'내 실험 얘기를 세상에서 제일 재밌게 들어주는 관객',
+    foe:'SFWG', foeWhy:'실험샷 칠 때마다 "그걸 왜 치는데…" 잔소리' },
+  ATJG:{ name:'골프 짝사랑 10년차', catch:'"난 골프에 진심인데, 골프는 나한테 왜 이래"',
+    traits:['레슨 영상 알고리즘이 이미 프로 수준. 이론만큼은 싱글','배운 대로 과감하게 시도하는데 몸이 이론을 배신하면 세상이 무너진다','그래도 라운드 잡히면 전날부터 설렌다. 골프가 좋다'],
+    strength:'골프 사랑이 제일 깊고, 이론 기반이 있어서 뭘 배워도 흡수가 빠르다.',
+    pitfall:'아는 게 많아서 미스샷 하나에 의심할 포인트도 많다. 스윙 생각 7개 동시 실행 중.',
+    practice:'스윙 생각은 한 번에 딱 하나만. 나머지는 몸을 믿어보자.',
+    round:'필드에선 이론 OFF. 제일 자신 있는 구질 하나로만 18홀 — 짝사랑이 응답하기 시작한다.',
+    mate:'STWG', mateWhy:'라운드 끝나고 두 시간 스윙 토론이 가능한 유일한 상대',
+    foe:'AFWI', foeWhy:'이론 얘기 꺼내면 "그냥 치면 돼" 한마디로 무시당함' },
+  SFWI:{ name:'무표정 파 자판기', catch:'"화려한 건 없어. 이기는 게 있지"',
+    traits:['드라이버 200m. 근데 매홀 페어웨이 한가운데','무리한 핀 공략 없음. 그린 중앙 → 투 퍼트 → 파. 기계다','동반자 OB에도, 본인 벙커샷에도 표정 변화가 없다'],
+    strength:'스코어 기복이 제일 적다. 내기 최종 승자는 대부분 이 유형.',
+    pitfall:'너무 안전만 추구해서 버디 기회 자체가 안 생기는 날이 있다.',
+    practice:'감이 좋은 타입이라 쇼트게임에 시간을 쓰면 싱글도 넘볼 수 있다.',
+    round:'한 라운드에 두 홀만 공격 옵션을 열어두자. \'지키는 골프\'에 무기가 하나 늘어난다.',
+    mate:'ATWI', mateWhy:'서로 말은 없지만 플레이로 통하는 사이',
+    foe:'AFWG', foeWhy:'감정 널뛰기 구경하다 내 페이스 잃을 뻔' },
+  SFWG:{ name:'돌다리 내기꾼', catch:'"안전하게 왔는데 왜 손에 땀이 나지"',
+    traits:['내기는 좋아하는데 지는 건 죽어도 싫어서 무조건 안전 루트','1m 파 퍼트 앞에서 심호흡 세 번, 어드레스 두 번 풀기','클럽 선택은 순전히 그날 손맛. "오늘은 5번 우드가 착하네"'],
+    strength:'신중함 덕분에 큰 사고가 없는 안정적인 게임 운영.',
+    pitfall:'정작 제일 쉬운 샷에서 소심해진 스트로크가 나온다. 짧은 퍼트의 아이러니.',
+    practice:'퍼트 루틴을 초 단위로 고정하자. 생각할 틈이 없어야 손이 안 떨린다.',
+    round:'내기 금액은 기억에서 지우는 게 최고의 전략. 그냥 파만 세자.',
+    mate:'ATWG', mateWhy:'떨리는 마음을 서로 제일 잘 알아서 파 하나에 같이 기뻐해준다',
+    foe:'ATJI', foeWhy:'내 돈 걸린 홀에서 실험샷 치는 거 실화냐' },
+  SFJI:{ name:'필드 위 신선', catch:'"스코어는 하늘에 맡겼다"',
+    traits:['더블 적으면서 산 보고 "야, 단풍 봐라"','스윙 생각 없음. 그냥 서서 툭. 근데 똑바로 간다','동반자 멘탈 케어 담당. "괜찮아, 다음 홀 있잖아"'],
+    strength:'같이 치면 골프가 쉬워 보이게 만드는 힐링 그 자체.',
+    pitfall:'골프가 스트레스가 아닌 건 최고인데, 실력 향상 계획은 늘 \'다음 달부터\'다. 그 다음 달이 10년째 오는 중.',
+    practice:'한 달에 한 번만 \'기록 라운드\'를 정해보자. 신선도 가끔은 속세의 재미가 필요하다.',
+    round:'지금 그대로 완벽하다. 대신 멘탈 케어 수고비로 그늘집은 얻어먹자.',
+    mate:'AFWG', mateWhy:'구경도 재밌고, 내가 옆에 있으면 쟤도 안정된다',
+    foe:'STWI', foeWhy:'숫자 브리핑이 시작되면 영혼이 잠깐 하늘로 간다' },
+  SFJG:{ name:'\'괜찮아\' 자동응답기', catch:'"괜찮아 괜찮아~ (안 괜찮은 지 3홀째)"',
+    traits:['미스샷 나면 제일 먼저 "괜찮아~" 하는데 웃음이 3초 늦게 나온다','남 미스샷엔 진심 어린 위로, 내 미스샷엔 셀프 디스','공략은 늘 안전하게. 모험은 내 심장이 허락하지 않는다'],
+    strength:'배려의 아이콘. 이 사람과 치면 못 친 날에도 마음이 안 다친다.',
+    pitfall:'남 챙기느라 정작 자기 리듬은 자주 놓친다.',
+    practice:'\'내 샷에만 집중하는 연습\'이 필요하다. 이어폰 끼고 혼자 치는 연습 타임 추천.',
+    round:'위로는 홀당 한 번만. 남는 에너지는 내 프리샷 루틴에 쓰자.',
+    mate:'AFJI', mateWhy:'텐션 올려주는 사람 옆에서는 나도 진짜 괜찮아진다',
+    foe:'AFWI', foeWhy:'자꾸 내기 판을 키워서 내 평화가 위험하다' },
+  STWI:{ name:'인간 골프 내비', catch:'"목적지까지 최단 경로로 안내합니다"',
+    traits:['모든 홀의 공략 루트가 티박스에서 이미 그려져 있다','동반자에게 남은 거리·바람·라이까지 브리핑해준다. 안 물어봤는데','계획이 어긋나도 재탐색 0.5초. "경로를 재설정합니다"'],
+    strength:'코스 매니지먼트 만렙. 실력 대비 스코어가 제일 잘 나오는 유형.',
+    pitfall:'골프가 너무 \'문제 풀이\'가 되면 정작 재미를 놓칠 수 있다.',
+    practice:'전략은 충분하니 웨지 거리별 캐리 같은 샷 정밀도를 올리면 실행력이 완성된다.',
+    round:'가끔은 브리핑을 접어두자. 다들 각자의 골프를 치고 싶어 한다.',
+    mate:'AFWI', mateWhy:'쟤가 사고 치고 내가 수습하는 조합, 은근 재밌다',
+    foe:'AFJG', foeWhy:'경로 안내를 해줘도 기분대로 쳐서 재탐색만 18번째' },
+  STWG:{ name:'플랜B 없는 설계자', catch:'"변수 하나에 무너지는 완벽한 계획"',
+    traits:['라운드 전날 일기예보를 시간대별로 확인, 옷은 플랜A와 플랜B','계획대로 흘러가면 싱글 페이스, 첫 트리플에 설계도 붕괴','무너져도 무리수는 안 둔다. 조용히 보기 골프로 수습'],
+    strength:'디테일한 준비성. 아는 코스에서는 누구보다 강하다.',
+    pitfall:'\'계획대로\'에 집착할수록 계획 밖 상황에서 회복이 느려진다.',
+    practice:'연습 메뉴에 트러블 샷을 넣자. 플랜B는 타고나는 게 아니라 만드는 것.',
+    round:'스코어 목표 대신 \'페어웨이 7개\' 같은 과정 목표로 바꾸면 멘탈이 덜 흔들린다.',
+    mate:'ATJG', mateWhy:'내 공략 노트를 진지하게 봐주는 유일한 사람',
+    foe:'ATJI', foeWhy:'잘 가다가 갑자기 실험샷? 내 머릿속 설계도가 찢어진다' },
+  STJI:{ name:'루틴 부자', catch:'"내 골프는 어제도 오늘도 평화롭다"',
+    traits:['프리샷 루틴, 스트레칭 순서, 그늘집 메뉴까지 늘 똑같다','스코어 욕심은 없는데 이상하게 매번 꾸준히 보기 플레이','옆에서 무슨 일이 나든 내 템포 유지. 인간 메트로놈'],
+    strength:'꾸준함의 왕. 몇 년을 쳐도 스윙이 안 무너진다.',
+    pitfall:'루틴이 편해서 새 시도를 안 하다 보면 성장 정체가 온다.',
+    practice:'분기에 한 번은 루틴에 새 과제를 하나 추가하자. 업데이트도 루틴으로 만들면 된다.',
+    round:'흔들리는 동반자에게 템포를 나눠주자. 당신 옆자리가 명당이라는 소문이 날 것.',
+    mate:'AFJG', mateWhy:'내 템포를 나눠주면 쟤 골프가 산다. 뿌듯함',
+    foe:'AFWG', foeWhy:'텐션 고저차가 커서 내 메트로놈이 고장 난다' },
+  STJG:{ name:'생각 많은 순둥이', catch:'"미스샷 하나로 소설 한 편 쓰는 중"',
+    traits:['티박스에서 머릿속으로는 이미 이 홀을 세 번 돌았다. 클럽도 두 번 바꿈','미스샷 나면 조용해진다. 속으로 원인 분석 3회차 돌리는 중','근데 스코어 욕심은 없다. 그냥 잘 치고 싶을 뿐'],
+    strength:'신중하고 겸손해서 배우는 속도가 꾸준하다. 매너 만점 동반자.',
+    pitfall:'생각이 많아질수록 스윙이 느려지고 작아진다.',
+    practice:'어드레스 후 3초 안에 치는 \'생각 끊기\' 연습이 특효약.',
+    round:'미스샷 분석은 라운드 끝나고 몰아서. 필드에서는 \'다음 샷\' 세 글자만 남기자.',
+    mate:'ATJI', mateWhy:'내 미스샷을 같이 분석해주는데 이상하게 위로가 된다',
+    foe:'AFWI', foeWhy:'"생각 좀 그만하고 쳐!" 재촉이 제일 무섭다' },
+};
+
+/* ===== 상태 (JS 변수만 사용, 저장소 미사용) ===== */
+let step = 0;
+let picks = [];       // 'A' | 'B'
+let lock = false;     // 중복 탭 방지
+let resultCode = '';  // 결과 화면에 표시 중인 유형
+
+/* ===== 요소 ===== */
+const $ = id => document.getElementById(id);
+const screens = { start:$('scr-start'), quiz:$('scr-quiz'), result:$('scr-result') };
+
+function show(name){
+  Object.values(screens).forEach(s => s.classList.remove('on'));
+  screens[name].classList.add('on');
+  window.scrollTo(0,0);
+}
+
+/* ===== 퀴즈 ===== */
+function startQuiz(){
+  step = 0; picks = []; lock = false;
+  renderQuestion();
+  show('quiz');
+}
+
+function renderQuestion(){
+  const q = QUESTIONS[step];
+  $('q-label').textContent = 'Q' + (step+1);
+  $('q-text').textContent = q.q.replace(/\n/g,' ');
+  $('choice-A').querySelector('.t').textContent = q.A.t;
+  $('choice-B').querySelector('.t').textContent = q.B.t;
+  ['choice-A','choice-B'].forEach(id => $(id).classList.remove('selected'));
+  $('prog-num').textContent = (step+1) + '/12';
+  $('prog-fill').style.width = ((step+1)/12*100) + '%';
+  document.querySelector('.prog-track').setAttribute('aria-valuenow', step+1);
+  const body = $('q-body');
+  body.classList.remove('q-anim'); void body.offsetWidth; body.classList.add('q-anim');
+  lock = false;
+}
+
+function pick(k){
+  if (lock) return; lock = true;
+  $('choice-'+k).classList.add('selected');
+  picks[step] = k;
+  setTimeout(() => {
+    if (step < 11){ step++; renderQuestion(); }
+    else finish();
+  }, 240);
+}
+
+function goBack(){
+  if (lock) return;
+  if (step === 0){ show('start'); return; }
+  step--; picks.pop();
+  renderQuestion();
+}
+
+/* ===== 채점 ===== */
+function score(){
+  // counts[i] = 축 i에서 극1(poles[0]) 선택 수 (0~3)
+  const counts = [0,0,0,0];
+  QUESTIONS.forEach((q,i) => {
+    const pole = q[picks[i]].p;
+    const ax = AXES[q.ax];
+    if (pole === ax.poles[0]) counts[q.ax]++;
+  });
+  const code = AXES.map((ax,i) => counts[i] >= 2 ? ax.poles[0] : ax.poles[1]).join('');
+  return { code, counts };
+}
+
+function finish(){
+  const { code, counts } = score();
+  renderResult(code, counts, false);
+  show('result');
+}
+
+/* ===== 결과 렌더 ===== */
+function pct(c){ return Math.round(c/3*100); }
+
+function axesBarsHTML(counts){
+  return '<div class="axes">' + AXES.map((ax,i) => {
+    const p1 = pct(counts[i]), p2 = 100 - p1;
+    const w1 = p1 >= p2;
+    return `<div>
+      <p class="ax-title">${ax.title}</p>
+      <div class="ax-labels">
+        <b class="${w1?'win':'lose'}">${ax.names[0]} ${p1}%</b>
+        <b class="${w1?'lose':'win'}">${p2}% ${ax.names[1]}</b>
+      </div>
+      <div class="ax-track"><div class="ax-fill${w1?'':' rev'}" style="width:${w1?p1:p2}%"></div></div>
+    </div>`;
+  }).join('') + '</div>';
+}
+
+function poleChipsHTML(code){
+  return '<div class="pole-chips">' + AXES.map((ax,i) =>
+    `<span>${code[i] === ax.poles[0] ? ax.names[0] : ax.names[1]}</span>`
+  ).join('') + '</div>';
+}
+
+function renderResult(code, counts, shared){
+  const t = TYPES[code];
+  resultCode = code;
+  $('cap-label').textContent = shared ? '친구의 스윙 유형은' : '나의 스윙 유형은';
+  $('cap-code').textContent = code;
+  $('cap-name').textContent = t.name;
+  $('cap-catch').textContent = t.catch;
+  $('cap-axes').innerHTML = counts ? axesBarsHTML(counts) : poleChipsHTML(code);
+  $('res-traits').innerHTML = t.traits.map(x => `<li><span class="dot"></span><span>${x}</span></li>`).join('');
+  $('res-strength').textContent = t.strength;
+  $('res-pitfall').textContent = t.pitfall;
+  $('res-practice').textContent = t.practice;
+  $('res-round').textContent = t.round;
+  fillRel($('res-mate'), t.mate, t.mateWhy);
+  fillRel($('res-foe'), t.foe, t.foeWhy);
+  $('actions-own').style.display = shared ? 'none' : '';
+  $('actions-shared').style.display = shared ? '' : 'none';
+}
+
+function fillRel(el, code, why){
+  el.href = '?type=' + code;
+  el.querySelector('.rn').innerHTML = TYPES[code].name + '<span>' + code + '</span>';
+  el.querySelector('.rw').textContent = why;
+}
+
+/* ===== 공유 / 저장 ===== */
+function shareURL(){
+  const { code, counts } = score();
+  return location.origin + location.pathname + '?type=' + code + '&s=' + counts.join('');
+}
+
+let toastTimer;
+function toast(msg){
+  const el = $('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('show'), 2200);
+}
+
+function copyLink(){
+  const url = picks.length === 12 ? shareURL()
+    : location.origin + location.pathname + '?type=' + resultCode;
+  const done = () => toast('링크를 복사했어. 카톡에 붙여넣기!');
+  const fail = () => toast('복사가 안 되면 주소창 URL을 공유해줘');
+  if (navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(url).then(done).catch(() => legacyCopy(url) ? done() : fail());
+  } else {
+    legacyCopy(url) ? done() : fail();
+  }
+}
+function legacyCopy(text){
+  try{
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    const ok = document.execCommand('copy');
+    document.body.removeChild(ta);
+    return ok;
+  }catch(e){ return false; }
+}
+
+function saveImage(){
+  if (typeof html2canvas === 'undefined'){
+    toast('이미지 저장을 불러오지 못했어. 스크린샷을 이용해줘');
+    return;
+  }
+  toast('이미지 만드는 중…');
+  html2canvas($('capture'), { scale:2, backgroundColor:'#ffffff', useCORS:true }).then(canvas => {
+    const url = canvas.toDataURL('image/png');
+    const isTouch = matchMedia('(pointer: coarse)').matches;
+    if (isTouch){
+      $('save-img').src = url;
+      $('save-modal').classList.add('on');
+    } else {
+      const a = document.createElement('a');
+      a.href = url; a.download = 'swingtype_' + resultCode + '.png';
+      document.body.appendChild(a); a.click(); a.remove();
+      toast('이미지를 저장했어');
+    }
+  }).catch(() => toast('이미지 저장에 실패했어. 스크린샷을 이용해줘'));
+}
+
+/* ===== 초기화 & 이벤트 ===== */
+$('btn-start').addEventListener('click', startQuiz);
+$('choice-A').addEventListener('click', () => pick('A'));
+$('choice-B').addEventListener('click', () => pick('B'));
+$('btn-back').addEventListener('click', goBack);
+$('btn-save').addEventListener('click', saveImage);
+$('btn-copy').addEventListener('click', copyLink);
+$('btn-retry').addEventListener('click', () => {
+  history.replaceState(null,'',location.pathname);
+  picks = []; step = 0;
+  show('start');
+});
+$('btn-metoo').addEventListener('click', () => {
+  history.replaceState(null,'',location.pathname);
+  startQuiz();
+});
+$('btn-modal-close').addEventListener('click', () => $('save-modal').classList.remove('on'));
+$('save-modal').addEventListener('click', e => { if (e.target === $('save-modal')) $('save-modal').classList.remove('on'); });
+
+// ?type=XXXX(&s=0123): 공유받은 결과 화면. 유효하지 않으면 첫 화면.
+(function init(){
+  const qs = new URLSearchParams(location.search);
+  const code = (qs.get('type') || '').toUpperCase();
+  if (!TYPES[code]) return; // 첫 화면 유지
+  let counts = null;
+  const s = qs.get('s') || '';
+  if (/^[0-3]{4}$/.test(s)){
+    const c = [...s].map(Number);
+    // 점수와 코드가 모순이면 점수 무시
+    const ok = AXES.every((ax,i) => (c[i] >= 2) === (code[i] === ax.poles[0]));
+    if (ok) counts = c;
+  }
+  renderResult(code, counts, true);
+  show('result');
+})();
+</script>
+</body>
+</html>
