@@ -105,6 +105,10 @@
   .traits{margin-top:12px;display:flex;flex-direction:column;gap:12px}
   .traits li{display:flex;gap:10px;list-style:none;font-size:15.5px;font-weight:500;color:var(--g700);line-height:1.55}
   .traits .dot{flex:none;width:6px;height:6px;border-radius:50%;background:var(--green);margin-top:9px}
+  .scenes{margin-top:14px;display:flex;flex-direction:column;gap:18px}
+  .scene .sc-when{display:inline-block;font-size:12px;font-weight:800;color:var(--green);background:var(--green-tint);padding:4px 10px;border-radius:999px}
+  .scene .sc-sit{margin-top:7px;font-size:15px;font-weight:700;color:var(--ink);line-height:1.45}
+  .scene .sc-re{margin-top:8px;background:var(--g100);border-radius:4px 14px 14px 14px;padding:12px 14px;font-size:15px;color:var(--g700);font-weight:500;line-height:1.55}
   .tone{margin:14px 16px 0;border-radius:20px;padding:20px}
   .tone h3{font-size:14px;font-weight:800}
   .tone p{margin-top:6px;font-size:15.5px;font-weight:500;line-height:1.55}
@@ -200,6 +204,10 @@
       <h3>이런 골퍼입니다</h3>
       <ul class="traits" id="res-traits"></ul>
     </div>
+    <div class="sect">
+      <h3>이 상황, 당신이라면</h3>
+      <div class="scenes" id="res-scenes"></div>
+    </div>
     <div class="tone tone-good">
       <h3>이게 당신의 강점</h3>
       <p id="res-strength"></p>
@@ -231,8 +239,8 @@
 
     <!-- Nextswing CTA 슬롯: 서비스 링크 확정 시 href 교체 -->
     <div class="cta">
-      <p>내 유형은 알았고,</p>
-      <strong>내 스윙의 진짜 문제는 어딜까?</strong>
+      <p>테스트는 여기까지.</p>
+      <strong>그런데 내 스윙은 실제로 어떨까?</strong>
       <a class="btn" href="#" id="cta-link">Nextswing에서 스윙 분석 받기</a>
     </div>
 
@@ -439,6 +447,113 @@ const TYPES = {
     foe:'AFWI', foeWhy:'"생각 좀 그만하고 쳐!" 재촉이 제일 무섭다' },
 };
 
+/* 상황 반응: 상황은 전 유형 공통(비교용), 반응만 유형별 */
+const SCENES = [
+  { when:'라운드 전날 밤 11시', sit:'내일 라운드인데, 비 예보 70%' },
+  { when:'라운드 중', sit:'동반자가 "멀리건 하나 줄게"' },
+  { when:'라운드 중', sit:'동반자가 "너 요즘 스윙 좋아졌는데?"' },
+  { when:'라운드 끝난 밤', sit:'오늘의 단톡방' },
+];
+
+const SCENE_REACTIONS = {
+  AFWI:[
+    '"70%면 30%는 갠다는 소리네" — 골프백은 이미 차에 실었다',
+    '"됐고, 이 홀 그냥 먹을게. 대신 다음 홀 판 올리자"',
+    '"그치? 그럼 오늘 내기 좀 되겠는데" 칭찬을 바로 판돈으로 환전',
+    '"다음 라운드 언제? 오늘 이대로는 못 끝내지" 리매치 잡는 중',
+  ],
+  AFWG:[
+    '기상 앱 새로고침 무한반복. \'갬\' 뜨면 환호, 10분 뒤 \'비\' 뜨면 침대에 몸져눕는다',
+    '"오케이, 이번엔 진짜 보여준다" 아드레날린 풀충전 (결과는 복불복)',
+    '어깨가 승천한다 → 다음 티샷에 인생 스윙 시전 → 결과는 아무도 모름',
+    '전반 하이라이트 영상만 골라 올림. 후반 얘기 꺼내는 사람은 강퇴 위기',
+  ],
+  AFJI:[
+    '"우비 입고 치면 되지!" 오히려 신나서 새 우비 검색 중',
+    '"오~ 땡큐!" 하고 아까보다 더 세게 친다',
+    '"그치?! 요즘 골프 진짜 재밌어" (뭐가 좋아졌는지는 본인도 모름)',
+    '"오늘 개꿀잼 ㅋㅋㅋ 담주 또?" 웃긴 사진 도배 중',
+  ],
+  AFJG:[
+    '단톡방에 "취소…?"라고 썼다 지웠다만 여섯 번째',
+    '신나게 받아놓고 어드레스 서는 순간 갑자기 손에 땀이 난다',
+    '"진짜?" 그 한마디로 3홀은 행복하게 친다 (다음 미스샷 전까지)',
+    '낮에 시무룩했던 사람 맞나 싶게 "오늘 재밌었다!" 제일 먼저 올림',
+  ],
+  ATWI:[
+    '레이더 영상 확인 완료. "티타임 기준 강수 40%. 간다. 우천용 세팅도 끝"',
+    '"방금 미스 원인은 정렬이었어. 수정했으니 이번엔 다르다"',
+    '"어디가? 템포야, 궤도야?" 칭찬도 데이터로 받아야 직성이 풀림',
+    '홀별 스코어 분석과 다음 코스 공략 메모를 이미 정리해뒀다',
+  ],
+  ATWG:[
+    '시간대별 강수 그래프 분석 끝, 우비 2종에 여벌 양말까지 쌌는데 \'그래도 취소되면 어쩌지\'로 새벽 2시',
+    '고마운데, 계획에 없던 미스샷이 나왔다는 사실 자체에 이미 화가 나 있다',
+    '"고맙긴 한데 아직 다운스윙 전환이 빨라" 칭찬을 셀프 감점으로 응수',
+    '"오늘 문제점 3개 정리함. 다음 목표는 미스 2개 이하" 회의록 배포',
+  ],
+  ATJI:[
+    '"젖은 그린 스피드가 얼마나 죽는지 궁금했는데 잘됐네"',
+    '"잠깐, 그럼 이번엔 다른 구질로 쳐볼게" 멀리건을 실험 기회로 쓴다',
+    '"오, 요즘 그립 바꾼 게 먹혔나? 다음 홀에서 하나 더 실험해봐야지"',
+    '"아까 나무 사이로 넘긴 샷 영상 누가 찍었어? 소장해야 돼"',
+  ],
+  ATJG:[
+    '"비 오면 스핀이 어떻게 되냐면…" 단톡방에 열정 강의 중. 아무도 안 읽음',
+    '"고마워. 근데 방금 왜 안 맞았는지 먼저 좀 보고" (영상 돌려보는 중)',
+    '"들었지?! 나 진짜 열심히 했거든" 10년 짝사랑 서사 구연 시작',
+    '단톡방은 조용히 읽기만. 혼자 스윙 영상을 슬로모션으로 복기 중',
+  ],
+  SFWI:[
+    '알람 맞추고 그냥 잔다. 비가 오든 말든 칠 사람은 친다',
+    '"그래" 한마디 하고 아무 일 없었다는 듯 페어웨이 한가운데로',
+    '"어." (표정 변화 없음. 그리고 그 홀도 파)',
+    '"수고했어" 한 줄. (근데 오늘 내기 돈은 얘가 제일 많이 땄음)',
+  ],
+  SFWG:[
+    '골프장 우천 취소 규정과 위약금 조항을 정독하는 중',
+    '"이거 내기 정산에 포함되는 거야 아니야?" 규정부터 확정 짓는다',
+    '"에이, 아니야~" (라고 했지만 오늘 내기 자신감이 10% 올랐다)',
+    '정산 중. 딴 날은 계좌번호가 빛의 속도, 잃은 날은 침묵',
+  ],
+  SFJI:[
+    '"빗소리 들으며 치는 것도 낭만이지" 하고 제일 먼저 꿀잠',
+    '"난 아까 샷도 나름 마음에 들었는데~" 하면서 그냥 툭',
+    '"스윙이 좋아진 게 아니라 마음이 편해진 거야" 오늘의 득도 어록',
+    '하늘 사진, 단풍 사진, 그늘집 라면 사진. 스코어 이야기는 없음',
+  ],
+  SFJG:[
+    '"난 다 좋아~ 다들 가고 싶으면 가자" (본인은 새벽까지 예보 확인함)',
+    '"어? 난 괜찮은데… 너 써!" (양보해놓고 3홀 뒤에 후회함)',
+    '"아니야~ 너희가 잘 치니까 그렇게 보이는 거야" 칭찬 자동 반사',
+    '"다들 잘 들어갔지? 오늘 나 때문에 늦어진 거 아니지…?" 한 명씩 안부 확인',
+  ],
+  STWI:[
+    '코스 배수 상태까지 검색해서 단톡방에 우천 브리핑 배포',
+    '"받을게. 대신 기록에는 남겨둔다" 스코어 원칙은 못 버림',
+    '"최근 페어웨이 적중률이 61%에서 68%로 올랐거든" 통계로 화답',
+    '멤버 전원 스코어 정리표에 다음 코스 공략 지도까지 첨부해서 공유',
+  ],
+  STWG:[
+    '플랜A 정상 진행, 플랜B 우비, 플랜C 스크린 예약까지 완료. 이제 비만 계획대로 오면 된다',
+    '"잠깐. 이번엔 클럽부터 다시 고를게" 처음 계획으로 리셋한다',
+    '"아직 멀었어. 체크리스트가 3개 남았어"',
+    '"오늘 계획 대비 리뷰: 티샷은 플랜대로, 문제는 3번 홀 그 바람…"',
+  ],
+  STJI:[
+    '이미 자고 있다. 내일 아침 루틴에 \'우산 챙기기\'만 추가됨',
+    '받아도 프리샷 루틴은 그대로. 연습 스윙 두 번, 늘 그 템포',
+    '"루틴 안 바꾼 지 2년째거든" 꾸준함의 조용한 승리 선언',
+    '늘 똑같은 시간에 "수고하셨습니다" 한 줄. 다음 라운드에도 똑같을 예정',
+  ],
+  STJG:[
+    '\'비 70% 라운드 가야 하나\' 검색 기록 40개. 결론은 아직 없다',
+    '"고마워…" (미안함과 부담감으로 백스윙이 아까보다 작아짐)',
+    '"진짜? 빈말 아니지…?" (집 가서 그 말을 다섯 번쯤 재생할 예정)',
+    '길게 쓴 소감을 다 지우고 "ㅋㅋ 오늘 재밌었다" 여섯 글자만 보냄',
+  ],
+};
+
 /* ===== 상태 (JS 변수만 사용, 저장소 미사용) ===== */
 let step = 0;
 let picks = [];       // 'A' | 'B'
@@ -546,6 +661,9 @@ function renderResult(code, counts, shared){
   $('cap-catch').textContent = t.catch;
   $('cap-axes').innerHTML = counts ? axesBarsHTML(counts) : poleChipsHTML(code);
   $('res-traits').innerHTML = t.traits.map(x => `<li><span class="dot"></span><span>${x}</span></li>`).join('');
+  $('res-scenes').innerHTML = SCENES.map((s,i) =>
+    `<div class="scene"><span class="sc-when">${s.when}</span><p class="sc-sit">${s.sit}</p><p class="sc-re">${SCENE_REACTIONS[code][i]}</p></div>`
+  ).join('');
   $('res-strength').textContent = t.strength;
   $('res-pitfall').textContent = t.pitfall;
   $('res-practice').textContent = t.practice;
