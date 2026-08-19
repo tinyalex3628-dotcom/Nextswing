@@ -964,11 +964,28 @@
     if (e.target === this) closeCardModal();
   });
 
-  $("#btn-download").addEventListener("click", function () {
+  function fallbackDownload(name) {
     var a = document.createElement("a");
     a.href = $("#card-img").src;
-    a.download = "nextswing-" + new Date().toISOString().slice(0, 10) + ".png";
+    a.download = name;
     document.body.appendChild(a); a.click(); a.remove();
+  }
+
+  $("#btn-download").addEventListener("click", function () {
+    var name = "nextswing-" + new Date().toISOString().slice(0, 10) + ".png";
+    /* claude.ai 아티팩트 뷰어에서는 직접 다운로드가 막혀 있어 뷰어의 저장 API를 우선 사용 */
+    if (window.claude && typeof window.claude.use === "function") {
+      window.claude.use("downloads").then(function (dl) {
+        if (dl && cardBlob) {
+          return dl.save({ filename: name, data: cardBlob }).catch(function (err) {
+            if (!err || err.code !== "declined") fallbackDownload(name);
+          });
+        }
+        fallbackDownload(name);
+      });
+      return;
+    }
+    fallbackDownload(name);
   });
 
   $("#btn-share").addEventListener("click", function () {
