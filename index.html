@@ -315,6 +315,35 @@
     font-size: 1.02rem;
   }
   .diagnosis p + p { margin-top: 10px; }
+  .bench-note { margin-top: 14px; font-size: 0.78rem; color: var(--ink-3); }
+
+  /* ---------- cause picker ---------- */
+  .causes-lead { color: var(--ink-2); font-size: 0.95rem; margin-bottom: 16px; }
+  .cause {
+    display: block; width: 100%;
+    text-align: left;
+    background: var(--surface-2);
+    border: 1.5px solid var(--line);
+    border-radius: 12px;
+    padding: 14px 16px;
+  }
+  .cause + .cause { margin-top: 10px; }
+  .cause .c-lbl { display: block; font-weight: 700; }
+  .cause .c-desc { display: block; font-size: 0.85rem; color: var(--ink-2); margin-top: 2px; }
+  .leak .detail .up { color: var(--loss-text); }
+  .cause[aria-checked="true"] {
+    border-color: var(--brand);
+    background: var(--surface);
+    box-shadow: inset 3px 0 0 var(--brand);
+  }
+  .cause[aria-checked="true"] .c-lbl { color: var(--brand); }
+  .rx-tag {
+    display: none;
+    font-size: 0.8rem;
+    margin-bottom: 10px;
+    opacity: 0.85;
+  }
+  .rx-tag.show { display: block; }
 
   .rx { margin-top: 18px; background: var(--brand); color: var(--on-brand); border: none; }
   .rx .eyebrow { color: var(--on-brand); opacity: 0.75; }
@@ -449,8 +478,15 @@
       <div class="diagnosis" id="diagnosis"></div>
     </div>
 
+    <div class="card" id="causes-card">
+      <div class="eyebrow">원인 좁히기</div>
+      <p class="causes-lead" id="causes-lead"></p>
+      <div id="cause-list" role="radiogroup" aria-label="가장 가까운 원인 선택"></div>
+    </div>
+
     <div class="card rx">
       <div class="eyebrow">다음 라운드에서는 이것 하나만 바꾸세요</div>
+      <p class="rx-tag" id="rx-tag"></p>
       <h3 id="rx-title"></h3>
       <p id="rx-body"></p>
     </div>
@@ -587,17 +623,26 @@
 
   /* ================= 분석 엔진 ================= */
 
-  function round1(x) { return Math.round(x * 10) / 10; }
+  var BANDS = [
+    { max: 79,  name: "70대",   bench: { ob: 0.5, trouble: 1,   greed: 0.5, approach: 2, bunker: 0.5, threePutt: 1,   shortPutt: 0.5, doubles: 0.5 } },
+    { max: 89,  name: "80대",   bench: { ob: 1,   trouble: 1.5, greed: 1,   approach: 3, bunker: 1,   threePutt: 2,   shortPutt: 1,   doubles: 1.5 } },
+    { max: 99,  name: "90대",   bench: { ob: 1.5, trouble: 2,   greed: 1.5, approach: 4, bunker: 1,   threePutt: 2.5, shortPutt: 1,   doubles: 3 } },
+    { max: 999, name: "100대", bench: { ob: 2.5, trouble: 3,   greed: 2,   approach: 5, bunker: 1.5, threePutt: 3.5, shortPutt: 1.5, doubles: 4.5 } }
+  ];
+  function bandFor(score) {
+    return BANDS.filter(function (b) { return score <= b.max; })[0];
+  }
 
   function analyze(score) {
     var catLoss = { tee: 0, decision: 0, short: 0, putt: 0 };
     var catParts = { tee: [], decision: [], short: [], putt: [] };
+    var band = bandFor(score);
 
     EVENTS.forEach(function (e) {
       var n = counts[e.id];
       if (n > 0) {
         catLoss[e.cat] += n * e.w;
-        catParts[e.cat].push(e.label + " " + n + "회");
+        catParts[e.cat].push({ id: e.id, label: e.label, n: n, high: n > band.bench[e.id] * 1.25 });
       }
     });
 
@@ -611,7 +656,7 @@
     var potential = Math.max(par, score - Math.round(total));
 
     return {
-      score: score, par: par, over: over,
+      score: score, par: par, over: over, band: band,
       total: total, ranked: ranked, potential: potential,
       top: ranked.length ? ranked[0] : null,
       doubles: counts.doubles
@@ -673,8 +718,60 @@
       }
       p.push("드라이버를 잘 치는 날이 아니라, 드라이버를 참을 줄 아는 날이 베스트 스코어가 나오는 날입니다.");
     }
+    if (r.ranked.length >= 2 && r.ranked[0].raw - r.ranked[1].raw <= 1) {
+      p.push("다만 " + CATS[r.ranked[1].key].label + "(+" + r.ranked[1].disp + "타)도 거의 같은 크기로 샜습니다. 오늘은 한 곳이 아니라 두 곳에서 같이 샌 라운드였습니다.");
+    }
     return p;
   }
+
+  /* ================= 원인 가설 (감별진단) ================= */
+
+  var CAUSES = {
+    tee: [
+      { id: "shape", label: "구질이 한쪽으로만 감", desc: "슬라이스든 훅이든, 그날 내내 같은 방향으로 휘었음",
+        rx: { title: "라운드에서는 고치지 말고, 계산에 넣으세요.",
+              body: "구질은 라운드 중에 못 고칩니다. 오른쪽으로 30m 휜다면 왼쪽 러프 끝을 조준하는 겁니다. 페어웨이 중앙 욕심이 OB를 만듭니다. 교정은 연습장 몫 — 다음 라운드는 '휘는 만큼 미리 조준' 하나만 지키세요." } },
+      { id: "pressure", label: "좁은 홀에서 힘이 들어감", desc: "평소엔 괜찮은데 OB 말뚝이 보이면 무너졌음",
+        rx: { title: "OB가 보이는 홀은 스윙이 아니라 클럽을 바꾸세요.",
+              body: "문제는 스윙이 아니라 '그래도 풀스윙 드라이버'라는 선택입니다. 티박스에서 위험이 먼저 보이는 홀은 우드나 유틸로 80% 스윙 — 거리 20m를 내주고 벌타 2타를 지키는, 남는 거래입니다." } },
+      { id: "warmup", label: "전반, 특히 초반 홀에서 무너짐", desc: "몸이 풀리기 전 1~4번 홀에서 사고가 났음",
+        rx: { title: "1~3번 홀을 '워밍업 홀'로 정해두세요.",
+              body: "첫 세 홀은 드라이버 금지, 우드 티샷에 목표는 보기. 몸이 풀린 뒤부터 공격해도 스코어는 충분합니다. 도착 후 스트레칭 10분과 빈 스윙 20회가 어떤 레슨보다 쌉니다." } }
+    ],
+    decision: [
+      { id: "twoOn", label: "파5에서 '2온 될 것 같아서'", desc: "긴 클럽으로 그린을 직접 노리다 사고",
+        rx: { title: "감이 아니라 숫자로 정하세요 — 남은 210m 이상이면 끊기.",
+              body: "투온 시도는 '가능할 것 같다'가 아니라 숫자로 정하는 겁니다. 남은 거리가 자신의 우드 캐리보다 길면 무조건 100m를 남기고 레이업 — 이 규칙 하나면 파5가 버디 홀로 돌아옵니다." } },
+      { id: "hero", label: "트러블에서 그린을 직접 노림", desc: "숲·깊은 러프에서 나무 사이로 영웅 샷 시도",
+        rx: { title: "트러블에서의 목표는 그린이 아니라 '다음 샷이 편한 곳'.",
+              body: "숲에 들어간 순간 그 홀은 보기 홀입니다. 옆으로 툭 — 페어웨이로만 꺼내면 보기로 끝납니다. 나무 사이 영웅 샷의 성공 보상은 1타, 실패 대가는 3타입니다." } },
+      { id: "between", label: "애매한 거리에서 클럽 선택 미스", desc: "짧은 클럽 풀스윙으로 억지로 맞추려 했음",
+        rx: { title: "애매하면 한 클럽 크게 잡고, 가볍게 치세요.",
+              body: "풀스윙으로 '딱 맞아야' 닿는 클럽은 이미 틀린 선택입니다. 한 클럽 크게 잡고 80%로 치면 거리도 방향도 같이 좋아집니다. 캐리 거리는 잘 맞은 날이 아니라 평범한 날 기준으로 외우세요." } }
+    ],
+    short: [
+      { id: "contact", label: "뒤땅·토핑 같은 컨택 미스", desc: "거리 이전에 임팩트 자체가 흔들렸음",
+        rx: { title: "50~100m는 클럽 하나로 통일하세요.",
+              body: "매번 다른 클럽을 잡으면 컨택은 영영 안 잡힙니다. 52도(또는 56도) 하나로 스윙 크기만 바꿔서 치세요. 같은 클럽을 천 번 치는 게 열 클럽을 백 번씩 치는 것보다 빠릅니다." } },
+      { id: "distance", label: "방향은 맞는데 거리가 들쭉날쭉", desc: "그린엔 갔지만 너무 짧거나 길었음",
+        rx: { title: "웨지 3스윙 거리표를 만드세요.",
+              body: "하프 스윙, 쓰리쿼터, 풀 — 각각 몇 m 가는지 연습장에서 재서 적어두세요. 이 세 숫자를 아는 순간 100m 안쪽은 감이 아니라 계산이 됩니다." } },
+      { id: "pin", label: "핀만 보고 쳤음", desc: "짧은 클럽이라 '붙일 수 있을 것 같아서'",
+        rx: { title: "핀은 잊고, 그린 중앙만 보세요.",
+              body: "짧은 클럽일수록 욕심이 커집니다. 오늘 미스의 대부분은 '조금만 더'에서 나왔습니다. 그린 아무 데나 올리고 두 퍼트 — 이게 90대를 80대로 만드는 지루한 정답입니다." } }
+    ],
+    putt: [
+      { id: "lag", label: "첫 퍼트가 많이 남거나 지나침", desc: "롱퍼트 거리감이 안 맞아 3퍼트가 됐음",
+        rx: { title: "연습 그린 10분 — 넣지 말고, 1m 원 안에 세우세요.",
+              body: "라운드 전 10m 거리감 연습 딱 10분. 홀에 넣으려 하지 말고 홀 반경 1m 원 안에 세우는 것만 연습하세요. 첫 퍼트가 1m 안에 서면 3퍼트는 구조적으로 사라집니다." } },
+      { id: "nerve", label: "1m대 퍼트에서 손이 굳음", desc: "짧은 퍼트에서 스트로크가 흔들렸음",
+        rx: { title: "넣겠다는 생각 대신, 루틴을 끝내세요.",
+              body: "연습 스트로크 두 번, 라인 한 번 보고, 바로 치기 — 매번 정확히 같은 순서로. 짧은 퍼트를 살리는 건 담력이 아니라 '생각할 틈을 없애는 루틴'입니다." } },
+      { id: "read", label: "라이를 잘못 읽음", desc: "친 대로 갔는데 라인이 틀렸음",
+        rx: { title: "그린에 올라가기 전부터 경사를 보세요.",
+              body: "공 뒤에서만 보면 늦습니다. 걸어 올라가며 그린 전체의 높낮이를 먼저 보고, 공 뒤에서는 확인만 하세요. 애매하면 덜 태우는 쪽 — 프로도 그렇게 칩니다." } }
+    ]
+  };
 
   var RX = {
     tee: {
@@ -717,6 +814,55 @@
   /* ================= 결과 렌더링 ================= */
 
   var lastResult = null;
+  var chosenCause = null;
+
+  function currentRx(r) {
+    if (chosenCause) return chosenCause.rx;
+    var d = r.top ? RX[r.top.key] : RX.none;
+    return { title: d.title, body: d.body(r) };
+  }
+
+  function applyRx(r) {
+    var rx = currentRx(r);
+    $("#rx-title").textContent = rx.title;
+    $("#rx-body").textContent = rx.body;
+    var tag = $("#rx-tag");
+    if (chosenCause) {
+      tag.textContent = "선택한 원인 기준 — " + chosenCause.label;
+      tag.classList.add("show");
+    } else {
+      tag.classList.remove("show");
+    }
+  }
+
+  function renderCauses(r) {
+    chosenCause = null;
+    var card = $("#causes-card");
+    if (!r.top) { card.style.display = "none"; return; }
+    card.style.display = "";
+    $("#causes-lead").textContent =
+      "기록 몇 개로 본 추정이라 틀릴 수 있습니다. 진짜 원인은 당신이 압니다 — " +
+      CATS[r.top.key].label + " 누수, 오늘과 가장 가까운 쪽을 골라 주세요. 처방이 바뀝니다.";
+    $("#cause-list").innerHTML = CAUSES[r.top.key].map(function (c, i) {
+      return '<button type="button" class="cause" role="radio" aria-checked="false" data-i="' + i + '">' +
+        '<span class="c-lbl">' + c.label + "</span>" +
+        '<span class="c-desc">' + c.desc + "</span></button>";
+    }).join("") +
+      '<button type="button" class="cause" role="radio" aria-checked="false" data-i="-1">' +
+      '<span class="c-lbl">섞여 있거나, 잘 모르겠음</span>' +
+      '<span class="c-desc">기본 처방을 유지합니다</span></button>';
+  }
+
+  $("#cause-list").addEventListener("click", function (e) {
+    var btn = e.target.closest(".cause");
+    if (!btn || !lastResult || !lastResult.top) return;
+    var i = Number(btn.getAttribute("data-i"));
+    document.querySelectorAll("#cause-list .cause").forEach(function (x) {
+      x.setAttribute("aria-checked", x === btn ? "true" : "false");
+    });
+    chosenCause = i >= 0 ? CAUSES[lastResult.top.key][i] : null;
+    applyRx(lastResult);
+  });
 
   function renderResult(r) {
     lastResult = r;
@@ -731,16 +877,24 @@
 
     var medals = ["🥇", "🥈", "🥉"];
     var maxRaw = r.ranked.length ? r.ranked[0].raw : 1;
+    var anyHigh = false;
     var html = "";
     r.ranked.forEach(function (c, i) {
+      var detail = c.parts.map(function (p) {
+        if (p.high) anyHigh = true;
+        return p.label + " " + p.n + "회" + (p.high ? '<span class="up">▲</span>' : "");
+      }).join(" · ");
       html += '<div class="leak">' +
         '<div class="head"><span class="cat">' +
         (i < 3 ? '<span class="medal">' + medals[i] + "</span>" : "") +
         CATS[c.key].label + '</span><span class="amt">+' + c.disp + "타</span></div>" +
         '<div class="track"><div class="fill" data-w="' + Math.max(6, Math.round((c.raw / maxRaw) * 100)) + '"></div></div>' +
-        '<div class="detail">' + c.parts.join(" · ") + "</div>" +
+        '<div class="detail">' + detail + "</div>" +
         "</div>";
     });
+    if (anyHigh) {
+      html += '<div class="bench-note">▲ 같은 스코어대(' + r.band.name + ') 어림 평균보다 많았던 기록</div>';
+    }
     $("#leaks").innerHTML = html;
 
     requestAnimationFrame(function () {
@@ -753,9 +907,8 @@
 
     $("#diagnosis").innerHTML = diagnosisText(r).map(function (s) { return "<p>" + s + "</p>"; }).join("");
 
-    var rx = r.top ? RX[r.top.key] : RX.none;
-    $("#rx-title").textContent = rx.title;
-    $("#rx-body").textContent = rx.body(r);
+    renderCauses(r);
+    applyRx(r);
 
     $("#result").classList.add("show");
     $("#result").scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
@@ -920,7 +1073,7 @@
     ctx.font = "600 28px 'IBM Plex Mono', monospace";
     ctx.fillText("NEXT ROUND — 이것 하나만", PAD, y);
 
-    var rx = r.top ? RX[r.top.key] : RX.none;
+    var rx = currentRx(r);
     ctx.fillStyle = C.paper;
     ctx.font = "600 46px 'Hahmlet', serif";
     wrapText(ctx, rx.title, W - PAD * 2).slice(0, 3).forEach(function (ln, i) {
